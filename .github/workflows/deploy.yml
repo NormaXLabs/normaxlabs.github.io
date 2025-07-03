@@ -1,49 +1,34 @@
-name: Build & Deploy static site
+name: Build & Deploy Astro
 
 on:
   push:
-    branches: [main]            # o il ramo dove tieni il sorgente
-  workflow_dispatch:            # avvio manuale opzionale
+    branches: [main]
+  workflow_dispatch:
 
 permissions:
-  contents: read                # serve per checkout
-  pages: write                  # serve a deploy-pages
-  id-token: write               # serve a deploy-pages
-
-concurrency:
-  group: 'pages'
-  cancel-in-progress: false
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      # Toolchain d’esempio per generatori JS (Astro, Next, ecc.)
       - uses: actions/setup-node@v4
         with: { node-version: 20 }
 
-      # Installa dipendenze & build
-      - run: |
-          npm ci
-          npm run build            # esegue “astro build” e genera /docs
-          touch docs/.nojekyll
-          # ---- scegli uno dei tre comandi ----
-          # Astro          → npm run build -- --outDir dist
-          # Hugo           → hugo -D -d dist
-          # Next.js export → npm run build && npx next export -o dist
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with: { path: dist }    # cartella generata dal build :contentReference[oaicite:2]{index=2}
+      - run: npm ci
+      - run: npm run build          # genera docs/
+      - run: touch docs/.nojekyll
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: docs }
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
-
