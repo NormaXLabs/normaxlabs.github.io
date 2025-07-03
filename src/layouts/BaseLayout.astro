@@ -1,0 +1,43 @@
+---
+const { title = 'Super-Saturn', description = 'Soluzioni open-source' } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/img/logo.svg" />
+  </head>
+  <body class="font-sans bg-slate-50 text-slate-800 antialiased scroll-smooth">
+    <!-- Navbar -->
+    <header class="fixed inset-x-0 top-0 z-50 bg-white/80 backdrop-blur">
+      <nav class="max-w-6xl mx-auto flex items-center justify-between px-4 py-4">
+        <a href="/" class="flex items-center gap-2">
+          <img src="/img/logo.svg" alt="Logo" class="h-8 w-8" />
+          <span class="text-xl font-extrabold tracking-tight">Super-Saturn</span>
+        </a>
+        <ul class="hidden md:flex gap-8 text-sm">
+          <li><a href="#features" class="hover:text-primary-600">Funzioni</a></li>
+          <li><a href="#team"      class="hover:text-primary-600">Team</a></li>
+          <li><a href="#contact"   class="hover:text-primary-600">Contatti</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="pt-24">{Astro.slots.default()}</main>
+
+    <footer class="bg-slate-900 text-slate-400 text-sm py-8">
+      <div class="max-w-6xl mx-auto px-4 text-center">
+        © {new Date().getFullYear()} Super-Saturn — Creato con ❤
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script>
+      ScrollReveal().reveal('.reveal', { distance:'40px', duration:800, origin:'bottom' });
+    </script>
+  </body>
+</html>

@@ -1,8 +1,9 @@
-// @ts-check
 import { defineConfig } from 'astro/config';
+import tailwind from '@astrojs/tailwind';
 
-// https://astro.build/config
 export default defineConfig({
   output: 'static',
-  build: { outDir: './docs' },   // la build finisce in docs/
+  build: { outDir: './docs' },
+  integrations: [tailwind()],
+  site: 'https://<org>.github.io',   // URL pubblico (importante per i link absolute)
 });
