@@ -1,1 +1,0 @@
-# normaxlabs.github.io
