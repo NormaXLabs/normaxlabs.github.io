@@ -1,5 +1,5 @@
 ---
-const { title = 'Super-Saturn', description = 'Soluzioni open-source' } = Astro.props;
+const { title = 'NormaX Labs', description = 'Soluzioni open-source' } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -9,15 +9,15 @@ const { title = 'Super-Saturn', description = 'Soluzioni open-source' } = Astro.
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="icon" href="/img/logo.svg" />
+    <link rel="icon" href="/img/normax.png" />
   </head>
   <body class="font-sans bg-slate-50 text-slate-800 antialiased scroll-smooth">
     <!-- Navbar -->
     <header class="fixed inset-x-0 top-0 z-50 bg-white/80 backdrop-blur">
       <nav class="max-w-6xl mx-auto flex items-center justify-between px-4 py-4">
         <a href="/" class="flex items-center gap-2">
-          <img src="/img/logo.svg" alt="Logo" class="h-8 w-8" />
-          <span class="text-xl font-extrabold tracking-tight">Super-Saturn</span>
+          <img src="/img/normax.png" alt="Logo" class="h-8 w-8" />
+          <span class="text-xl font-extrabold tracking-tight">NormaX Labs</span>
         </a>
         <ul class="hidden md:flex gap-8 text-sm">
           <li><a href="#features" class="hover:text-primary-600">Funzioni</a></li>
@@ -27,11 +27,13 @@ const { title = 'Super-Saturn', description = 'Soluzioni open-source' } = Astro.
       </nav>
     </header>
 
-    <main class="pt-24">{Astro.slots.default()}</main>
+    <main class="pt-24">
+        {Astro.slots.default}            <!-- variante JS, senza () -->
+    </main>
 
     <footer class="bg-slate-900 text-slate-400 text-sm py-8">
       <div class="max-w-6xl mx-auto px-4 text-center">
-        © {new Date().getFullYear()} Super-Saturn — Creato con ❤
+        © {new Date().getFullYear()} NormaX Labs — Creato con ❤
       </div>
     </footer>
 
