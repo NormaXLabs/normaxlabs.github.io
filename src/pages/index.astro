@@ -1,4 +1,5 @@
 ---
+// pages/index.astro
 import Layout      from '../layouts/BaseLayout.astro';
 import Hero        from '../components/Hero.astro';
 import FeatureCard from '../components/FeatureCard.astro';
@@ -19,7 +20,7 @@ import { features } from '../data/features';
       </h2>
 
       <div class="grid gap-12 md:grid-cols-3">
-        {features.map(f => <FeatureCard {...f} />)}
+        {features.map((f) => <FeatureCard {...f} />)}
       </div>
     </div>
   </section>

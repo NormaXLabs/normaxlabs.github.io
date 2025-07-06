@@ -1,4 +1,5 @@
 ---
+// BaseLayout.astro
 const { title = 'NormaX Labs', description = 'Soluzioni open-source' } = Astro.props;
 ---
 
@@ -11,7 +12,9 @@ const { title = 'NormaX Labs', description = 'Soluzioni open-source' } = Astro.p
     <meta name="description" content={description} />
     <link rel="icon" href="/img/normax.png" />
   </head>
+
   <body class="font-sans bg-slate-50 text-slate-800 antialiased scroll-smooth">
+
     <!-- Navbar -->
     <header class="fixed inset-x-0 top-0 z-50 bg-white/80 backdrop-blur">
       <nav class="max-w-6xl mx-auto flex items-center justify-between px-4 py-4">
@@ -22,13 +25,13 @@ const { title = 'NormaX Labs', description = 'Soluzioni open-source' } = Astro.p
         <ul class="hidden md:flex gap-8 text-sm">
           <li><a href="#features" class="hover:text-primary-600">Funzioni</a></li>
           <li><a href="#team"      class="hover:text-primary-600">Team</a></li>
-          <li><a href="#contact"   class="hover:text-primary-600">Contatti</a></li>
+          <li><a href="/contacts"   class="hover:text-primary-600">Contatti</a></li>
         </ul>
       </nav>
     </header>
 
     <main class="pt-24">
-        {Astro.slots.default}            <!-- variante JS, senza () -->
+      <slot />           
     </main>
 
     <footer class="bg-slate-900 text-slate-400 text-sm py-8">
@@ -43,3 +46,4 @@ const { title = 'NormaX Labs', description = 'Soluzioni open-source' } = Astro.p
     </script>
   </body>
 </html>
+
