@@ -3,11 +3,11 @@ import { Icon } from 'astro-icon/components';
 const { icon, title, text, link } = Astro.props; 
 ---
 
-<div href={link ?? '#'} class="reveal text-center p-6 bg-white rounded-2xl shadow hover:shadow-lg transition">
+<a href={link ?? '#'} class="reveal text-center p-6 bg-white rounded-2xl shadow hover:shadow-lg transition">
   <div class="w-16 h-16 mx-auto mb-5 flex items-center justify-center
               rounded-full bg-primary-100 text-primary-600">
     <Icon name={icon} width="28" height="28" />
   </div>
   <h3 class="text-xl font-semibold mb-2">{title}</h3>
   <p class="text-slate-600">{text}</p>
-</div>
+</a>
