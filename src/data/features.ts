@@ -3,6 +3,7 @@ export const features = [
     title: 'Open-source',
     text:  'Codice trasparente e community-driven.',
     icon:  'mdi:github',
+    link:  'https://github.com/normaxlabs'
   },
   {
     title: 'Performance',

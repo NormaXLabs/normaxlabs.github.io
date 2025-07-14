@@ -1,9 +1,9 @@
 ---
 import { Icon } from 'astro-icon/components';
-const { icon, title, text } = Astro.props; 
+const { icon, title, text, link } = Astro.props; 
 ---
 
-<div class="reveal text-center p-6 bg-white rounded-2xl shadow hover:shadow-lg transition">
+<div href={link ?? '#'} class="reveal text-center p-6 bg-white rounded-2xl shadow hover:shadow-lg transition">
   <div class="w-16 h-16 mx-auto mb-5 flex items-center justify-center
               rounded-full bg-primary-100 text-primary-600">
     <Icon name={icon} width="28" height="28" />
