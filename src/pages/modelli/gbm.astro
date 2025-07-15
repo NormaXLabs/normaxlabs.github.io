@@ -1,0 +1,132 @@
+---
+import Layout from '../../layouts/BaseLayout.astro';
+---
+
+<!-- Pagina interattiva: Monte‑Carlo per un processo Gaussiano Geometrico -->
+<!-- KaTeX per formule inline e Chart.js per il grafico  -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+<Layout title="Modelli Interattivi">
+  <section class="py-24">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+      <h1 class="text-4xl font-extrabold mb-6">Modello Base dell'evoluzione di un asset finanziario:</h1>
+      <h2 class="text-3xl font-bold mb-7 text-blue-600">
+        Processo Gaussiano Geometrico
+      </h2>
+      <p class="mb-8 text-lg text-slate-600">
+        Simuliamo un percorso Monte&nbsp;Carlo del prezzo <span class="math">\(S_t\)</span> secondo
+        <span class="math">\(dS_t = \mu S_t\,dt + \sigma S_t\,dW_t\)</span>.
+        Regola <strong>drift</strong> (<em>μ</em>) e <strong>volatilità</strong> (<em>σ</em>) per simulare l'evoluzione temporale del prezzo.
+      </p>
+
+      <div class="flex flex-col gap-6 items-center">
+        <label class="w-full max-w-sm text-left">μ (drift):
+          <input id="mu" type="range" min="-0.1" max="0.2" step="0.005" value="0.05" class="w-full accent-primary-600">
+          <span id="muVal" class="font-mono text-sm ml-2">0.05</span>
+        </label>
+        <label class="w-full max-w-sm text-left">σ (volatilità):
+          <input id="sigma" type="range" min="0.05" max="0.6" step="0.01" value="0.2" class="w-full accent-primary-600">
+          <span id="sigmaVal" class="font-mono text-sm ml-2">0.20</span>
+        </label>
+      </div>
+
+      <canvas id="gbmChart" class="my-12 max-w-full" height="150"></canvas>
+    </div>
+  </section>
+
+  <!-- Script inline che inizializza KaTeX, Chart.js e aggiorna il grafico live -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Renderizza le formule LaTeX all'interno della pagina
+      if (window.renderMathInElement) {
+        renderMathInElement(document.body, { delimiters: [ { left: '\\(', right: '\\)', display: false } ] });
+      }
+
+      const steps = 250;
+      const dt = 1 / steps;
+      const labels = Array.from({ length: steps + 1 }, (_, i) => i);
+      const ctx = document.getElementById('gbmChart').getContext('2d');
+
+      // Helper per colore primario Tailwind (#4f46e5)
+      const primary = '#4f46e5';
+      const grid    = 'rgba(0,0,0,0.05)';
+
+      const chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Prezzo simulato',
+            data: [],
+            borderColor: primary,
+            backgroundColor: 'rgba(79,70,229,0.15)',
+            borderWidth: 2,
+            tension: 0.25,
+            fill: true,
+            pointRadius: 0
+          }]
+        },
+        options: {
+          plugins: { legend: { display: false } },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: 't (step)',
+                font: { size: 22, weight: 'bold' },
+                color: '#334155'
+              },
+              grid: { color: grid },
+              ticks: { font: { size: 12 } }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Sₜ',
+                font: { size: 22, weight: 'bold' },
+                color: '#334155'
+              },
+              grid: { color: grid },
+              ticks: { font: { size: 12 } }
+            }
+          },
+          animation: { duration: 300 }
+        }
+      });
+
+      const muInput    = document.getElementById('mu');
+      const sigmaInput = document.getElementById('sigma');
+      const muVal      = document.getElementById('muVal');
+      const sigmaVal   = document.getElementById('sigmaVal');
+
+      function simulate(mu, sigma) {
+        const path = [1];
+        for (let i = 1; i <= steps; i++) {
+          const prev = path[i - 1];
+          const z    = Math.random() * 2 - 1; // approssimazione Box‑Muller
+          const dW   = z * Math.sqrt(dt);
+          const dS   = mu * prev * dt + sigma * prev * dW;
+          path.push(prev + dS);
+        }
+        return path;
+      }
+
+      function update() {
+        const mu    = parseFloat(muInput.value);
+        const sigma = parseFloat(sigmaInput.value);
+        muVal.textContent    = mu.toFixed(3);
+        sigmaVal.textContent = sigma.toFixed(3);
+        chart.data.datasets[0].data = simulate(mu, sigma);
+        chart.update();
+      }
+
+      muInput.addEventListener('input', update);
+      sigmaInput.addEventListener('input', update);
+
+      update(); // primo render
+    });
+  </script>
+</Layout>
