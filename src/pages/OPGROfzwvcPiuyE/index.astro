@@ -1,0 +1,30 @@
+---
+import Layout from '../../layouts/BaseLayout.astro';
+---
+
+<Layout title="Area riservata">
+  <section class="py-24">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+      <h1 class="text-4xl font-extrabold mb-8 text-primary-600">
+        Benvenuto nell’area riservata
+      </h1>
+      <p class="text-lg text-slate-700 mb-4">
+        Grande!!! Hai trovato la password ...
+      </p>
+      <p class="text-slate-600">
+        Chiunque conosca l’URL <br />
+        <code>/OPGROfzwvcPiuyE/</code> può aprire direttamente la pagina.
+      </p>
+
+      <!-- esempio di contenuto privato -->
+      <div class="mt-10 p-6 bg-white shadow rounded-xl w-full text-left">
+        <h2 class="text-2xl font-semibold mb-4">Documentazione interna</h2>
+        <ul class="list-disc list-inside space-y-2">
+          <li><a class="text-indigo-600 hover:underline" href="#">Road‑map 2026 (coming soon)</a></li>
+          <li><a class="text-indigo-600 hover:underline" href="#">Report mensile R&amp;D</a></li>
+          <li><a class="text-indigo-600 hover:underline" href="#">API key segrete</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</Layout>
