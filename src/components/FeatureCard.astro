@@ -3,9 +3,9 @@ import { Icon } from 'astro-icon/components';
 const { icon, title, text, link } = Astro.props; 
 ---
 
-<a href={link ?? '#'} class="reveal text-center p-6 bg-white rounded-2xl shadow hover:shadow-lg transition">
+<a href={link ?? '#'} class="reveal text-center p-6 bg-gradient-to-b from-white  to-[#00d4ff]  rounded-2xl shadow hover:shadow-lg transition">
   <div class="w-16 h-16 mx-auto mb-5 flex items-center justify-center
-              rounded-full bg-primary-100 text-primary-600">
+              rounded-full bg-gradient-to-b from-[#00d4ff] to-white text-primary-600">
     <Icon name={icon} width="28" height="28" />
   </div>
   <h3 class="text-xl font-semibold mb-2">{title}</h3>

@@ -1,0 +1,102 @@
+---
+/**
+ * HeroVideo component – autoplay video (muted), pulsante "Audio" per sbloccare,
+ * lista card‑link che compare uno alla volta (accumulando) con gradiente futuristico.
+ * Props:
+ *  - src: string (percorso video)
+ *  - headline: string
+ *  - items: Array<{ text: string; href?: string }>
+ */
+const { src, headline = '', items = [] } = Astro.props;
+---
+
+<style is:global>
+  .hero-overlay::after {
+    @apply absolute inset-0 bg-gradient-to-br from-black/40 to-black/0;
+    content: '';
+  }
+
+  /* stato iniziale di ogni card */
+  .bullet-init {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  /* stato visibile */
+  .bullet-show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+
+<section class="relative h-[60vh] max-h-[700px] overflow-hidden flex items-center justify-center">
+  <!-- Video + titolo -->
+  <div id="videoBlock" class="relative w-full h-full flex items-center justify-center transition-opacity duration-700">
+    <video
+      id="introVideo"
+      class="absolute inset-0 w-full h-full object-cover hero-overlay"
+      src={src}
+      autoplay playsinline muted
+    ></video>
+
+    <h1 class="relative z-10 text-white text-4xl md:text-6xl font-extrabold text-center px-4">
+      {headline}
+    </h1>
+
+    <button id="unmuteBtn" class="absolute bottom-6 right-6 bg-white/80 backdrop-blur px-4 py-2 rounded-full text-primary-700 font-semibold shadow hover:bg-white transition">
+      ▶️ UNMUTE
+    </button>
+  </div>
+
+  <!-- Lista che appare dopo -->
+  <div id="bulletList" class="absolute inset-0 flex flex-col items-center justify-center gap-6 px-4
+             bg-gradient-to-b from-white via-[#00d4ff] to-[#004e92]
+             opacity-0 pointer-events-none transition-opacity duration-700">
+    <h2 class="text-[#0a192f] text-3xl md:text-4xl font-extrabold mb-4 text-center">
+      Interagisci con noi:
+    </h2>
+
+    {items.map(({ text, href }) => (
+      <a
+        href={href ?? '#'}
+        class="bullet-init w-full max-w-md flex items-center justify-between gap-4
+               bg-white/20 backdrop-blur rounded-xl px-6 py-4 text-white
+               hover:bg-white/30 transition"
+      >
+        <span class="font-semibold">{text}</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-none" fill="none"
+             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    ))}
+  </div>
+</section>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const video   = document.getElementById('introVideo');
+    const vBlock  = document.getElementById('videoBlock');
+    const list    = document.getElementById('bulletList');
+    const btn     = document.getElementById('unmuteBtn');
+
+    btn.addEventListener('click', () => {
+      video.muted = false;
+      video.play();
+      btn.classList.add('opacity-0', 'pointer-events-none');
+    });
+
+    video.addEventListener('ended', () => {
+      vBlock.classList.add('opacity-0', 'pointer-events-none');
+      list.classList.remove('opacity-0', 'pointer-events-none');
+
+      // fai comparire le card una alla volta
+      const bullets = list.querySelectorAll('.bullet-init');
+      bullets.forEach((el, idx) => {
+        setTimeout(() => {
+          el.classList.add('bullet-show');
+        }, idx * 800); // 800ms tra un punto e il successivo
+      });
+    });
+  });
+</script>

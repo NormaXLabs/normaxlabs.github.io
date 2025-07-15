@@ -1,12 +1,28 @@
 ---
 // pages/index.astro
 import Layout      from '../layouts/BaseLayout.astro';
+import HeroVideo   from '../components/HeroVideo.astro';
 import Hero        from '../components/Hero.astro';
 import FeatureCard from '../components/FeatureCard.astro';
 import { features } from '../data/features';
 ---
 
+
 <Layout title="NormaX Labs">
+  <HeroVideo
+    src="/videos/intro.mp4"
+    headline="Il futuro è arrivato"
+    items={[
+      { text: 'Processo Gaussiano Geometrico', href: '/modelli/gbm' },
+      { text: 'Area riservata',                href: '/login.html'     },
+    ]}
+    links={[
+      "/modelli/gbm",
+      "/#",
+      "/#"
+    ]}
+  />
+
   <Hero
     headline="Costruiamo il futuro finanziario"
     tagline="Soluzioni open-source, community e innovazione senza compromessi."
