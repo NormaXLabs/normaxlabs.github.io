@@ -1,0 +1,137 @@
+---
+import Layout from '../../layouts/BaseLayout.astro';
+---
+
+<!-- Pagina interattiva: ETF crypto configurabile (BTC, ETH, SOL) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+<Layout title="ETF Crypto interattivo">
+  <section class="py-24">
+    <div class="max-w-3xl mx-auto px-4 text-center space-y-10">
+      <h1 class="text-4xl font-extrabold">ETF Crypto configurabile</h1>
+
+      <p class="text-lg text-slate-600">
+        Simuliamo un ETF composto da Bitcoin, Ethereum e Solana.
+        Imposta i pesi <span class="math">\(w\)</span> (la somma deve essere 1) e premi
+        <strong>Genera percorso</strong> per visualizzare il suo andamento nel tempo.
+      </p>
+
+      <!-- Slider pesi -->
+      <div class="grid md:grid-cols-3 gap-6 text-left">
+        <label>peso BTC
+          <input id="wBTC" type="range" min="0" max="1" step="0.01" value="0.33" class="w-full accent-primary-600">
+          <span id="wBTCval" class="font-mono"></span>
+        </label>
+        <label>peso ETH
+          <input id="wETH" type="range" min="0" max="1" step="0.01" value="0.33" class="w-full accent-primary-600">
+          <span id="wETHval" class="font-mono"></span>
+        </label>
+        <label>peso SOL
+          <input id="wSOL" type="range" min="0" max="1" step="0.01" value="0.34" class="w-full accent-primary-600">
+          <span id="wSOLval" class="font-mono"></span>
+        </label>
+      </div>
+
+      <button id="generateBtn" class="bg-primary-600 text-white px-6 py-3 rounded-lg shadow hover:bg-primary-700 transition disabled:opacity-50">
+        Genera percorso
+      </button>
+
+      <canvas id="etfChart" class="my-12 max-w-full" height="150"></canvas>
+    </div>
+  </section>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      // render formule LaTeX
+      if (window.renderMathInElement) {
+        renderMathInElement(document.body, { delimiters:[{left:'\\(', right:'\\)', display:false}] });
+      }
+
+      // parametri demo annualizzati (mu, sigma)
+      const assets = [
+        { mu: 0.15, sigma: 0.6 }, // BTC
+        { mu: 0.12, sigma: 0.5 }, // ETH
+        { mu: 0.20, sigma: 0.8 }  // SOL
+      ];
+
+      const steps = 250;
+      const dt = 1/steps;
+      const labels = Array.from({length: steps+1}, (_,i) => i);
+      const ctx = document.getElementById('etfChart').getContext('2d');
+
+      const chart = new Chart(ctx, {
+        type: 'line',
+        data:{
+          labels,
+          datasets:[{
+            label:'ETF',
+            data:[],
+            borderColor:'#004e92',
+            backgroundColor:'rgba(0,78,146,0.12)',
+            borderWidth:2,
+            tension:0.25,
+            fill:true,
+            pointRadius:0
+          }]
+        },
+        options:{
+          animation:{duration:300},
+          plugins:{legend:{display:false}},
+          scales:{
+            x:{ title:{display:true, text:'t (step)' } },
+            y:{ title:{display:true, text:'Valore ETF'} }
+          }
+        }
+      });
+
+      // input + span helper
+      const ids = ['wBTC','wETH','wSOL'];
+      const wInputs = ids.map(id=>document.getElementById(id));
+      const wSpans  = ids.map(id=>document.getElementById(id+'val'));
+
+      function updateSpans(){ wInputs.forEach((inp,i)=>{ wSpans[i].textContent = (+inp.value).toFixed(2); }); }
+      updateSpans();
+
+      // Simulazione percorsi individuali + combinazione ETF
+      function simulateETF(weights){
+        const n = assets.length;
+        const paths = Array.from({length:n},()=>[1]);
+        for(let t=1;t<=steps;t++){
+          assets.forEach((a,i)=>{
+            const prev = paths[i][t-1];
+            const z    = (Math.random()*2-1);
+            const dW   = z*Math.sqrt(dt);
+            const dS   = a.mu*prev*dt + a.sigma*prev*dW;
+            paths[i].push(prev + dS);
+          });
+        }
+        // combinazione lineare per ETF
+        const etf = [];
+        for(let t=0;t<=steps;t++){
+          let val = 0;
+          for(let i=0;i<n;i++) val += weights[i]*paths[i][t];
+          etf.push(val);
+        }
+        return etf;
+      }
+
+      function generate(){
+        const weights = wInputs.map(inp=>+inp.value);
+        const sum = weights.reduce((a,b)=>a+b,0);
+        if(Math.abs(sum-1)>1e-3){ alert('La somma dei pesi deve essere 1'); return; }
+        document.getElementById('generateBtn').disabled = true;
+        const path = simulateETF(weights);
+        chart.data.datasets[0].data = path;
+        chart.update();
+        document.getElementById('generateBtn').disabled = false;
+      }
+
+      document.getElementById('generateBtn').addEventListener('click', generate);
+      wInputs.forEach(inp=> inp.addEventListener('input', updateSpans));
+    });
+  </script>
+</Layout>
