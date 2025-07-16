@@ -2,29 +2,31 @@
 import Layout from '../../layouts/BaseLayout.astro';
 ---
 
-<!-- Pagina interattiva: ETF crypto configurabile (BTC, ETH, SOL) -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+<!-- Pagina interattiva: ETF crypto (ADA, ETH, SOL) – cumulato dei log‑rendimenti ponderati -->
+<!-- CDN: KaTeX, Chart.js, PapaParse -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
-<!-- Chart.js CDN -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
-<Layout title="ETF Crypto interattivo">
+<Layout title="ETF Crypto – cumulato log‑rendimenti">
   <section class="py-24">
     <div class="max-w-3xl mx-auto px-4 text-center space-y-10">
-      <h1 class="text-4xl font-extrabold">ETF Crypto configurabile</h1>
+      <h1 class="text-4xl font-extrabold">ETF Crypto: cumulato log‑rendimenti</h1>
 
       <p class="text-lg text-slate-600">
-        Simuliamo un ETF composto da Bitcoin, Ethereum e Solana.
-        Imposta i pesi <span class="math">\(w\)</span> (la somma deve essere 1) e premi
-        <strong>Genera percorso</strong> per visualizzare il suo andamento nel tempo.
+        Nella seguente schermata interattiva puoi provare a creare te un indece in cui scegli come esporti in tre diverse 
+        cryptomonete: Ethereum (ETH), Solana (SOL) e Cardano (ADA).<br>
+        Prova a trovare la combinazione ottimale e una volta scelta la configurazione, premi <strong>Genera rendimenti</strong>.<br>
+        Plottiamo il <strong>cumulato</strong> dei log‑rendimenti della tua strategia.
       </p>
 
       <!-- Slider pesi -->
       <div class="grid md:grid-cols-3 gap-6 text-left">
-        <label>peso BTC
-          <input id="wBTC" type="range" min="0" max="1" step="0.01" value="0.33" class="w-full accent-primary-600">
-          <span id="wBTCval" class="font-mono"></span>
+        <label>peso ADA
+          <input id="wADA" type="range" min="0" max="1" step="0.01" value="0.33" class="w-full accent-primary-600">
+          <span id="wADAval" class="font-mono"></span>
         </label>
         <label>peso ETH
           <input id="wETH" type="range" min="0" max="1" step="0.01" value="0.33" class="w-full accent-primary-600">
@@ -37,101 +39,108 @@ import Layout from '../../layouts/BaseLayout.astro';
       </div>
 
       <button id="generateBtn" class="bg-primary-600 text-white px-6 py-3 rounded-lg shadow hover:bg-primary-700 transition disabled:opacity-50">
-        Genera percorso
+        📈 Genera rendimenti
       </button>
 
-      <canvas id="etfChart" class="my-12 max-w-full" height="150"></canvas>
+      <canvas id="etfChart" class="my-12 max-w-full" height="180"></canvas>
     </div>
   </section>
 
   <script is:inline>
-    document.addEventListener('DOMContentLoaded', () => {
-      // render formule LaTeX
-      if (window.renderMathInElement) {
-        renderMathInElement(document.body, { delimiters:[{left:'\\(', right:'\\)', display:false}] });
+    document.addEventListener('DOMContentLoaded', async () => {
+      /* KaTeX già inizializzato con onload */
+
+      /* Helpers slider */
+      const ids    = ['wADA','wETH','wSOL'];
+      const inputs = ids.map(id=>document.getElementById(id));
+      const spans  = ids.map(id=>document.getElementById(id+'val'));
+      const show   = ws => ws.forEach((v,i)=>spans[i].textContent=v.toFixed(2));
+      inputs.forEach(inp=> inp.addEventListener('input',()=> show(inputs.map(x=>+x.value))));
+      show(inputs.map(x=>+x.value));
+
+      /* carica CSV (Date,Close,...) */
+      async function loadCsv(sym){
+        const r = await fetch(`/data/${sym}-USD.csv`);
+        if(!r.ok) throw new Error(`${sym} CSV mancante`);
+        const txt = await r.text();
+        const { data } = window.Papa.parse(txt,{header:true,dynamicTyping:true,skipEmptyLines:true});
+        return data
+          .filter(row=>row.Date && row.Close!=null && row.Date.trim()!=='' && !isNaN(row.Close))
+          .map(row=>({date:row.Date, price: row.Close}));
       }
 
-      // parametri demo annualizzati (mu, sigma)
-      const assets = [
-        { mu: 0.15, sigma: 0.6 }, // BTC
-        { mu: 0.12, sigma: 0.5 }, // ETH
-        { mu: 0.20, sigma: 0.8 }  // SOL
-      ];
+      let ada,eth,sol;
+      try{ [ada,eth,sol] = await Promise.all(['ADA','ETH','SOL'].map(loadCsv)); }
+      catch(err){ alert(err.message); return; }
 
-      const steps = 250;
-      const dt = 1/steps;
-      const labels = Array.from({length: steps+1}, (_,i) => i);
-      const ctx = document.getElementById('etfChart').getContext('2d');
+      /* date comuni */
+      const common = ada.map(r=>r.date).filter(d=> eth.some(e=>e.date===d) && sol.some(s=>s.date===d));
+      const toMap = arr=> Object.fromEntries(arr.map(r=>[r.date,r.price]));
+      const mADA = toMap(ada), mETH=toMap(eth), mSOL=toMap(sol);
 
-      const chart = new Chart(ctx, {
-        type: 'line',
-        data:{
-          labels,
-          datasets:[{
-            label:'ETF',
-            data:[],
-            borderColor:'#004e92',
-            backgroundColor:'rgba(0,78,146,0.12)',
-            borderWidth:2,
-            tension:0.25,
-            fill:true,
-            pointRadius:0
-          }]
-        },
-        options:{
-          animation:{duration:300},
-          plugins:{legend:{display:false}},
-          scales:{
-            x:{ title:{display:true, text:'t (step)' } },
-            y:{ title:{display:true, text:'Valore ETF'} }
-          }
+      /* log‑rendimenti r_t = ln(P_t / P_{t-1}) */
+      function seriesLogReturns(map){
+        const ret=[0];
+        for(let i=1;i<common.length;i++){
+          const pPrev = map[common[i-1]];
+          const pNow  = map[common[i]];
+          ret.push( Math.log(pNow/pPrev) );
         }
+        return ret;
+      }
+      const rADA = seriesLogReturns(mADA);
+      const rETH = seriesLogReturns(mETH);
+      const rSOL = seriesLogReturns(mSOL);
+
+      /* Chart.js */
+      const ctx = document.getElementById('etfChart').getContext('2d');
+      const chart = new Chart(ctx, {
+        type:'line',
+        data:{ labels: common, datasets:[{ label:'Cumulato ETF %', data:[], borderColor:'#004e92', backgroundColor:'rgba(0,78,146,0.14)', borderWidth:2, tension:0.25, fill:true, pointRadius:0 }]},
+        options:{ plugins:{ legend:{display:false} }, scales:{ x:{ title:{ display:true, text:'Data' } }, y:{ title:{ display:true, text:'Rendimento Log Cumulato' }, ticks:{ callback:v=>v } } }, animation:{ duration:300 } }
       });
 
-      // input + span helper
-      const ids = ['wBTC','wETH','wSOL'];
-      const wInputs = ids.map(id=>document.getElementById(id));
-      const wSpans  = ids.map(id=>document.getElementById(id+'val'));
-
-      function updateSpans(){ wInputs.forEach((inp,i)=>{ wSpans[i].textContent = (+inp.value).toFixed(2); }); }
-      updateSpans();
-
-      // Simulazione percorsi individuali + combinazione ETF
-      function simulateETF(weights){
-        const n = assets.length;
-        const paths = Array.from({length:n},()=>[1]);
-        for(let t=1;t<=steps;t++){
-          assets.forEach((a,i)=>{
-            const prev = paths[i][t-1];
-            const z    = (Math.random()*2-1);
-            const dW   = z*Math.sqrt(dt);
-            const dS   = a.mu*prev*dt + a.sigma*prev*dW;
-            paths[i].push(prev + dS);
-          });
+      function buildCumulative(wRaw){
+        const sum = wRaw.reduce((a,b)=>a+b,0)||1;
+        const w   = wRaw.map(x=>x/sum);
+        const cumulLog=[0];
+        for(let i=1;i<common.length;i++){
+          const rETF = w[0]*rADA[i] + w[1]*rETH[i] + w[2]*rSOL[i];
+          cumulLog.push( cumulLog[i-1] + rETF );
         }
-        // combinazione lineare per ETF
-        const etf = [];
-        for(let t=0;t<=steps;t++){
-          let val = 0;
-          for(let i=0;i<n;i++) val += weights[i]*paths[i][t];
-          etf.push(val);
-        }
-        return etf;
+        //const cumulPct = cumulLog.map(L=> (Math.exp(L)-1) );
+        return { cumulLog, wNorm:w };
       }
 
+      const btn = document.getElementById('generateBtn');
       function generate(){
-        const weights = wInputs.map(inp=>+inp.value);
-        const sum = weights.reduce((a,b)=>a+b,0);
-        if(Math.abs(sum-1)>1e-3){ alert('La somma dei pesi deve essere 1'); return; }
-        document.getElementById('generateBtn').disabled = true;
-        const path = simulateETF(weights);
-        chart.data.datasets[0].data = path;
+        btn.disabled=true;
+        const wRaw = inputs.map(x=>+x.value);
+        const { cumulLog, wNorm } = buildCumulative(wRaw);
+        show(wNorm);
+        chart.data.datasets[0].data = cumulLog.map(v=>v.toFixed(4));
         chart.update();
-        document.getElementById('generateBtn').disabled = false;
+        btn.disabled=false;
       }
 
-      document.getElementById('generateBtn').addEventListener('click', generate);
-      wInputs.forEach(inp=> inp.addEventListener('input', updateSpans));
+      btn.addEventListener('click',generate);
+      generate();
     });
   </script>
+
+
+
+  <section class="py-24">
+    <div class="max-w-3xl mx-auto px-4 text-center space-y-10">
+      <h1 class="text-4xl font-extrabold">ETF Crypto: cumulato log‑rendimenti</h1>
+
+      <p class="text-lg text-slate-600">
+        Nella seguente schermata interattiva puoi provare a creare te un indece in cui scegli come esporti in tre diverse 
+        cryptomonete: Ethereum (ETH), Solana (SOL) e Cardano (ADA).<br>
+        Prova a trovare la combinazione ottimale e una volta scelta la configurazione, premi <strong>Genera rendimenti</strong>.<br>
+        Plottiamo il <strong>cumulato</strong> dei log‑rendimenti della tua strategia.
+      </p>
+
+    </div>
+  </section>
 </Layout>
