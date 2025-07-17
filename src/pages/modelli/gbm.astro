@@ -14,7 +14,7 @@ import Layout from '../../layouts/BaseLayout.astro';
     <div class="max-w-3xl mx-auto px-4 text-center">
       <h1 class="text-4xl font-extrabold mb-6">Modello Base dell'evoluzione di un asset finanziario:</h1>
       <h2 class="text-3xl font-bold mb-7 text-blue-600">
-        Processo Gaussiano Geometrico
+        Processo Geometrico Gaussiano
       </h2>
       <p class="mb-8 text-lg text-slate-600">
         Simuliamo un percorso Monte&nbsp;Carlo del prezzo <span class="math">\(S_t\)</span> secondo
@@ -75,25 +75,25 @@ import Layout from '../../layouts/BaseLayout.astro';
             x: {
               title: {
                 display: true,
-                text: 't (step)',
-                font: { size: 22, weight: 'bold' },
+                text: 'Tempo (step)',
+                font: { size: 26, weight: 'bold' },
                 color: '#334155'
               },
               grid: { color: grid },
-              ticks: { font: { size: 12 } }
+              ticks: { font: {size: 18}, autoSkip: true, maxTicksLimit: 8} 
             },
             y: {
               title: {
                 display: true,
                 text: 'Sₜ',
-                font: { size: 22, weight: 'bold' },
+                font: { size: 26, weight: 'bold' },
                 color: '#334155'
               },
               grid: { color: grid },
-              ticks: { font: { size: 12 } }
+              ticks: { font: {size: 18}, autoSkip: true, maxTicksLimit: 6} 
             }
           },
-          animation: { duration: 300 }
+          animation: { duration: 500 }
         }
       });
 
