@@ -16,7 +16,7 @@ import Layout from '../../layouts/BaseLayout.astro';
       <h1 class="text-4xl font-extrabold">ETF Crypto: cumulato log‑rendimenti</h1>
 
       <p class="text-lg text-slate-600">
-        Nella seguente schermata interattiva puoi provare a creare te un indece in cui scegli come esporti in tre diverse 
+        Nella seguente schermata interattiva puoi provare a creare un indice in cui scegli come esporti su tre diverse 
         cryptomonete: Ethereum (ETH), Solana (SOL) e Cardano (ADA).<br>
         Prova a trovare la combinazione ottimale e una volta scelta la configurazione, premi <strong>Genera rendimenti</strong>.<br>
         Plottiamo il <strong>cumulato</strong> dei log‑rendimenti della tua strategia.
@@ -78,6 +78,8 @@ import Layout from '../../layouts/BaseLayout.astro';
       const toMap = arr=> Object.fromEntries(arr.map(r=>[r.date,r.price]));
       const mADA = toMap(ada), mETH=toMap(eth), mSOL=toMap(sol);
 
+      console.log(mADA);
+
       /* log‑rendimenti r_t = ln(P_t / P_{t-1}) */
       function seriesLogReturns(map){
         const ret=[0];
@@ -130,17 +132,151 @@ import Layout from '../../layouts/BaseLayout.astro';
 
 
 
-  <section class="py-24">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"
+    integrity="sha384-+5Z6pQ47G+G7Xyz4sASQ8t5jXw8p6+qD0rayQCmP1sXhXfDjvW7cK6uIlP+kzNBi"
+    crossorigin="anonymous"
+  />
+<!-- Chart.js -->
+<script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+
+
+<section class="py-24">
     <div class="max-w-3xl mx-auto px-4 text-center space-y-10">
-      <h1 class="text-4xl font-extrabold">ETF Crypto: cumulato log‑rendimenti</h1>
+      <h1 class="text-4xl font-extrabold">Smart Contract Index</h1>
 
-      <p class="text-lg text-slate-600">
-        Nella seguente schermata interattiva puoi provare a creare te un indece in cui scegli come esporti in tre diverse 
-        cryptomonete: Ethereum (ETH), Solana (SOL) e Cardano (ADA).<br>
-        Prova a trovare la combinazione ottimale e una volta scelta la configurazione, premi <strong>Genera rendimenti</strong>.<br>
-        Plottiamo il <strong>cumulato</strong> dei log‑rendimenti della tua strategia.
-      </p>
+      <div class="text-lg text-slate-600 space-y-6">
+        <p>La funzione obiettivo che minimizziamo è:</p>
+        $$\min_w f(w)$$
 
+        <p>dove</p>
+        $$f(w) = - wᵀμ / √(wᵀΣw) + λ \sum_{1}^n max(0, w_i - 0.5)$$
+
+        <p>con:</p>
+        <ul class="list-disc list-inside space-y-2">
+            <li><span class="font-mono">μ</span>: vettore dei pesi associati ad ogni token;</li>
+            <li><span class="font-mono">μ</span>: rendimenti medi a 30 giorni;</li>
+            <li><span class="font-mono">Σ</span>: matrice di covarianza a 30 giorni;</li>
+            <li><span class="font-mono">wᵀμ / √(wᵀΣw)</span>: Sharpe ratio del portfolio;</li>
+            <li><span class="font-mono">λ</span>: variabile di turnover che penalizza i pesi sopra il 50 %.</li>
+        </ul>
+
+        <br>
+         <p>
+            Praticamente, ad ogni reweighting guardo al mese precedente, calcolo media e varianza e
+            minimizzo per trovare <em>w</em>. Puoi aggiungere dati, feature o complicare a piacere
+            la funzione obiettivo.
+        </p>
+
+        <p>
+            La terza curva «ETF ottimizzato» varia con <strong>λ</strong>. Sposta il
+            <em>λ Turnover</em> slider e poi clicca <strong>Rigenera grafico</strong>.
+        </p>
+      </div>
+
+
+      <label class="block">λ&nbsp;Turnover:
+        <input id="lambda" type="range" min="0" max="2" step="0.1"
+               value="0.2" class="w-full accent-primary-600">
+        <span id="lambdaval" class="font-mono text-sm ml-1"></span>
+      </label>
+
+      <button id="generateBtn2"
+              class="bg-primary-600 text-white px-6 py-3 rounded-lg shadow
+                     hover:bg-primary-700 transition disabled:opacity-50">
+        📈 Rigenera grafico
+      </button>
+
+      <canvas id="etfChart2" class="my-12 max-w-full" height="200"></canvas>
     </div>
   </section>
+
+  <!-- Script inline -------------------------------------------------- -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const λSlider = document.getElementById('lambda');
+      const λLabel  = document.getElementById('lambdaval');
+      const btn     = document.getElementById('generateBtn2');
+      const ctx     = document.getElementById('etfChart2').getContext('2d');
+
+      const fmt = v => (+v).toFixed(1);
+      const showλ = v => λLabel.textContent = fmt(v);
+      showλ(λSlider.value);
+
+      // Carica JSON
+      const [lambdaData, equalData, ethData] = await Promise.all([
+        fetch('/data/ETF_lambda.json').then(r => r.json()),
+        fetch('/data/ETF_equal_cum.json').then(r => r.json()),
+        fetch('/data/ETH_log_cum.json').then(r => r.json())
+      ]);
+
+      const labels = equalData.map((_, i) => i);
+
+      const chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [
+            {
+              label: 'ETF equal',            // curva equal
+              data: equalData,
+              borderColor: 'green',
+              borderWidth: 2,
+              fill: false,
+              tension: 0.25,
+              pointRadius: 0
+            },
+            {
+              label: 'ETF market cap',         // curva fissa ETH
+              data: ethData,
+              borderColor: 'red',
+              borderWidth: 2,
+              fill: false,
+              tension: 0.25,
+              pointRadius: 0
+            },
+            {
+              label: 'ETF ottimizzato',  // curva dinamica
+              data: [],
+              borderColor: '#004e92',
+              backgroundColor: 'rgba(0,78,146,0.12)',
+              borderWidth: 2,
+              fill: true,
+              tension: 0.25,
+              pointRadius: 0
+            }
+          ]
+        },
+        options: {
+          plugins: { legend: { position: 'bottom' } },
+          scales: {
+            x: { title: { display: true, text: 'Giorni' } },
+            y: { title: { display: true, text: 'Cumulato Log‑Return' } }
+          },
+          animation: { duration: 300 }
+        }
+      });
+
+      function updateOptimized() {
+        const key = fmt(λSlider.value); // "0.0", "0.1", …
+        const series = lambdaData[key];
+        if (!series) {
+          alert(`λ = ${key} non presente in ETF_lambda.json`);
+          return;
+        }
+        chart.data.datasets[2].data = series;
+        chart.update();
+      }
+
+      λSlider.addEventListener('input', () => showλ(λSlider.value));
+      btn.addEventListener('click', updateOptimized);
+      updateOptimized(); // iniziale
+    });
+  </script>
 </Layout>
