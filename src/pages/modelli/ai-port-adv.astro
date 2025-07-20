@@ -84,7 +84,8 @@ const CALLS = import.meta.env.PUBLIC_OPENAI_API_KEY;
           - Punta alla diversificazione settoriale e a una bassa correlazione tra le posizioni.
           - L’investimento ha l’obiettivo: ${p["Goals"] || "Growth"} e il portfolio deve essere adatto a una persona di ${p["Age"] || "45"} anni.
           - OUTPUT SOLO IN FORMATO JSON: { "portfolio":[{name,ticker,weight_pct,rationale}] }
-          - Assicurati che i pesi sommino a 100.` },
+          - Assicurati che i pesi sommino a 100.
+          - Scrivi tutto in italiano l'output` },
         { role: "user", content:
           "Client questionnaire:\n\n" + JSON.stringify(p, null, 2) }
       ];
@@ -98,7 +99,7 @@ const CALLS = import.meta.env.PUBLIC_OPENAI_API_KEY;
           "Authorization": `Bearer ${OPENAI_API_KEY}`
         },
         body: JSON.stringify({
-          model: "gpt-4.1-long-context",
+          model: "gpt-4.1-mini",
           response_format: { type: "json_object" },
           messages: buildMessages(profile)
         })
