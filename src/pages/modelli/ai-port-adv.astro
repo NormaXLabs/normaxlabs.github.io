@@ -56,7 +56,7 @@ import Layout from '../../layouts/BaseLayout.astro';
   <script is:inline>
     import fs from 'fs/promises';
 
-    const OPENAI_API_KEY = import.meta.env.OPENAI_API_KEY;
+    const OPENAI_API_KEY = import.meta.env.PUBLIC_OPENAI_API_KEY;
 
     /* costruisce il prompt */
     function buildMessages(p) {
