@@ -38,8 +38,10 @@ const { src, headline = '', items = [] } = Astro.props;
     <ul class="h-full">
       {items.map(({ text, href }, i) => (
         <li class={`bullet-init snap-start h-full flex flex-col justify-center items-center p-10 text-white transition-transform
-                  ${i % 3 === 0 ? 'bg-[url("/img/process.png")] bg-cover'
-                   : i % 3 === 1 ? 'bg-[url("/img/cex.png")] bg-cover'
+                  ${ i % 5 === 0 ? 'bg-[url("/img/process.png")] bg-cover'
+                   : i % 5 === 1 ? 'bg-[url("/img/cex.png")] bg-cover'
+                   : i % 5 === 2 ? 'bg-[url("/img/advisory.png")] bg-cover'
+                   : i % 5 === 3 ? 'bg-[url("/img/pumpfun.png")] bg-cover'
                    : 'bg-gradient-to-br from-orange-500 to-pink-600'}`}>
           <span class="text-4xl md:text-5xl font-extrabold text-center">{text}</span>
           <a href={href ?? '#'} class="mt-8 inline-flex items-center gap-2 text-lg md:text-4xl">
@@ -87,8 +89,10 @@ const { src, headline = '', items = [] } = Astro.props;
     function updateIndicators(activeIndex) {
       indicators.forEach((dot, i) => dot.classList.toggle('indicator-active', i === activeIndex));
     }
+    // update active dot on scroll, calcolando l’indice in base all’altezza del wrapper
     list.addEventListener('scroll', () => {
-      const index = Math.round(list.scrollTop / window.innerHeight);
+      const containerHeight = list.clientHeight;
+      const index = Math.round(list.scrollTop / containerHeight);
       updateIndicators(index);
     }, { passive: true });
 

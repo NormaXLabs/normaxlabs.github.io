@@ -1,0 +1,159 @@
+---
+import Layout from '../../layouts/BaseLayout.astro';
+---
+
+<Layout title="Investment Questionnaire (Client-side OpenAI)">
+  <section class="py-20">
+    <div class="max-w-xl mx-auto space-y-10">
+
+      <h1 class="text-3xl font-extrabold text-center">
+        Profilo Investitore
+      </h1>
+
+      <!-- ======== FORM ======== -->
+      <form id="qForm" class="space-y-6">
+
+        <input name="Age" type="number" placeholder="Età" required class="input" />
+
+        <input name="Investment Experience" placeholder="Tipologia di investitore: Inesperto, Moderato o Esperto" required class="input" />
+
+        <input name="Risk Tolerance" placeholder="Tolleranza del Rischio: Bassa, Media o Alta" required class="input" />
+
+        <input name="Investment Horizon" placeholder="Orizzonte (es. 10 anni)" required class="input" />
+
+        <input name="Goals" placeholder="Obiettivi (es. Crescita)" required class="input" />
+
+        <input name="Profession" placeholder="Professione" class="input" />
+        <input name="Personal Interests" placeholder="Interessi personali" class="input" />
+
+        <button class="btn-primary w-full">Genera Portfolio</button>
+      </form>
+
+      <!-- ======== RISULTATO / LOADER ======== -->
+      <div id="loading" class="hidden flex flex-col items-center gap-3">
+        <div class="h-8 w-8 border-4 border-indigo-300 rounded-full border-t-transparent animate-spin"></div>
+        <p class="text-slate-600">Generazione portafoglio…</p>
+      </div>
+
+      <div id="result" class="hidden space-y-6">
+        <h2 class="text-2xl font-bold text-center">Portafoglio suggerito</h2>
+
+        <!-- container cards -->
+        <div id="cards"
+            class="grid md:grid-cols-4 gap-6 text-left"></div>
+
+        <!-- JSON raw toggle -->
+        <details class="border rounded p-2">
+          <summary class="cursor-pointer font-semibold">Mostra JSON raw</summary>
+          <pre id="jsonRaw"
+              class="mt-3 bg-slate-100 p-4 rounded text-sm overflow-x-auto"></pre>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CLIENT-SIDE JS ========== -->
+  <script is:inline>
+    const OPENAI_API_KEY = "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"; // ⚠️ visibile su client!
+
+    /* costruisce il prompt */
+    function buildMessages(p) {
+      return [
+        { role: "system", content:
+`You are a senior portfolio manager specializing in SMAs.
+
+Create a diversified equity portfolio (20–25 stocks) for the client.
+
+Rules:
+- Respect the client's risk tolerance (${p["Risk Tolerance"] || "Medium"}).
+- Investment horizon: ${p["Investment Horizon"] || "N/A"}.
+- Optimize expected return per unit of risk.
+- Find a portfolio fitted for the Investment Experience equal to ${p["Investment Experience"] || "Moderate"}.
+- Strive for sector diversification and low pairwise correlation.
+- Uncorrelation with the exposition on ${p["Profession"] || "N/A"}.
+- Optionally add a 'lifestyle' security matching the interest ${p["Personal Interests"] || "N/A"}.
+- The investment has the aim: ${p["Goals"] || "Growth"} and the portfolio has to be fitted for a person with ${p["Age"] || "45"} years old.
+- OUTPUT JSON ONLY: { "portfolio":[{name,ticker,weight_pct,rationale}] }
+- Ensure weights sum to 100.
+- Write the output in italian.` },
+        { role: "user", content:
+          "Client questionnaire:\n\n" + JSON.stringify(p, null, 2) }
+      ];
+    }
+
+    async function generatePortfolio(profile) {
+      const res = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${OPENAI_API_KEY}`
+        },
+        body: JSON.stringify({
+          model: "gpt-4o-mini",
+          response_format: { type: "json_object" },
+          messages: buildMessages(profile)
+        })
+      });
+
+      if (!res.ok) throw new Error("OpenAI error " + res.status);
+      const data = await res.json();
+      return JSON.parse(data.choices[0].message.content);
+    }
+
+    /* ---------- DOM refs ---------- */
+  const form   = document.getElementById("qForm");
+  const btn    = form.querySelector("button");
+  const loader = document.getElementById("loading");
+  const cardsC = document.getElementById("cards");
+  const resBox = document.getElementById("result");
+  const jsonRaw= document.getElementById("jsonRaw");
+
+  /* ---------- helpers ---------- */
+  function showLoader(state) {
+    loader.classList.toggle("hidden", !state);
+    btn.disabled = state;
+  }
+
+  function renderCards(portfolioArr) {
+    cardsC.innerHTML = "";            // reset
+    portfolioArr.forEach(p => {
+      const card = document.createElement("div");
+      card.className =
+        "rounded-xl p-5 shadow-lg border border-slate-200 bg-white";
+      card.innerHTML = `
+        <h3 class="text-xl font-bold mb-2">${p.ticker}</h3>
+        <p class="text-sm text-slate-500 mb-1">${p.name}</p>
+        <p class="text-lg font-semibold mb-2">${p.weight_pct}%</p>
+        <p class="text-xs text-slate-600">${p.rationale}</p>`;
+      cardsC.appendChild(card);
+    });
+  }
+
+  /* ---------- form submit ---------- */
+  form.onsubmit = async (e) => {
+    e.preventDefault();
+    const profile = Object.fromEntries(new FormData(form).entries());
+
+    showLoader(true);
+    resBox.classList.add("hidden");
+
+    try {
+      const portfolioObj = await generatePortfolio(profile);
+      renderCards(portfolioObj.portfolio);
+      jsonRaw.textContent = JSON.stringify(portfolioObj, null, 2);
+      resBox.classList.remove("hidden");
+    } catch (err) {
+      console.error(err);
+      alert(err.message);
+    } finally {
+      showLoader(false);
+    }
+  };
+  </script>
+
+  <style is:global>
+    .input       { @apply w-full border p-2 rounded; }
+    .btn-primary { @apply bg-indigo-600 text-white py-3 rounded
+                   hover:bg-indigo-700 transition; }
+  </style>
+</Layout>
