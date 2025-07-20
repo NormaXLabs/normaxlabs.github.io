@@ -24,7 +24,7 @@ jobs:
           PUBLIC_OPENAI_API_KEY: ${{ secrets.PUBLIC_OPENAI_API_KEY }}
       - run: touch docs/.nojekyll
       - uses: actions/upload-pages-artifact@v3
-        with: { path: docs }
+        with: { path: docs } 
 
   deploy:
     needs: build
