@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/BaseLayout.astro';
-const OPEN_API_KEY = import.meta.env.PUBLIC_OPENAI_API_KEY;
+const INJECTED_KEY = import.meta.env.PUBLIC_OPENAI_API_KEY;
 ---
 
 
@@ -58,9 +58,9 @@ const OPEN_API_KEY = import.meta.env.PUBLIC_OPENAI_API_KEY;
   <!-- ========== CLIENT-SIDE JS ========== -->
   <script is:inline>
 
-    const OPENAI_API_KEY = `{{OPEN_API_KEY}}`;
+    const OPENAI_API_KEY = {JSON.stringify(INJECTED_KEY)};
 
-    console.log('Key in inline script:', OPENAI_API_KEY);
+    console.log('Key in inline script:', {JSON.stringify(INJECTED_KEY)});
 
     /* costruisce il prompt */
     function buildMessages(p) {
