@@ -54,6 +54,8 @@ import Layout from '../../layouts/BaseLayout.astro';
 
   <!-- ========== CLIENT-SIDE JS ========== -->
   <script is:inline>
+    import fs from 'fs/promises';
+
     const OPENAI_API_KEY = import.meta.env.OPENAI_API_KEY;
 
     /* costruisce il prompt */
