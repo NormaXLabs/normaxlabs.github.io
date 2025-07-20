@@ -1,7 +1,6 @@
 ---
 import Layout from '../../layouts/BaseLayout.astro';
-//const CALLS = import.meta.env.PUBLIC_OPENAI_API_KEY;
-const CALLS = import.meta.env.DEEP_API;
+const CALLS = import.meta.env.PUBLIC_OPENAI_API_KEY;
 ---
 
 
@@ -76,7 +75,7 @@ const CALLS = import.meta.env.DEEP_API;
 
           Regole:
 
-          - Rispetta la tolleranza al rischio del cliente (${p["Risk Tolerance"] || "Medium"}) considerando azioni, materie prime, derivati, valute e in maniera molto ridotta le crypto valute nel CEX.
+          - Rispetta la tolleranza al rischio del cliente (${p["Risk Tolerance"] || "Medium"}) considerando azioni, ETF, indici, materie prime, derivati, valute e in maniera molto ridotta le crypto valute nel CEX.
           - Orizzonte temporale d’investimento: ${p["Investment Horizon"] || "N/A"}.
           - Considera asset finanziari contrapposti e decorrelati con la propria professione  ${p["Profession"] || "N/A"}.
           - Considera anche titoli che sono in linea con l’interesse ${p["Personal Interests"] || "N/A"} e siano performanti.
@@ -92,26 +91,17 @@ const CALLS = import.meta.env.DEEP_API;
       ];
     }
 
-    //const endpoint = "https://api.openai.com/v1/chat/completions";
-    //const ai_model = "gpt-4.1-mini";
-    const endpoint = "https://api.deepseek.com/v1/chat/completions";
-    const ai_model = "deepseek-reasoner";
-
     async function generatePortfolio(profile) {
-      const res = await fetch(endpoint, {
+      const res = await fetch("https://api.openai.com/v1/chat/completions", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${OPENAI_API_KEY}`
         },
         body: JSON.stringify({
-          //model: "gpt-4.1-mini",
-          model: ai_model,
+          model: "gpt-4.1-mini",
           response_format: { type: "json_object" },
-          messages: buildMessages(profile),
-          temperature: 0.1, // basso per precisione
-          top_p: 0.3,
-          frequency_penalty: 0.5 // // Riduce ripetizioni per ragionamenti complessi
+          messages: buildMessages(profile)
         })
       });
 
