@@ -38,10 +38,12 @@ const { src, headline = '', items = [] } = Astro.props;
     <ul class="h-full">
       {items.map(({ text, href }, i) => (
         <li class={`bullet-init snap-start h-full flex flex-col justify-center items-center p-10 text-white transition-transform
-                  ${ i % 5 === 0 ? 'bg-[url("/img/process.png")] bg-cover'
-                   : i % 5 === 1 ? 'bg-[url("/img/cex.png")] bg-cover'
-                   : i % 5 === 2 ? 'bg-[url("/img/advisory.png")] bg-cover'
-                   : i % 5 === 3 ? 'bg-[url("/img/pumpfun.png")] bg-cover'
+                  ${ i % 7 === 0 ? 'bg-[url("/img/process.png")] bg-cover'
+                   : i % 7 === 1 ? 'bg-[url("/img/cex.png")] bg-cover'
+                   : i % 7 === 2 ? 'bg-[url("/img/advisory.png")] bg-cover'
+                   : i % 7 === 3 ? 'bg-[url("/img/lim_ord_b.png")] bg-cover'
+                   : i % 7 === 4 ? 'bg-[url("/img/pumpfun.png")] bg-cover'
+                   : i % 7 === 5 ? 'bg-[url("/img/security.png")] bg-cover'
                    : 'bg-gradient-to-br from-orange-500 to-pink-600'}`}>
           <span class="text-4xl md:text-5xl font-extrabold text-center">{text}</span>
           <a href={href ?? '#'} class="mt-8 inline-flex items-center gap-2 text-lg md:text-4xl">
