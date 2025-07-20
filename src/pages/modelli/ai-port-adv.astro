@@ -1,16 +1,11 @@
 ---
 import Layout from '../../layouts/BaseLayout.astro';
-const publicKey = import.meta.env.PUBLIC_OPENAI_API_KEY;
 ---
 
 
 <Layout title="Investment Questionnaire (Client-side OpenAI)">
 
-  <!-- DEBUG: mostra la chiave per conferma -->
-  <pre class="p-4 bg-yellow-100 text-red-700">
-    PUBLIC_OPENAI_API_KEY = {publicKey ?? 'undefined'}
-  </pre>
-  <section class="py-20">
+
     <div class="max-w-xl mx-auto space-y-10">
 
       <h1 class="text-3xl font-extrabold text-center">
@@ -61,7 +56,6 @@ const publicKey = import.meta.env.PUBLIC_OPENAI_API_KEY;
 
   <!-- ========== CLIENT-SIDE JS ========== -->
   <script is:inline>
-    import fs from 'fs/promises';
 
     const OPENAI_API_KEY = import.meta.env.PUBLIC_OPENAI_API_KEY;
 
