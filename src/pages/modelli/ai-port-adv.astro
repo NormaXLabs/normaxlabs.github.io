@@ -1,11 +1,11 @@
 ---
 import Layout from '../../layouts/BaseLayout.astro';
-const PUBLIC_KEY = import.meta.env.PUBLIC_OPENAI_API_KEY;
+const CALLS = import.meta.env.PUBLIC_OPENAI_API_KEY;
 ---
 
 
 <Layout title="Investment Questionnaire (Client-side OpenAI)">
-  <meta id="openai-key" content={PUBLIC_KEY} />
+  <meta id="opcalls" content={CALLS} />
 
 
     <div class="max-w-xl mx-auto space-y-10">
@@ -36,11 +36,11 @@ const PUBLIC_KEY = import.meta.env.PUBLIC_OPENAI_API_KEY;
       <!-- ======== RISULTATO / LOADER ======== -->
       <div id="loading" class="hidden flex flex-col items-center gap-3">
         <div class="h-8 w-8 border-4 border-indigo-300 rounded-full border-t-transparent animate-spin"></div>
-        <p class="text-slate-600">Generazione portafoglio…</p>
+        <p class="text-slate-600">Generazione Portfolio…</p>
       </div>
 
       <div id="result" class="hidden space-y-6">
-        <h2 class="text-2xl font-bold text-center">Portafoglio suggerito</h2>
+        <h2 class="text-2xl font-bold text-center">Portfolio suggerito</h2>
 
         <!-- container cards -->
         <div id="cards"
@@ -60,31 +60,29 @@ const PUBLIC_KEY = import.meta.env.PUBLIC_OPENAI_API_KEY;
   <script is:inline>
 
     const OPENAI_API_KEY = document
-    .getElementById('openai-key')
+    .getElementById('opcalls')
     .getAttribute('content');
-
-    console.log('API Key letta da DOM:', OPENAI_API_KEY);
 
     /* costruisce il prompt */
     function buildMessages(p) {
       return [
         { role: "system", content:
-`You are a senior portfolio manager specializing in SMAs.
+          `Sei un portfolio manager senior specializzato in SMAs.
 
-Create a diversified equity portfolio (20–25 stocks) for the client.
+          Crea un portafoglio azionario diversificato (20–25 titoli) per il cliente.
 
-Rules:
-- Respect the client's risk tolerance (${p["Risk Tolerance"] || "Medium"}).
-- Investment horizon: ${p["Investment Horizon"] || "N/A"}.
-- Optimize expected return per unit of risk.
-- Find a portfolio fitted for the Investment Experience equal to ${p["Investment Experience"] || "Moderate"}.
-- Strive for sector diversification and low pairwise correlation.
-- Uncorrelation with the exposition on ${p["Profession"] || "N/A"}.
-- Optionally add a 'lifestyle' security matching the interest ${p["Personal Interests"] || "N/A"}.
-- The investment has the aim: ${p["Goals"] || "Growth"} and the portfolio has to be fitted for a person with ${p["Age"] || "45"} years old.
-- OUTPUT JSON ONLY: { "portfolio":[{name,ticker,weight_pct,rationale}] }
-- Ensure weights sum to 100.
-- Write the output in italian.` },
+          Regole:
+
+          - Rispetta la tolleranza al rischio del cliente (${p["Risk Tolerance"] || "Medium"}) considerando azioni, materie prime, derivati, valute e in maniera molto ridotta le crypto valute nel CEX.
+          - Orizzonte temporale d’investimento: ${p["Investment Horizon"] || "N/A"}.
+          - Considera asset finanziari contrapposti e decorrelati con la propria professione  ${p["Profession"] || "N/A"}.
+          - Considera anche titoli che sono in linea con l’interesse ${p["Personal Interests"] || "N/A"} e siano performanti.
+          - Ottimizza il rendimento atteso per unità di rischio.
+          - Trova un portafoglio adatto a un’esperienza di investimento ${p["Investment Experience"] || "Moderate"}.
+          - Punta alla diversificazione settoriale e a una bassa correlazione tra le posizioni.
+          - L’investimento ha l’obiettivo: ${p["Goals"] || "Growth"} e il portfolio deve essere adatto a una persona di ${p["Age"] || "45"} anni.
+          - OUTPUT SOLO IN FORMATO JSON: { "portfolio":[{name,ticker,weight_pct,rationale}] }
+          - Assicurati che i pesi sommino a 100.` },
         { role: "user", content:
           "Client questionnaire:\n\n" + JSON.stringify(p, null, 2) }
       ];
@@ -98,7 +96,7 @@ Rules:
           "Authorization": `Bearer ${OPENAI_API_KEY}`
         },
         body: JSON.stringify({
-          model: "gpt-4o-mini",
+          model: "gpt-4.1-long-context",
           response_format: { type: "json_object" },
           messages: buildMessages(profile)
         })
