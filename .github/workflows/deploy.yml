@@ -22,6 +22,7 @@ jobs:
       - name: Create env file
         run: |
           echo PUBLIC_OPENAI_API_KEY=${{ secrets.PUBLIC_OPENAI_API_KEY }} > .env.production
+          echo DEEP_API=${{ secrets.DEEP_API }} >> .env.production
       - run: npm run build          # genera docs/
       - run: touch docs/.nojekyll
       - uses: actions/upload-pages-artifact@v3
