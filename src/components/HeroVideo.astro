@@ -82,7 +82,24 @@ const { src, headline = '', items = [] } = Astro.props;
       }
     }
 
-    btn.onclick = () => { video.muted = false; video.play(); btn.classList.add('opacity-0','pointer-events-none'); };
+    btn.addEventListener('click', () => {
+      // user gesture: pausa → rimuovi muted → play
+      video.pause();
+      video.muted = false;
+      video.removeAttribute('muted');
+      video.play();
+      btn.classList.add('opacity-0','pointer-events-none');
+    });
+    
+    btn.addEventListener('click', () => {
+      // user gesture: pausa → rimuovi muted → play
+      video.pause();
+      video.muted = false;
+      video.removeAttribute('muted');
+      video.play();
+      btn.classList.add('opacity-0','pointer-events-none');
+    });
+
     video.addEventListener('ended', showList);
     window.addEventListener('wheel', () => { video.pause(); showList(); }, { once: true, passive: true });
     window.addEventListener('touchstart', () => { video.pause(); showList(); }, { once: true, passive: true });
