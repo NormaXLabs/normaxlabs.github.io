@@ -19,8 +19,8 @@ const { title = 'NormaX Labs', description = 'Soluzioni open-source' } = Astro.p
     <header class="fixed inset-x-0 top-0 z-50 bg-white/80 backdrop-blur">
       <nav class="max-w-6xl mx-auto flex items-center justify-between px-4 py-4">
         <a href="/" class="flex items-center gap-2">
-          <img src="/img/normax.jpeg" alt="Logo" class="h-8 w-8" />
-          <span class="text-xl font-extrabold tracking-tight">NormaX Labs</span>
+          <img src="/img/normax.png" alt="Logo" class="h-20 w-20" />
+          <img src="/img/char.png" alt="Logo" class="h-32 w-36" />
         </a>
         <ul class="hidden md:flex gap-8 text-sm">
           <li><a href="/modelli" class="hover:text-primary-600">Modelli</a></li>
@@ -31,13 +31,13 @@ const { title = 'NormaX Labs', description = 'Soluzioni open-source' } = Astro.p
       </nav>
     </header>
 
-    <main class="pt-24">
+    <main class="pt-40">
       <slot />           
     </main>
 
     <footer class="bg-slate-900 text-slate-400 text-sm py-8">
       <div class="max-w-6xl mx-auto px-4 text-center">
-        © {new Date().getFullYear()} NormaX Labs — Creato con ❤
+        © {new Date().getFullYear()} NormaX Labs — All Rights Reserved
       </div>
     </footer>
 
