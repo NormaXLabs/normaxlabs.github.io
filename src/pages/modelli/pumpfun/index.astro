@@ -1,0 +1,141 @@
+---
+import Layout from '../../../layouts/BaseLayout.astro';
+---
+
+<Layout title="Pump.fun – Come funziona">
+  <!-- Hero -------------------------------------------------------->
+  <section class="relative isolate overflow-hidden bg-gradient-to-br from-indigo-600 via-sky-500 to-emerald-400 py-32 text-white">
+    <div class="absolute inset-0 -z-10 opacity-30">
+      <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+        <path fill="currentColor" d="M0,192L1440,64L1440,320L0,320Z"/>
+      </svg>
+    </div>
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h1 class="text-5xl md:text-7xl font-extrabold leading-tight drop-shadow-lg">
+        La piattaforma <span class="text-yellow-300">Pump.fun</span> e il lancio dei tokens sulla blockchain&nbsp;di&nbsp;Solana
+      </h1>
+      <p class="mt-6 mb-10 text-xl md:text-2xl font-light max-w-2xl mx-auto">
+        Dalla bonding curve iniziale alla pool AMM automatica: tutto in un’unica piattaforma, senza codice e in pochi secondi.
+      </p>
+      <a href="https://pump.fun" target="_blank" class="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-10 py-4 text-lg font-semibold backdrop-blur hover:bg-white/20 transition">
+        Vai su Pump.fun
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Stepper ----------------------------------------------------->
+  <section class="py-24 bg-white">
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-12">
+      <div class="col-span-full text-center mb-8 md:mb-16">
+        <h2 class="text-4xl font-extrabold text-gray-900">Come funziona in 3 step</h2>
+      </div>
+
+      <!-- Step 1 -->
+      <div class="flex flex-col items-center text-center">
+        <div class="rounded-full bg-indigo-600 text-white w-14 h-14 flex items-center justify-center mb-4 text-xl font-bold shadow-lg">1</div>
+        <h3 class="text-2xl font-semibold mb-2">Creazione token</h3>
+        <p class="text-gray-600">Carica nome & supply (1&nbsp;B token fissi). Pump.fun deploya il mint su Solana e revoca l’autorità di conio.</p>
+      </div>
+      <!-- Step 2 -->
+      <div class="flex flex-col items-center text-center">
+        <div class="rounded-full bg-indigo-600 text-white w-14 h-14 flex items-center justify-center mb-4 text-xl font-bold shadow-lg">2</div>
+        <h3 class="text-2xl font-semibold mb-2">Bonding curve</h3>
+        <p class="text-gray-600">Il 79 % dei token viene venduto tramite curva virtuale; 1&nbsp;% di fee finanzia protocollo e creatore.</p>
+      </div>
+      <!-- Step 3 -->
+      <div class="flex flex-col items-center text-center">
+        <div class="rounded-full bg-indigo-600 text-white w-14 h-14 flex items-center justify-center mb-4 text-xl font-bold shadow-lg">3</div>
+        <h3 class="text-2xl font-semibold mb-2">Graduation</h3>
+        <p class="text-gray-600">Raggiunti ≈85 SOL di liquidità reale, la curva migra automaticamente in una pool AMM (PumpSwap) con fee 0,30&nbsp;% con l'aggiunta dei restanti 21&nbsp;% dei token.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive simulator -------------------------------------->
+  <section class="py-24 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-6">Simula il tuo primo buy</h2>
+      <p class="text-gray-600 mb-10">Sposta lo slider per vedere quanti token otterresti<br class="hidden md:block"/>nella prima transazione di acquisto della <span class="text-primary-600">Bonding Curve</span></p>
+
+      <div class="relative mx-auto max-w-md w-full bg-white rounded-3xl shadow-xl p-8">
+        <input id="solRange" type="range" min="0.0" max="85.858585859" step="0.01" value="1" class="w-full accent-indigo-600">
+        <p class="mt-4 text-lg">SOL da spendere: <span id="solValue" class="font-semibold">1</span></p>
+        <p class="text-2xl font-bold mt-2">Token stimati: <span id="tokenOut" class="text-indigo-600">—</span></p>
+        <p class="text-xs text-gray-400 mt-3">*Modello: SOL_virt · Token_virt = k, fee 1&nbsp;% esclusa.</p>
+      </div>
+
+      <script>
+        const slider = document.getElementById('solRange');
+        var solOut = document.getElementById('solValue');
+        const tokenOut = document.getElementById('tokenOut');
+        const X = 1_073_000_000;
+        const Y = 30;
+        function update() {
+          const sol = parseFloat(slider.value);
+          solOut.textContent = sol.toFixed(2);
+          const solFee = 0.99*sol;
+          const token = solFee*X/(Y+solFee); // demo only
+          tokenOut.textContent = Math.round(token).toLocaleString();
+        }
+        slider.addEventListener('input', update);
+        update();
+      </script>
+    </div>
+  </section>
+
+  <!-- FAQ --------------------------------------------------------->
+  <section class="py-24 bg-white">
+    <div class="max-w-3xl mx-auto px-6">
+      <h2 class="text-3xl md:text-4xl font-extrabold text-center text-gray-900 mb-8">FAQ</h2>
+      <div class="space-y-6">
+        <details class="group border border-gray-200 rounded-xl p-4">
+          <summary class="flex items-center justify-between cursor-pointer">
+            <span class="font-medium">Pump.fun è sicuro?</span>
+            <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </summary>
+          <p class="mt-3 text-gray-600">Il contratto è open‑source e il mint authority viene bruciato al deploy, impedendo supply inflation. Usa sempre wallet dedicati e verifica le firme.</p>
+        </details>
+        <details class="group border border-gray-200 rounded-xl p-4">
+          <summary class="flex items-center justify-between cursor-pointer">
+            <span class="font-medium">Quanto costa creare una coin?</span>
+            <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </summary>
+          <p class="mt-3 text-gray-600">Solo il rent di rete (~0,02 SOL). Non c’è più la vecchia fee fissa da 0,01 SOL; Pump.fun guadagna l’1 % sulle vendite iniziali.</p>
+        </details>
+        <details class="group border border-gray-200 rounded-xl p-4">
+          <summary class="flex items-center justify-between cursor-pointer">
+            <span class="font-medium">Cosa succede a 85 SOL?</span>
+            <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </summary>
+          <p class="mt-3 text-gray-600">La curva si chiude, il contratto apre una pool PumpSwap, deposita la liquidità e i trade passano all’AMM con fee 0,30 %.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to action --------------------------------------------->
+  <section class="py-24 bg-gradient-to-r from-indigo-600 to-sky-500 text-white relative isolate overflow-hidden">
+    <div class="absolute inset-0 opacity-20 -z-10">
+      <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="currentColor" fill-opacity="1" d="M0,256L48,250.7C96,245,192,235,288,218.7C384,203,480,181,576,170.7C672,160,768,160,864,144C960,128,1056,96,1152,74.7C1248,53,1344,43,1392,37.3L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
+    </div>
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-4xl md:text-5xl font-extrabold mb-6">Vuoi scoprire più dettagli sul mondo Pump.fun?</h2>
+      <p class="text-xl md:text-2xl font-light mb-10 max-w-2xl mx-auto">Interasci con noi per capirne i rischi e le opportunità, fare ricerca per noi è sempre il primo passo.</p>
+      <a href="pumpfun/#" target="_blank" class="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-10 py-4 text-lg font-semibold backdrop-blur hover:bg-white/20 transition">
+        Vai alla nostra Analisi
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+  </section>
+</Layout>
