@@ -2,12 +2,184 @@
 import Layout from '../../layouts/BaseLayout.astro';
 ---
 
-<Layout title="Area riservata">
-  <section class="py-24">
+<Layout title="Order Book">
+  <section class="py-24 max-w-8xl">
     <div class="max-w-3xl mx-auto px-4 text-center">
-      <h1 class="text-4xl font-extrabold mb-8 text-primary-600">
-        In progress ...
+      <h1 class="text-5xl font-extrabold mb-24 text-primary-600">
+        Studio di Limit Order Book
       </h1>
     </div>
+    <div class="max-w-6xl mx-auto px-4 text-left space-y-10">
+      <h2 class="text-3xl font-bold mb-6 text-gray-600">
+        Introduzione al limit order book
+      </h2>
+
+      <div id="lob-plot" class="w-full text-center h-[400px] mb-8 border-collapse"></div>
+
+      <p>
+        Il <strong>Limit Order Book</strong> (LOB) è il registro elettronico in cui, in tempo reale,
+        vengono raccolti tutti gli ordini di acquisto e vendita (<em>limit orders</em>) di uno strumento finanziario.
+        Viene suddiviso in due lati opposti:
+      </p>
+
+      <table class="w-full text-center mb-6 border-collapse">
+        <thead>
+          <tr class="border-b">
+            <th class="py-2">Lato <em>Bid</em> (Acquisti)</th>
+            <th class="py-2">Spread</th>
+            <th class="py-2">Lato <em>Ask</em> (Vendite)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="py-2">Volumi e prezzi ai vari livelli di acquisto</td>
+            <td class="py-2 text-center">↔︎</td>
+            <td class="py-2">Volumi e prezzi ai vari livelli di vendita</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>Best bid</strong> / <strong>Best ask</strong>: prezzo più alto tra i buy limit orders e prezzo più basso tra i sell limit orders.</li>
+        <li><strong>Spread</strong>: differenza tra best ask e best bid, indicativa del costo immediato di transazione.</li>
+        <li><strong>Mid-price</strong>: punto medio tra bid e ask (<code>(best bid + best ask) / 2</code>).</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold mt-8">Struttura a Livelli</h3>
+      <ol class="list-decimal list-inside space-y-2 mb-8">
+        <li><strong>Livello 1</strong>: best bid / best ask.</li>
+        <li><strong>Livello 2, 3,…</strong>: prezzi decrescenti sul lato bid e crescenti sul lato ask.</li>
+        <li><strong>Profondità</strong> (<em>depth</em>): somma dei volumi entro una certa distanza dal mid-price (es. <code>Depth(10bps)</code>).</li>
+      </ol>
+
+      <h3 class="text-2xl font-semibold">Market Order</h3>
+      <p>Un <em>Market Order</em> è un ordine da eseguire <strong>immediatamente</strong> al miglior prezzo disponibile:</p>
+      <ul class="list-disc list-inside space-y-2 mb-8">
+        <li><strong>Market Buy</strong>: acquista al prezzo del best ask.</li>
+        <li><strong>Market Sell</strong>: vende al prezzo del best bid.</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold">Market Maker</h3>
+      <ul class="list-disc list-inside space-y-2 mb-8">
+        <li><strong>Obiettivo</strong>: guadagnare dallo spread tra bid e ask.</li>
+        <li><strong>Strategia</strong>: piazzare ordini limit su entrambi i lati per mantenere liquidità.</li>
+        <li><strong>Incentivi</strong>: riduzioni di commissioni o rimborsi sul volume in cambio di liquidità.</li>
+      </ul>
+
+      <p>
+        Questa struttura permette di bilanciare domanda e offerta, determinando il prezzo di mercato
+        e garantendo trasparenza ed efficienza.
+      </p>
+    </div>
+
+    <!-- Import D3 via CDN e plot inline -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js" client:load></script>
+    <script is:inline client:load>
+      document.addEventListener('DOMContentLoaded', () => {
+        const data = {
+          bid: [
+            { price: 100.5, volume: 150 },
+            { price: 100.6, volume: 175 },
+            { price: 100.7, volume: 200 },
+            { price: 100.8, volume: 250 }
+          ],
+          ask: [
+            { price: 100.9, volume: 100 },
+            { price: 101.0, volume: 125 },
+            { price: 101.1, volume: 150 },
+            { price: 101.2, volume: 80 }
+          ]
+        };
+        const container = document.getElementById('lob-plot');
+        const margin = { top: 10, right: 0, bottom: 60, left: 80 };
+        const width = container.clientWidth - margin.left - margin.right;
+        const height = container.clientHeight - margin.top - margin.bottom;
+
+        const svg = d3.select(container)
+          .append('svg')
+          .attr('width', width + margin.left + margin.right)
+          .attr('height', height + margin.top + margin.bottom)
+          .append('g')
+          .attr('transform', `translate(${margin.left},${margin.top})`);
+
+        const prices = [...data.bid.map(d => d.price), ...data.ask.map(d => d.price)];
+        const x = d3.scaleBand()
+          .domain(prices.map(p => p.toFixed(1)))
+          .range([0, width])
+          .padding(0.2);
+
+        const y = d3.scaleLinear()
+          .domain([0, d3.max([...data.bid, ...data.ask], d => d.volume)]).nice()
+          .range([height, 0]);
+
+        const xAxis = d3.axisBottom(x)
+          .ticks(5)           // numero di tick desiderati
+          .tickFormat(d => d);// qui puoi anche personalizzare il formato
+
+        // appendiamo l’asse e poi modifichiamo lo style dei tick text
+        svg.append('g')
+          .attr('transform', `translate(0,${height})`)
+          .call(xAxis)
+          .selectAll('text')
+            .style('font-size', '18px')    // dimensione del font dei tick
+            .style('fill', '#333');
+
+        const yAxis = d3.axisLeft(y)
+          .ticks(5)           // numero di tick desiderati
+          .tickFormat(d => d);// qui puoi anche personalizzare il formato
+
+        // appendiamo l’asse e poi modifichiamo lo style dei tick text
+        svg.append('g')
+          .attr('class', 'y-axis')
+          .call(yAxis)
+          .selectAll('text')
+            .style('font-size', '18px')    // dimensione del font dei tick
+            .style('fill', '#333');
+
+        // Y Axis Label
+        svg.append('text')
+          .attr('transform', 'rotate(-90)')
+          .attr('x', -height / 2)
+          .attr('y', -margin.left + 25)
+          .attr('text-anchor', 'middle')
+          .style('font-size', '28px')
+          .text('Volume');
+
+        // X Axis Label
+        svg.append('text')
+          .attr('x', width / 2)
+          .attr('y', height + margin.bottom - 10)
+          .attr('text-anchor', 'middle')
+          .style('font-size', '28px')
+          .text('Prezzo');
+
+        svg.selectAll('.bar.bid')
+          .data(data.bid)
+          .enter().append('rect')
+          .attr('class', 'bar bid')
+          .attr('x', d => x(d.price.toFixed(1)))
+          .attr('y', d => y(d.volume))
+          .attr('width', x.bandwidth() / 2)
+          .attr('height', d => height - y(d.volume))
+          .style('fill', 'steelblue');
+
+        svg.selectAll('.bar.ask')
+          .data(data.ask)
+          .enter().append('rect')
+          .attr('class', 'bar ask')
+          .attr('x', d => x(d.price.toFixed(1)) + x.bandwidth() / 2)
+          .attr('y', d => y(d.volume))
+          .attr('width', x.bandwidth() / 2)
+          .attr('height', d => height - y(d.volume))
+          .style('fill', 'orange');
+
+        const legend = svg.append('g')
+          .attr('transform', `translate(${width - 100}, 0)`);
+        legend.append('rect').attr('x', 0).attr('y', -10).attr('width', 24).attr('height', 24).style('fill', 'steelblue');
+        legend.append('text').attr('x', 24).attr('y', 10).text('Bid').attr('font-size', '24px');
+        legend.append('rect').attr('x', 0).attr('y', 20).attr('width', 24).attr('height', 24).style('fill', 'orange');
+        legend.append('text').attr('x', 24).attr('y', 40).text('Ask').attr('font-size', '24px');
+      });
+    </script>
   </section>
 </Layout>

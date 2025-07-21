@@ -28,9 +28,9 @@ const { src, headline = '', items = [] } = Astro.props;
 <section class="relative h-[70vh] overflow-hidden flex items-center justify-center">
   <!-- Video Block -->
   <div id="videoBlock" class="absolute inset-0 flex items-center justify-center transition-opacity duration-700">
-    <video id="introVideo" class="absolute inset-0 w-full h-full object-cover hero-overlay" src={src} autoplay playsinline muted></video>
+    <video id="introVideo" class="absolute inset-0 w-full h-full object-cover hero-overlay" src={src} autoplay webkit-playsinline playsinline="true" muted></video>
     <h1 class="relative z-10 text-white text-4xl md:text-6xl font-extrabold text-center px-4">{headline}</h1>
-    <button id="unmuteBtn" class="absolute bottom-6 right-6 bg-white/80 backdrop-blur px-4 py-2 rounded-full text-primary-700 font-semibold shadow hover:bg-white transition">▶️ UNMUTE</button>
+    <button type="button" id="unmuteBtn" class="absolute bottom-6 right-6 bg-white/80 backdrop-blur px-4 py-2 rounded-full text-primary-700 font-semibold shadow hover:bg-white transition">▶️ UNMUTE</button>
   </div>
 
   <!-- Slide List Full Screen -->
