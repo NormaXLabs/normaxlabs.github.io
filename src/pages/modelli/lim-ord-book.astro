@@ -70,9 +70,75 @@ import Layout from '../../layouts/BaseLayout.astro';
         Questa struttura permette di bilanciare domanda e offerta, determinando il prezzo di mercato
         e garantendo trasparenza ed efficienza.
       </p>
+
+      <h2 class="text-3xl font-bold mt-20 mb-6 text-gray-600">
+        Il Limit Order Book di un ETF poco liquido
+      </h2>
+
+      <p>
+        Quando un ETF viene emesso, capita frequentemente che il suo <strong>Limit Order Book</strong> sia poco liquido.
+        Questo fenomeno può essere causato da diversi fattori, tra cui la presenza di emittenti concorrenti più noti e consolidati, i cui ETF presentano LOB più profondi e attivi.
+        Un altro elemento determinante è la natura dell'ETF stesso: strumenti troppo settoriali o di nicchia tendono a generare volumi più contenuti, risultando quindi meno attraenti per gli investitori istituzionali e i market maker.
+      </p>
+
+      <p>
+        Un esempio emblematico è rappresentato dall’ETF <strong>PSCH</strong>, il <em>Invesco S&P SmallCap Health Care ETF</em>.
+        Si tratta di un fondo che replica le performance delle piccole capitalizzazioni del settore sanitario statunitense.
+        La combinazione tra la bassa capitalizzazione media dei titoli sottostanti e lo scarso interesse di massa verso questo segmento determina un LOB particolarmente fragile:
+        spread ampi, profondità ridotta e alta sensibilità agli ordini di mercato.
+      </p>
+
+      <p>
+        PSCH costituisce un caso di studio ideale per analisi quantitative e microstrutturali,
+        in quanto permette di esplorare strategie finalizzate a migliorare la liquidità del book. Tra queste, si possono considerare simulazioni basate su modelli agent-based,
+        implementazioni di market maker algoritmici (come il modello di Avellaneda-Stoikov) e valutazioni di impatto legate a incentivi strutturali offerti da exchange o emittenti.
+      </p>
+
+      <p>
+        Quello che <strong>NormaX Labs</strong> è in grado di fare è generare dei simulatori calibrati sui dati reali dell'ETF considerato, capaci di riprodurre fedelmente le principali caratteristiche del relativo LOB. Grazie a questi strumenti, è possibile esplorare una varietà di scenari sperimentali, volti a identificare strategie efficaci per mitigare il problema della scarsa liquidità e degli spread elevati. Un esempio che verrà analizzato nel prosieguo è quello dell’introduzione di un market maker basato sul modello di Avellaneda-Stoikov: attraverso l’inserimento sistematico di quotazioni più competitive, questo agente algoritmico è in grado di generare un meccanismo di herding, ovvero un effetto di attrazione che porta gli altri operatori di mercato a posizionarsi in prossimità dello spread ridotto, migliorando così la qualità complessiva del book e favorendo una maggiore efficienza di mercato.
+      </p>
+
+      <p class="text-xl text-gray-500 mt-4">
+      Analisi quantitativa e simulazioni su ETF a bassa liquidità
+      </p>
+      Come detto in precedenza un esempio emblematico di un ETF avente uno spread medio piuttosto elevato, circa 22 bps, è PSCH. 
+     
+      <div class="flex flex-col items-center mt-10 space-y-4">
+      <img src="/img/MM/lob_animation.gif" alt="Animazione LOB ETF poco liquido" class="w-full max-w-4xl rounded-xl shadow-md" />
+       <p class="text-lg text-gray-600 text-center max-w-2xl">
+      L'animazione mostra l'evoluzione dinamica del Limit Order Book dell'ETF PSCH a bassa liquidità. Si notano ampie fluttuazioni dello spread e una scarsa profondità ai primi livelli, fenomeni tipici nei mercati poco presidiati da market maker. Lo studio di questi pattern consente di valutare l'efficacia di strategie automatizzate per il miglioramento della liquidità.
+      </p>
+      </div>
+      
+      A partire dai dati storici del Limit Order Book, è possibile ricavare una serie di informazioni fondamentali per comprendere la microstruttura del mercato e per calibrare un simulatore realistico. Il codice sottostante analizza l’intero dataset, calcolando metriche chiave che descrivono le caratteristiche dinamiche e strutturali dell’ETF considerato.
+
+Tra gli aspetti più rilevanti che vengono estratti vi sono, ad esempio, lo spread medio e mediano — espressi anche in basis points per normalizzare rispetto al prezzo — la volatilità intraday annualizzata, il tick size stimato in base alla granularità del book, e la profondità media ai primi livelli del book sia sul lato bid che su quello ask. Vengono inoltre analizzati il numero totale di esecuzioni, le dimensioni medie degli scambi, la frequenza di arrivo dei diversi tipi di ordine (limit, market, cancellazioni), la distanza tipica degli ordini limite rispetto al miglior prezzo, e la durata media degli ordini prima della cancellazione.
+
+Tutte queste informazioni permettono di costruire un simulatore calibrato che riproduce fedelmente le dinamiche osservate nei dati reali. Il comportamento degli agenti, le probabilità di cancellazione, la struttura dello spread e la distribuzione delle size possono essere così modellati in modo accurato. In basso sono riportate due visualizzazioni esemplificative: la distribuzione dello spread osservato e l’evoluzione dello spread nel tempo per ciascuna sessione analizzata.
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+      <!-- Prima immagine -->
+      <div class="flex flex-col items-center text-center">
+        <img src="/img/MM/Dist_Spread.png" alt="Descrizione immagine 1" class="rounded-lg shadow-md max-w-full h-auto" />
+      <p class="mt-4 text-gray-600 text-base max-w-md">
+        <strong>Figura 1.</strong> LOB prima dell’introduzione del market maker. Si nota uno spread elevato e una bassa profondità ai primi livelli.
+      </p>
+      </div>
+
+      <!-- Seconda immagine -->
+      <div class="flex flex-col items-center text-center">
+        <img src="/img/MM/Spread_PerSessione.png" alt="Descrizione immagine 2" class="rounded-lg shadow-md max-w-full h-auto" />
+        <p class="mt-4 text-gray-600 text-base max-w-md">
+          <strong>Figura 2.</strong> LOB dopo l’introduzione del market maker. Lo spread si riduce e aumentano i volumi vicino al mid-price.
+        </p>
+        </div>
+      </div>
+
+
+
     </div>
 
-    <!-- Import D3 via CDN e plot inline -->
+    <!-- D3 plot remains unchanged -->
     <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js" client:load></script>
     <script is:inline client:load>
       document.addEventListener('DOMContentLoaded', () => {
@@ -112,31 +178,20 @@ import Layout from '../../layouts/BaseLayout.astro';
           .domain([0, d3.max([...data.bid, ...data.ask], d => d.volume)]).nice()
           .range([height, 0]);
 
-        const xAxis = d3.axisBottom(x)
-          .ticks(5)           // numero di tick desiderati
-          .tickFormat(d => d);// qui puoi anche personalizzare il formato
-
-        // appendiamo l’asse e poi modifichiamo lo style dei tick text
         svg.append('g')
           .attr('transform', `translate(0,${height})`)
-          .call(xAxis)
+          .call(d3.axisBottom(x).tickFormat(d => d))
           .selectAll('text')
-            .style('font-size', '18px')    // dimensione del font dei tick
+            .style('font-size', '18px')
             .style('fill', '#333');
 
-        const yAxis = d3.axisLeft(y)
-          .ticks(5)           // numero di tick desiderati
-          .tickFormat(d => d);// qui puoi anche personalizzare il formato
-
-        // appendiamo l’asse e poi modifichiamo lo style dei tick text
         svg.append('g')
           .attr('class', 'y-axis')
-          .call(yAxis)
+          .call(d3.axisLeft(y).tickFormat(d => d))
           .selectAll('text')
-            .style('font-size', '18px')    // dimensione del font dei tick
+            .style('font-size', '18px')
             .style('fill', '#333');
 
-        // Y Axis Label
         svg.append('text')
           .attr('transform', 'rotate(-90)')
           .attr('x', -height / 2)
@@ -145,7 +200,6 @@ import Layout from '../../layouts/BaseLayout.astro';
           .style('font-size', '28px')
           .text('Volume');
 
-        // X Axis Label
         svg.append('text')
           .attr('x', width / 2)
           .attr('y', height + margin.bottom - 10)
