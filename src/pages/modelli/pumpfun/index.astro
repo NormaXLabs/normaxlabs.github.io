@@ -43,48 +43,125 @@ import Layout from '../../../layouts/BaseLayout.astro';
       <div class="flex flex-col items-center text-center">
         <div class="rounded-full bg-indigo-600 text-white w-14 h-14 flex items-center justify-center mb-4 text-xl font-bold shadow-lg">2</div>
         <h3 class="text-2xl font-semibold mb-2">Bonding curve</h3>
-        <p class="text-gray-600">Il 79 % dei token viene venduto tramite curva virtuale; 1&nbsp;% di fee finanzia protocollo e creatore.</p>
+        <p class="text-gray-600">Il 79 % dei token viene venduto tramite curva <span class="text-primary-600">virtuale</span>; 1&nbsp;% di fee finanzia protocollo e creatore.</p>
       </div>
       <!-- Step 3 -->
       <div class="flex flex-col items-center text-center">
         <div class="rounded-full bg-indigo-600 text-white w-14 h-14 flex items-center justify-center mb-4 text-xl font-bold shadow-lg">3</div>
         <h3 class="text-2xl font-semibold mb-2">Graduation</h3>
-        <p class="text-gray-600">Raggiunti ≈85 SOL di liquidità reale, la curva migra automaticamente in una pool AMM (PumpSwap) con fee 0,30&nbsp;% con l'aggiunta dei restanti 21&nbsp;% dei token.</p>
+        <p class="text-gray-600">Raggiunti ≈85 SOL di liquidità reale, la curva migra automaticamente in una pool <span class="text-primary-600">reale</span> AMM (PumpSwap) con fee 0,30&nbsp;% con l'aggiunta dei restanti 21&nbsp;% dei token.</p>
       </div>
     </div>
   </section>
 
   <!-- Interactive simulator -------------------------------------->
   <section class="py-24 bg-gray-50">
-    <div class="max-w-4xl mx-auto px-6 text-center">
-      <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-6">Simula il tuo primo buy</h2>
-      <p class="text-gray-600 mb-10">Sposta lo slider per vedere quanti token otterresti<br class="hidden md:block"/>nella prima transazione di acquisto della <span class="text-primary-600">Bonding Curve</span></p>
+    <div class="max-w-4xl mx-auto mb-10 px-6 text-center space-y-10">
+      <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900">
+        Simula il tuo primo buy
+      </h2>
+    </div>
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Simulator 1 -->
+        <div class="relative bg-white rounded-3xl shadow-xl p-8 text-center">
+          <h2 class="text-3xl md:text-2xl font-bold text-gray-900 mb-4">
+            Nella pool Virtuale
+          </h2>
+          <p class="text-gray-600 mb-6">
+            Sposta lo slider per vedere quanti token otterresti
+            nella prima transazione<br class="hidden md:block"/>di acquisto della
+            <span class="text-primary-600">Bonding Curve</span>
+          </p>
+          <input
+            id="solRange1"
+            type="range"
+            min="0.0"
+            max="85.858585859"
+            step="0.01"
+            value="1"
+            class="w-full accent-indigo-600"
+          />
+          <p class="mt-4 text-lg">
+            SOL da spendere: <span id="solValue1" class="font-semibold">1.00</span>
+          </p>
+          <p class="text-2xl font-bold mt-2">
+            Token stimati: <span id="tokenOut1" class="text-indigo-600">—</span>
+          </p>
+          <p class="text-xs text-gray-400 mt-3">
+            *Modello: SOL_virt · Token_virt = k, fee 1 % esclusa.
+          </p>
+        </div>
 
-      <div class="relative mx-auto max-w-md w-full bg-white rounded-3xl shadow-xl p-8">
-        <input id="solRange" type="range" min="0.0" max="85.858585859" step="0.01" value="1" class="w-full accent-indigo-600">
-        <p class="mt-4 text-lg">SOL da spendere: <span id="solValue" class="font-semibold">1</span></p>
-        <p class="text-2xl font-bold mt-2">Token stimati: <span id="tokenOut" class="text-indigo-600">—</span></p>
-        <p class="text-xs text-gray-400 mt-3">*Modello: SOL_virt · Token_virt = k, fee 1&nbsp;% esclusa.</p>
+        <!-- Simulator 2 -->
+        <div class="relative bg-white rounded-3xl shadow-xl p-8 text-center">
+          <h2 class="text-3xl md:text-2xl font-bold text-gray-900 mb-4">
+            Nella pool AMM reale
+          </h2>
+          <p class="text-gray-600 mb-6">
+            Sposta lo slider per vedere quanti token otterresti
+            nella prima transazione<br class="hidden md:block"/>di acquisto nel
+            <span class="text-primary-600">PumpSwap AMM</span>
+          </p>
+          <input
+            id="solRange2"
+            type="range"
+            min="0.0"
+            max="200"
+            step="0.01"
+            value="1"
+            class="w-full accent-indigo-600"
+          />
+          <p class="mt-4 text-lg">
+            SOL da spendere: <span id="solValue2" class="font-semibold">1.00</span>
+          </p>
+          <p class="text-2xl font-bold mt-2">
+            Token stimati: <span id="tokenOut2" class="text-indigo-600">—</span>
+          </p>
+          <p class="text-xs text-gray-400 mt-3">
+            *Modello: SOL · Token = k, fee 0.3 % esclusa.
+          </p>
+        </div>
       </div>
+    </div>
 
-      <script>
-        const slider = document.getElementById('solRange');
-        var solOut = document.getElementById('solValue');
-        const tokenOut = document.getElementById('tokenOut');
-        const X = 1_073_000_000;
-        const Y = 30;
+    <script type="module" client:load>
+      function setupSimulator(idx) {
+        const slider   = document.getElementById(`solRange${idx}`);
+        const solOut   = document.getElementById(`solValue${idx}`);
+        const tokenOut = document.getElementById(`tokenOut${idx}`);
+
         function update() {
-          const sol = parseFloat(slider.value);
-          solOut.textContent = sol.toFixed(2);
-          const solFee = 0.99*sol;
-          const token = solFee*X/(Y+solFee); // demo only
-          tokenOut.textContent = Math.round(token).toLocaleString();
+          if(idx == 1){
+            const X = 1_073_000_000;
+            const Y = 30;
+            const sol = parseFloat(slider.value);
+            solOut.textContent = sol.toFixed(2);
+            const solFee = 0.99 * sol;
+            const token = (solFee * X) / (Y + solFee);
+            tokenOut.textContent = Math.round(token).toLocaleString();
+          } else if (idx ==2) {
+            const X = 206_900_000;
+            const Y = 85;
+            const sol = parseFloat(slider.value);
+            solOut.textContent = sol.toFixed(2);
+            const solFee = 0.997 * sol;
+            const token = (solFee * X) / (Y + solFee);
+            tokenOut.textContent = Math.round(token).toLocaleString();
+          }
         }
+
         slider.addEventListener('input', update);
         update();
-      </script>
-    </div>
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        setupSimulator(1);
+        setupSimulator(2);
+      });
+    </script>
   </section>
+
 
   <!-- FAQ --------------------------------------------------------->
   <section class="py-24 bg-white">

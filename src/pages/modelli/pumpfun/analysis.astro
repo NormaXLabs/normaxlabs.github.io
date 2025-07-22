@@ -12,7 +12,8 @@ import Layout from '../../../layouts/BaseLayout.astro';
     </div>
     <div class="container mx-auto px-4 text-center">
       <h1 class="text-5xl font-black tracking-tight drop-shadow-lg">Pump.Fun CryptoMarket</h1>
-      <p class="text-s font-black tracking-tight drop-shadow-lg text-primary-600 mt-3">*Lavoro di ricerca in collaborazione con Giulio Marino</p>
+      <p class="text-s font-black tracking-tight drop-shadow-lg text-primary-600 mt-3">*Lavoro di ricerca in collaborazione con <a href="https://orcid.org/0009-0000-6204-9940" target="_blank" rel="noopener noreferrer" >G. Marino</a>
+      </p>
       <p class="mt-4 max-w-xl mx-auto text-xl/relaxed font-black tracking-tight drop-shadow-lg">
         Analisi quantitativa e visual storytelling sui meccanismi di mercato di Pump.Fun e sulle performance dei token comunitari.
       </p>
@@ -22,7 +23,7 @@ import Layout from '../../../layouts/BaseLayout.astro';
           <p class="text-sm font-black tracking-tight drop-shadow-lg">Token analizzati</p>
         </div>
         <div class="bg-white/10 backdrop-blur-sm rounded-2xl px-6 py-4">
-          <p class="text-3xl font-bold" id="counter-grad">0.0076%</p>
+          <p class="text-3xl font-bold" id="counter-grad">0.76%</p>
           <p class="text-sm font-black tracking-tight drop-shadow-lg">Tasso di graduation</p>
         </div>
         <div class="bg-white/10 backdrop-blur-sm rounded-2xl px-6 py-4">
@@ -35,10 +36,10 @@ import Layout from '../../../layouts/BaseLayout.astro';
 
   <!-- INTRODUZIONE --------------------------------------------->
   <section class="py-24 bg-gray-50 dark:bg-gray-900/50 dark:text-gray-50">
-    <div class="container mx-auto px-4 lg:px-8 max-w-5xl grid gap-16">
+    <div class="container mx-auto px-4 lg:px-8 max-w-8xl grid gap-16">
       <article class="prose text-[24px] lg:prose-lg dark:prose-invert mx-auto">
-        <h1>Introduzione generale</h1>
-        <p>
+        <h1 class="text-5xl md-5">Introduzione generale</h1>
+        <div>
           Il mercato <em>pump.fun</em> presenta due fasi distinte – <strong>virtuale</strong> e
           <strong>reale</strong> – separate da una soglia di liquidità. All'origine ogni nuovo token
           parte con 30 SOL virtuali e <code>1 073 000 191</code> token in circolazione. Finché la
@@ -46,17 +47,92 @@ import Layout from '../../../layouts/BaseLayout.astro';
           <a href="#bonding-curve">bonding curve</a> <span class="whitespace-nowrap">\(x·y=k\)</span>.
           Raggiunta la soglia, la curva viene "laureata" e confluisce in una pool AMM reale,
           mantenendo inalterato il prezzo al momento della transizione.
-        </p>
+        </div>
       </article>
+
+      <div class="container px-4 max-w-8xl">
+        <div class="flex flex-col md:flex-row items-center gap-8">
+          <!-- Colonna Testo -->
+          <div class="md:w-1/3">
+            <h2 class="text-3xl font-extrabold mb-4">Token Graduation</h2>
+            <p class="text-lg mb-6">
+              Andamento delle riserve <em>SOL</em> e <em>Token</em>, della liquidità <em>Kappa</em> e del <em>Prezzo</em> per un particolare token graduato nella piattaforma.<br class="hidden md:block mb-5"/>
+              Cambio repentino della liquidità e continuità nei prezzi nei prezzi della transizione di <em>"fase"</em> tra virtual e Bonding Curve.
+            </p>
+            <a href="/img/pumpfun/grad_token.png" target="_blank"
+              class="inline-block px-5 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition">
+              Ingrandisci
+            </a>
+          </div>
+
+          <!-- Colonna Immagine -->
+          <div class="md:w-2/3">
+            <img
+              src={"/img/pumpfun/grad_token.png"}
+              alt="Descrizione immagine"
+              class="w-full h-full rounded-lg shadow-lg object-cover"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="container px-4 max-w-8xl">
+        <div class="flex flex-col md:flex-row items-center gap-8">
+          <div class="md:w-2/3">
+            <img
+              src={"/img/pumpfun/grad_time_histogram.png"}
+              alt="Descrizione immagine"
+              class="w-full h-full rounded-lg shadow-lg object-cover"
+            />
+          </div>
+
+          <div class="md:w-1/3">
+            <h2 class="text-3xl font-extrabold mb-4">Tempo di Graduation</h2>
+            <p class="text-lg mb-6">
+              Frequenza di gradution dopo un certo intervallo di tempo
+            </p>
+            <a href="/img/pumpfun/grad_time_histogram.png" target="_blank"
+              class="inline-block px-5 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition">
+              Ingrandisci
+            </a>
+          </div>
+          
+        </div>
+      </div>
+
+      <div class="container px-4 max-w-8xl">
+        <div class="flex flex-col md:flex-row items-center gap-8">
+          <!-- Colonna Testo -->
+          <div class="md:w-1/3">
+            <h2 class="text-3xl font-extrabold mb-4">Probabilità di Graduation</h2>
+            <p class="text-lg mb-6">
+              Andamento di come evolve la probabilità di graduation in funzione della quantità di SOL presenti nella riserva della Bonding Curve o pool virtuale.
+            </p>
+            <a href="/img/pumpfun/prob_grad.png" target="_blank"
+              class="inline-block px-5 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition">
+              Ingrandisci
+            </a>
+          </div>
+
+          <!-- Colonna Immagine -->
+          <div class="md:w-2/3">
+            <img
+              src={"/img/pumpfun/prob_grad.png"}
+              alt="Descrizione immagine"
+              class="w-full h-full rounded-lg shadow-lg object-cover"
+            />
+          </div>
+        </div>
+      </div>
 
       <!-- GRAFICO BONDING CURVE --------------------------------->
       <div id="bonding-curve" class="mx-auto max-w-3xl">
         <canvas id="curveChart" class="w-full h-72"></canvas>
         <p class="mt-4 text-center text-sm text-gray-500 dark:text-gray-400">
-          Figura 1 – Andamento teorico della bonding curve (<code>y = k / (x+30)</code>) con
-          evidenza del punto di graduation.
+          Figura 1 – Bonding curve (<code>y = k / (x+30)</code>)
         </p>
       </div>
+
     </div>
   </section>
 
@@ -122,90 +198,38 @@ import Layout from '../../../layouts/BaseLayout.astro';
     </div>
   </section>
 
-  <!-- SCRIPTS -------------------------------------------------->
-  <script type="module" is:inline>
-    import Chart from 'chart.js/auto';
+<!-- script: usa client:load per esecuzione lato browser -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="module" client:load>
+  //import Chart from 'chart.js/auto';           // assicurati di aver fatto:  npm i chart.js
 
-    /* COUNTERS ----------------------------------------------------------------*/
-    const counters = {
-      coins: 208851,
-      grad: 0.7,
-      botFirst: 18,
-      botGrad: 56,
-      avgYield: 7,
-    };
-    const animateCounter = (id, end, suffix = '') => {
-      const el = document.getElementById(id);
-      let current = 0;
-      const step = end / 60;
-      const update = () => {
-        current += step;
-        if (current >= end) current = end;
-        el.textContent = `${end >= 100 ? Math.floor(current) : current.toFixed(1)}${suffix}`;
-        if (current < end) requestAnimationFrame(update);
-      };
-      update();
-    };
-    onMount(() => {
-      animateCounter('counter-coins', counters.coins);
-      animateCounter('counter-grad', counters.grad, '%');
-      animateCounter('botFirst', counters.botFirst, '%');
-      animateCounter('botGrad', counters.botGrad, '%');
-      animateCounter('avgYield', counters.avgYield, '%');
-    });
+  // ATTENDI DOM (<client:load> lo garantisce già)
+  const ctx = document.getElementById('curveChart');
+  if (!ctx) { console.error('Canvas non trovato'); }
 
-    /* BONDING CURVE -----------------------------------------------------------*/
-    const ctx = document.getElementById('curveChart');
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: Array.from({ length: 120 }, (_, i) => i),
-        datasets: [
-          {
-            label: 'Token residui',
-            data: Array.from({ length: 120 }, (_, x) => 1073000191 - (30 * 1073000191) / (30 + x)),
-            fill: false,
-          },
-        ],
-      },
-      options: { responsive: true, scales: { y: { beginAtZero: false } } },
-    });
+  /* serie fittizia di esempio */
+  const labels = Array.from({ length: 85 }, (_, i) => i);
+  const data   = labels.map(x => (30 * 1_073_000_191) / (30 + x) - 279_900_191);
+  //(x => 1_073_000_191 - (30 * 1_073_000_191) / (30 + x));
 
-    /* PROBABILITY CHART + SLIDER --------------------------------------------*/
-    const ctxProb = document.getElementById('probChart');
-    const probData = Array.from({ length: 121 }, (_, x) => (x < 80 ? 0.0001 * x * x : 0.6 + 0.004 * (x - 80))).map((p) => Math.min(p, 1));
-    const probChart = new Chart(ctxProb, {
-      type: 'line',
-      data: {
-        labels: Array.from({ length: 121 }, (_, i) => i),
-        datasets: [{ label: 'Probabilità', data: probData, fill: true }],
-      },
-      options: { responsive: true, scales: { y: { max: 1, beginAtZero: true } } },
-    });
-    const solInput = document.getElementById('solInput');
-    const probOutput = document.getElementById('probOutput');
-    const updateProb = () => {
-      const x = Number(solInput.value);
-      const p = probData[x];
-      probOutput.textContent = `${(p * 100).toFixed(1)} %`;
-    };
-    solInput.addEventListener('input', updateProb);
-    updateProb();
+  new Chart(ctx, {
+    type : 'line',
+    data : {
+      labels,
+      datasets: [{
+        label: 'Token residui',
+        data,
+        borderColor     : '#4f46e5',
+        backgroundColor : 'rgba(99,102,241,0.15)',
+        borderWidth     : 2,
+        tension         : 0.25,
+        pointRadius     : 0,
+        fill            : true,
+      }],
+    },
+    options: { plugins: { legend: { display: false } } },
+  });
+</script>
 
-    /* YIELD CHART -----------------------------------------------------------*/
-    const ctxYield = document.getElementById('yieldChart');
-    const yieldData = Array.from({ length: 300 }, (_, a) => Math.max(0, 0.7 - a * 0.002));
-    new Chart(ctxYield, {
-      type: 'bar',
-      data: {
-        labels: Array.from({ length: 300 }, (_, i) => i),
-        datasets: [{ label: 'P(η>0) dopo a passi', data: yieldData }],
-      },
-      options: {
-        responsive: true,
-        plugins: { legend: { display: false } },
-        scales: { y: { max: 1, beginAtZero: true } },
-      },
-    });
-  </script>
+
 </Layout>
