@@ -206,13 +206,24 @@ const CALLS = import.meta.env.PUBLIC_OPENAI_API_KEY;
     const ln = Math.log;
     function pct2w(p){ return p/100; }
 
-    async function fetchSeries(ticker){
-      const sym = ticker;
-      console.log(sym);
-      const r = await fetch(`/api/chart/${sym}`);
-      if(!r.ok) throw new Error(`dati ${ticker} mancanti`);
-      return await r.json();        // [{date,close}, …]
-    }
+    async function fetchSeries(sym){
+      const now=Math.floor(Date.now()/1000);
+      const year=now-60*60*24*365;
+      const url=`https://query2.finance.yahoo.com/v8/finance/chart/${sym}?period1=${year}&period2=${now}&interval=1d`;
+
+      /* <-- la magia: proxy anti-CORS –> */
+      const prox=`https://corsproxy.io/?${encodeURIComponent(url)}`;
+
+      const r=await fetch(prox,{headers:{'User-Agent':'Mozilla/5.0'}});
+      if(!r.ok)throw new Error('Yahoo non risponde');
+      const j=await r.json();
+      const res=j.chart?.result?.[0];
+      if(!res)throw new Error('Ticker assente');
+      return res.timestamp.map((t,i)=>({
+        date : new Date(t*1000).toISOString().slice(0,10),
+        close: res.indicators.quote[0].close[i]
+      })).filter(d=>d.close!=null);
+  ``}
 
     form.onsubmit = async e=>{
       e.preventDefault();
