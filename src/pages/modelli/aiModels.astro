@@ -1,0 +1,287 @@
+---
+import Layout from '../../layouts/BaseLayout.astro';
+---
+
+
+<!-- Pagina interattiva: ETF crypto (ADA, ETH, SOL) – cumulato dei log‑rendimenti ponderati -->
+<!-- CDN: KaTeX, Chart.js, PapaParse -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+<Layout title="Modelli di Intelligenza Artificiale per la Finanza">
+  <section class="py-24">
+    <div class="max-w-3xl mx-auto px-4 text-center space-y-10">
+      <h1 class="text-4xl font-extrabold">Modelli di Intelligenza Artificiale per la Finanza</h1>
+        <section class="py-12 px-6 max-w-5xl mx-auto">
+  <h2 class="text-3xl font-bold mb-6">Intelligenza Artificiale e Finanza: comprendere e simulare i mercati attraverso i dati</h2>
+  
+  <p class="mb-4">
+    Nel cuore dei mercati finanziari si cela una dinamica complessa tra volumi di scambio e movimenti dei prezzi, determinata dalla microstruttura del mercato e in particolare dal funzionamento del <em>limit order book</em>. Ogni operazione — un ordine immesso, cancellato o eseguito — contribuisce alla formazione dei prezzi e alla loro evoluzione nel tempo. Comprendere e modellare con precisione questa interazione è cruciale per una vasta gamma di applicazioni: dalla previsione dell’andamento dei prezzi alla gestione del rischio, dall’ottimizzazione delle strategie di esecuzione alla valutazione dell’impatto di una politica economica.
+  </p>
+
+  <p class="mb-4">
+    In questo contesto, i modelli di intelligenza artificiale rappresentano un’opportunità straordinaria. In particolare, i modelli <strong>non lineari e non parametrici</strong> — come le reti neurali — si sono dimostrati capaci di catturare dipendenze complesse che sfuggono ai tradizionali approcci lineari. Questo non significa che siano sempre necessari: in alcuni contesti, modelli lineari ben calibrati possono fornire risultati soddisfacenti e interpretabili. Tuttavia, <strong>quando il sistema è altamente non lineare o quando non disponiamo di un’ipotesi chiara sulla sua struttura</strong>, i modelli <em>data-driven</em> diventano fondamentali. In questi casi, non imponiamo una forma funzionale predefinita, ma lasciamo che siano i dati stessi a guidare la costruzione del modello.
+  </p>
+
+  <p class="mb-4">
+    I modelli di deep learning — inclusi multilayer perceptron, reti convoluzionali e LSTM — permettono di apprendere queste strutture complesse in modo flessibile, sfruttando informazioni ricorrenti e correlazioni nascoste. Non solo riescono a <strong>prevedere con maggiore precisione</strong> rispetto ai modelli tradizionali, ma si rivelano anche potenti strumenti per <strong>simulare il comportamento del mercato</strong>, riproducendo le proprietà statistiche osservate nei dati reali. Ciò è particolarmente utile per lo studio dell’<em>impatto di mercato</em>, cioè l’effetto che una sequenza di ordini (o <em>metaordine</em>) può avere sui prezzi — un elemento cruciale nella determinazione dei costi di transazione e nell’ottimizzazione dell’esecuzione.
+  </p>
+
+  <p class="mb-4">
+    Naturalmente, l’utilizzo efficace di questi modelli richiede attenzione: <strong>non è sufficiente adottare una rete neurale qualsiasi</strong>. Occorre progettare architetture adeguate, selezionare input informativi, scegliere le finestre temporali opportune, ed essere consapevoli dei rischi di overfitting. Inoltre, grazie a tecniche moderne di <em>explainability</em> come SHAP, possiamo oggi interpretare in modo più trasparente il comportamento di questi modelli, identificando quali fattori guidano le loro previsioni.
+  </p>
+
+  <p>
+    Il nostro obiettivo è esplorare — con rigore scientifico e attenzione pratica — come l’intelligenza artificiale possa offrire nuovi strumenti per modellare, simulare e comprendere i mercati finanziari a livello microstrutturale. Sia per la ricerca, sia per l’operatività.
+  </p>
+</section>
+
+
+<section class="py-12 px-6 max-w-5xl mx-auto">
+  <h2 class="text-3xl font-bold mb-6">Modelli di prezzo e volume: comprendere i mercati per anticiparli</h2>
+
+  <p class="mb-4">
+    Un <strong>modello di prezzo e volume</strong> (o <em>price and trade model</em>) è uno strumento matematico che descrive in modo congiunto come evolvono i prezzi e i volumi degli scambi nel tempo. Questi modelli tengono conto delle interazioni dinamiche tra flussi di ordini, variazioni di prezzo e comportamenti degli operatori di mercato.
+  </p>
+
+  <p class="mb-4">
+    Avere un buon modello significa due cose: da un lato, <strong>ottenere alpha</strong> — ovvero, anticipare i movimenti futuri del mercato in modo sistematico e profittevole; dall'altro, <strong>disporre di un simulatore realistico</strong>, in grado di generare scenari sintetici ma credibili su cui testare nuove strategie, valutare l'impatto di un ordine sul mercato e stimare i costi di transazione.
+  </p>
+
+  <p class="mb-4">
+    In assenza di un'ipotesi teorica forte, è possibile costruire questi modelli <strong>direttamente dai dati</strong>, grazie a tecniche di apprendimento automatico. Tra queste, le <strong>reti neurali</strong> rappresentano oggi una delle soluzioni più potenti e flessibili.
+  </p>
+
+  <h3 class="text-2xl font-semibold mt-10 mb-4">Cos'è una rete neurale?</h3>
+
+  <p class="mb-4">
+    Una <strong>rete neurale</strong> è un modello computazionale ispirato al funzionamento del cervello umano. È composta da una serie di strati di nodi (chiamati <em>neuroni</em>), ciascuno dei quali elabora informazioni e le trasmette agli strati successivi. Ogni connessione è associata a un <em>peso</em>, che viene appreso dai dati durante l’addestramento.
+  </p>
+
+  <p class="mb-4">
+    Quando forniamo alla rete una sequenza di dati storici (ad esempio, una serie di prezzi e volumi), essa è in grado di apprendere pattern nascosti, relazioni non lineari e dipendenze complesse tra le variabili. Il risultato è una funzione predittiva che può essere utilizzata sia per <strong>fare previsioni</strong>, sia per <strong>simulare scenari realistici</strong> che riproducano le proprietà statistiche dei mercati reali.
+  </p>
+
+  <p class="mb-4">
+    Di seguito trovi una visualizzazione interattiva semplificata di una rete neurale.
+  </p>
+</section>
+
+
+<section class="py-10 px-6 max-w-4xl mx-auto">
+  <h3 class="text-2xl font-bold mb-4">Visualizzazione di una rete neurale feed-forward</h3>
+
+<style>
+  .nn-node circle {
+    fill: #6fa8dc;
+    stroke: #2a2a2a;
+    stroke-width: 1.5px;
+    transition: transform 0.2s ease, fill 0.2s ease;
+  }
+  .nn-node:hover circle {
+    transform: scale(1.1);
+    fill: #9fc5e8;
+  }
+  .nn-connection {
+    fill: none;
+    stroke: #bbb;
+    stroke-width: 1.2;
+  }
+</style>
+
+<svg width="700" height="360" viewBox="0 0 700 360" class="mx-auto block">
+  <!-- Layer input -->
+  <g class="nn-node" transform="translate(100, 100)">
+    <circle r="20"></circle>
+    <title>Input 1: feature x₁</title>
+    <text x="0" y="5" text-anchor="middle" font-size="12" fill="#fff">x₁</text>
+  </g>
+  <g class="nn-node" transform="translate(100, 240)">
+    <circle r="20"></circle>
+    <title>Input 2: feature x₂</title>
+    <text x="0" y="5" text-anchor="middle" font-size="12" fill="#fff">x₂</text>
+  </g>
+
+  <!-- Layer hidden -->
+  <g class="nn-node" transform="translate(340, 60)">
+    <circle r="20"></circle>
+    <title>Hidden neuron h₁</title>
+    <text x="0" y="5" text-anchor="middle" font-size="12" fill="#fff">h₁</text>
+  </g>
+  <g class="nn-node" transform="translate(340, 160)">
+    <circle r="20"></circle>
+    <title>Hidden neuron h₂</title>
+    <text x="0" y="5" text-anchor="middle" font-size="12" fill="#fff">h₂</text>
+  </g>
+  <g class="nn-node" transform="translate(340, 260)">
+    <circle r="20"></circle>
+    <title>Hidden neuron h₃</title>
+    <text x="0" y="5" text-anchor="middle" font-size="12" fill="#fff">h₃</text>
+  </g>
+
+  <!-- Layer output -->
+  <g class="nn-node" transform="translate(580, 140)">
+    <circle r="20"></circle>
+    <title>Output 1: ŷ₁</title>
+    <text x="0" y="5" text-anchor="middle" font-size="12" fill="#fff">ŷ₁</text>
+  </g>
+  <g class="nn-node" transform="translate(580, 220)">
+    <circle r="20"></circle>
+    <title>Output 2: ŷ₂</title>
+    <text x="0" y="5" text-anchor="middle" font-size="12" fill="#fff">ŷ₂</text>
+  </g>
+
+  <!-- Connessioni input → hidden -->
+  <path class="nn-connection" d="
+    M120,100 C200,100 280,60 320,60
+    M120,100 C200,100 280,160 320,160
+    M120,100 C200,100 280,260 320,260
+
+    M120,240 C200,240 280,60 320,60
+    M120,240 C200,240 280,160 320,160
+    M120,240 C200,240 280,260 320,260
+  "/>
+
+  <!-- Connessioni hidden → output -->
+  <path class="nn-connection" d="
+    M360,60 C440,60 520,140 580,140
+    M360,160 C440,160 520,140 580,140
+    M360,260 C440,260 520,140 580,140
+
+    M360,60 C440,60 520,220 580,220
+    M360,160 C440,160 520,220 580,220
+    M360,260 C440,260 520,220 580,220
+  "/>
+</svg>
+
+
+  <p class="mb-4">
+    In questo esempio, vediamo una semplice rete neurale con:
+    <ul>
+      <li><strong>2 nodi di input</strong> (x₁ e x₂), che ricevono le features iniziali come prezzi e volumi;</li>
+      <li><strong>3 nodi nel layer nascosto</strong> (h₁, h₂, h₃), che elaborano i pattern non lineari tra le feature;</li>
+      <li><strong>2 nodi di output</strong> (ŷ₁ e ŷ₂), che producono predizioni finali, ad esempio ritorno futuro e volume previsto.</li>
+    </ul>
+  </p>
+
+  <p class="mb-4">
+    I <em>tooltip</em> forniscono informazioni testuali quando passi il mouse sopra ogni neurone. I colori chiari e l'effetto hover rendono la visualizzazione ancora più leggibile.
+  </p>
+
+  <p class="mb-4">
+    La rete funziona così:
+    <ol>
+      <li>Ogni input viene moltiplicato per pesi e combinato nei nodi nascosti.</li>
+      <li>I nodi nascosti applicano funzioni non lineari (es. ReLU, tanh), catturando pattern complessi.</li>
+      <li>Infine, i nodi di output aggregano queste informazioni per generare le predizioni finali.</li>
+    </ol>
+  </p>
+
+  <p>
+    Questo tipo di modello è estremamente utile in finanza perché può:
+    <ul>
+      <li>estrarre <strong>alpha</strong>, ovvero segnali predittivi sui prezzi;</li>
+      <li>essere utilizzato come <strong>simulatore di mercato</strong>, permettendo di testare strategie e stimare l&rsquo;<em>impatto di mercato</em> con dati sintetici ma realistici.</li>
+    </ul>
+  </p>
+</section>
+
+
+<section class="py-12 px-6 max-w-6xl mx-auto">
+  <h2 class="text-3xl font-bold mb-8 text-center">Il modello apprende le relazioni tra ritorni e volumi</h2>
+  <p class="text-center text-gray-700 mb-12 max-w-3xl mx-auto">
+    Le reti neurali non parametriche, addestrate solo sui dati storici, riescono a ricostruire spontaneamente
+    le dipendenze strutturali tra <strong>ritorni</strong> e <strong>volumi</strong>, senza alcuna informazione esplicita
+    sulle loro interazioni. I grafici seguenti ne mostrano le capacità.
+  </p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+    <!-- Immagine 1 -->
+    <div class="flex flex-col items-center text-center">
+      <img src="/img/AIModeling/shap_scatter__MLP_20l_I0_O0_binned.png" alt="Dipendenza 1" class="rounded-lg shadow-md w-full h-auto max-w-sm">
+      <p class="mt-4 text-gray-600 text-sm">
+        <strong>Figura 1.</strong> La rete apprende l’effetto dei volumi passati sui ritorni futuri.
+      </p>
+    </div>
+
+    <!-- Immagine 2 -->
+    <div class="flex flex-col items-center text-center">
+      <img src="/img/AIModeling/shap_scatter__MLP_20l_I0_O1_binned.png" alt="Dipendenza 2" class="rounded-lg shadow-md w-full h-auto max-w-sm">
+      <p class="mt-4 text-gray-600 text-sm">
+        <strong>Figura 2.</strong> Viene identificata una relazione persistente tra ritorni e flussi di ordini.
+      </p>
+    </div>
+
+    <!-- Immagine 3 -->
+    <div class="flex flex-col items-center text-center">
+      <img src="/img/AIModeling/shap_scatter__MLP_20l_I1_O0.png" alt="Dipendenza 3" class="rounded-lg shadow-md w-full h-auto max-w-sm">
+      <p class="mt-4 text-gray-600 text-sm">
+        <strong>Figura 3.</strong> Le correlazioni non lineari emergono senza preimpostazioni.
+      </p>
+    </div>
+
+    <!-- Immagine 4 -->
+    <div class="flex flex-col items-center text-center">
+      <img src="/img/AIModeling/shap_scatter__MLP_20l_I1_O1.png" alt="Dipendenza 4" class="rounded-lg shadow-md w-full h-auto max-w-sm">
+      <p class="mt-4 text-gray-600 text-sm">
+        <strong>Figura 4.</strong> Il modello cattura le co-dinamiche fra volume e prezzo nel tempo.
+      </p>
+    </div>
+  </div>
+</section>
+<p>
+Tali pattern ritrovati dalla rete neurale sono esattamente quelli che possono essere ritrovati nei dati finanziari, come riportato qui sotto.
+</p>
+<section class="py-12 px-6 max-w-6xl mx-auto">
+
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+    <!-- Immagine 1 -->
+    <div class="flex flex-col items-center text-center">
+      <img src="/img/AIModeling/binned_RealData_rtrt1_Avsgv.png" alt="Dipendenza 1" class="rounded-lg shadow-md w-full h-auto max-w-sm">
+      <p class="mt-4 text-gray-600 text-sm">
+        <strong>Figura 1.</strong> La rete apprende l’effetto dei volumi passati sui ritorni futuri.
+      </p>
+    </div>
+
+    <!-- Immagine 2 -->
+    <div class="flex flex-col items-center text-center">
+      <img src="/img/AIModeling/binned_RealData_vtrt1_Avsgv.png" alt="Dipendenza 2" class="rounded-lg shadow-md w-full h-auto max-w-sm">
+      <p class="mt-4 text-gray-600 text-sm">
+        <strong>Figura 2.</strong> Viene identificata una relazione persistente tra ritorni e flussi di ordini.
+      </p>
+    </div>
+
+    <!-- Immagine 3 -->
+    <div class="flex flex-col items-center text-center">
+      <img src="/img/AIModeling/binned_RealData_rtvt1_sgr.png" alt="Dipendenza 3" class="rounded-lg shadow-md w-full h-auto max-w-sm">
+      <p class="mt-4 text-gray-600 text-sm">
+        <strong>Figura 3.</strong> Le correlazioni non lineari emergono senza preimpostazioni.
+      </p>
+    </div>
+
+    <!-- Immagine 4 -->
+    <div class="flex flex-col items-center text-center">
+      <img src="/img/AIModeling/binned_RealData_vtvt1_sgr.png" alt="Dipendenza 4" class="rounded-lg shadow-md w-full h-auto max-w-sm">
+      <p class="mt-4 text-gray-600 text-sm">
+        <strong>Figura 4.</strong> Il modello cattura le co-dinamiche fra volume e prezzo nel tempo.
+      </p>
+    </div>
+  </div>
+
+
+
+
+</section>
+
+<div>
+    Questa maggiore espressività, accompagnata a una conoscenza approfondita della microstruttura, della modellizzazione statistica e dei mercati finanziari permette di generare degli alpha che possono, di conseguenza, potenziare le nostre strategie.
+</div>
+
+
+
+
+</Layout>

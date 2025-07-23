@@ -110,33 +110,212 @@ import Layout from '../../layouts/BaseLayout.astro';
       </p>
       </div>
       
-      A partire dai dati storici del Limit Order Book, è possibile ricavare una serie di informazioni fondamentali per comprendere la microstruttura del mercato e per calibrare un simulatore realistico. Il codice sottostante analizza l’intero dataset, calcolando metriche chiave che descrivono le caratteristiche dinamiche e strutturali dell’ETF considerato.
+      <p>
+      A partire dai dati storici del Limit Order Book, è possibile ricavare una serie di informazioni fondamentali per comprendere la microstruttura del mercato e per calibrare un simulatore realistico. Il nostro codice permette analizzare i dati del Limit Order Book considerato, calcolando metriche chiave che descrivono caratteristiche dinamiche e strutturali.
 
 Tra gli aspetti più rilevanti che vengono estratti vi sono, ad esempio, lo spread medio e mediano — espressi anche in basis points per normalizzare rispetto al prezzo — la volatilità intraday annualizzata, il tick size stimato in base alla granularità del book, e la profondità media ai primi livelli del book sia sul lato bid che su quello ask. Vengono inoltre analizzati il numero totale di esecuzioni, le dimensioni medie degli scambi, la frequenza di arrivo dei diversi tipi di ordine (limit, market, cancellazioni), la distanza tipica degli ordini limite rispetto al miglior prezzo, e la durata media degli ordini prima della cancellazione.
 
+Qui sotto mostriamo ad esempio la distribuzione dello spread e la sua dinamica in funzione del tempo nelle varie sessioni. 
+</p>
+
+  <div class="flex flex-col gap-24 mt-12">
+
+  <!-- Riga 1: grafico pieno a sinistra, testo a destra -->
+  <div class="flex flex-col md:flex-row items-start gap-8">
+    
+    <!-- Grafico istogramma - occupa il 65% -->
+    <div style="flex: 2; margin-left: 80px;">
+      <iframe src="/img/MM/Dist_Spread_Interactive.html"
+              style="width:1600px; height:800px; border:none;"></iframe>
+    </div>
+    
+    <!-- Testo - occupa il 35% -->
+    <div style="flex: 1; padding-left: 1rem;">
+      <p class="text-gray-600 text-base max-w-prose">
+        <strong>Figura 1.</strong> Distribuzione dello spread del LOB PSCH. Si osserva una distribuzione dello spread con media e mediana elevate, a conferma di una bassa competitività tra gli operatori e una scarsa profondità nei primi livelli del book.
+      </p>
+      
+    </div>
+    
+  </div>
+
+
+  <!-- Riga 2: testo a sinistra, grafico ancora più spostato a destra -->
+  <div class="flex flex-col items-center gap-4">
+
+  <!-- Grafico centrato -->
+  <div>
+    <iframe src="/img/MM/Spread_PerSessione_Interactive.html"
+            style="width:1200px; height:800px; border:none;"></iframe>
+  </div>
+
+  <!-- Testo sotto, centrato -->
+  <div class="text-center px-4 max-w-3xl">
+    <p class="text-gray-600 text-base">
+      <strong>Figura 2.</strong> Il grafico mostra la dinamica dello spread del LOB in funzione del tempo per le diverse sessioni.
+    </p>
+  </div>
+
+</div>
+
+</div>
+
+
+<div>
 Tutte queste informazioni permettono di costruire un simulatore calibrato che riproduce fedelmente le dinamiche osservate nei dati reali. Il comportamento degli agenti, le probabilità di cancellazione, la struttura dello spread e la distribuzione delle size possono essere così modellati in modo accurato. In basso sono riportate due visualizzazioni esemplificative: la distribuzione dello spread osservato e l’evoluzione dello spread nel tempo per ciascuna sessione analizzata.
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
-      <!-- Prima immagine -->
-      <div class="flex flex-col items-center text-center">
-        <img src="/img/MM/Dist_Spread.png" alt="Descrizione immagine 1" class="rounded-lg shadow-md max-w-full h-auto" />
-      <p class="mt-4 text-gray-600 text-base max-w-md">
-        <strong>Figura 1.</strong> LOB prima dell’introduzione del market maker. Si nota uno spread elevato e una bassa profondità ai primi livelli.
-      </p>
-      </div>
-
-      <!-- Seconda immagine -->
-      <div class="flex flex-col items-center text-center">
-        <img src="/img/MM/Spread_PerSessione.png" alt="Descrizione immagine 2" class="rounded-lg shadow-md max-w-full h-auto" />
-        <p class="mt-4 text-gray-600 text-base max-w-md">
-          <strong>Figura 2.</strong> LOB dopo l’introduzione del market maker. Lo spread si riduce e aumentano i volumi vicino al mid-price.
-        </p>
-        </div>
-      </div>
+Nella tabella seguente riportiamo alcune delle proprietà che caratterizzano il la dinamica del Limit Order Book considerato.
+</div>
 
 
+<!-- DataTables + jQuery -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
-    </div>
+<!-- Tabella -->
+<table id="tabellaSpread" class="display" style="width:100%; border-collapse: collapse; border: 1px solid #ddd;">
+  <thead>
+    <tr style="background-color: #f2f2f2;">
+      <th>Spread<br>medio</th>
+      <th>Spread<br>mediano</th>
+      <th>Volatilità<br>ann.</th>
+      <th>Tick<br>size</th>
+      <th>Volume<br>medio</th>
+      <th>λ_limit</th>
+      <th>λ_mkt</th>
+      <th>λ_cancel</th>
+      <th>Prof.<br>Bid</th>
+      <th>Prof.<br>Ask</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>8.88e-02</td>
+      <td>9.00e-02</td>
+      <td>1.47e-02</td>
+      <td>4.50e-02</td>
+      <td>7.08e+01</td>
+      <td>1.64e-01</td>
+      <td>4.57e-04</td>
+      <td>1.64e-01</td>
+      <td>1.34e+03</td>
+      <td>9.65e+02</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Attivazione DataTable -->
+<script>
+  $(document).ready(function () {
+    $('#tabellaSpread').DataTable({
+      paging: false,
+      searching: false,
+      info: false,
+      scrollX: true
+    });
+  });
+</script>
+<p>
+Nella tabella è riportato lo spread medio del book, lo spread mediano, la volatilità annualizzata, la tick size stimata come la metà dello spread, il volume medio dell'arrivo degli ordini, il numero medio di esecuzioni,limit order e cancellazioni al secondo, e poi la profondità media dei primi tre livelli. 
+Inoltre, è possibile anche estrarre la distribuzione delle distanze a cui vengono inseriti i limit order e la distribuzione delle size condizionate al livello in cui vengono piazzate.
+</p>
+
+<h3 class="text-2xl font-semibold">Simulatore di Limit Order Book</h3>
+     
+
+<p>
+Il <strong>nostro codice</strong> è in grado di simulare il comportamento di un mercato order-driven realistico a partire dal book ricostruito dai dati empirici. L’intera simulazione avviene su un arco temporale che corrisponde alla durata effettiva delle sessioni contenute nel dataset, concatenando le sessioni una dopo l’altra.
+Il simulatore parte da uno snapshot reale del Limit Order Book (LOB), inizializzando i primi 10 livelli sia sul lato bid che ask con i prezzi e le quantità osservate nella prima riga del dataset. Nella modellizzazione vengono utilizzate le proprietà statistiche descritte in precedenza, come la profondità iniziale ai primi 3 livelli, lo spread mediano, e l’intensità degli ordini, ovvero il numero medio di inserimenti limite, cancellazioni ed esecuzioni per secondo.
+</p>
+
+<p>
+Ad ogni passo temporale, il simulatore aggiorna il LOB e genera dinamicamente eventi di tre tipi principali: market order, limit order e cancellazioni. Questi vengono campionati sulla base della frequenza estratta nello studio empirico del LOB tenendo conto dello spread corrente. La distanza dal mid-price è scelta secondo distribuzioni empiriche per lato e livello, con una probabilità di comportamento imitativo che può modificare questa scelta. Le quantità sono campionate da distribuzioni empiriche condizionate, e gli ordini vengono inseriti nel book aggregando con altri ordini dello stesso agente se presenti allo stesso prezzo.
+</p>
+
+<p>
+  Il <strong> simulatore </strong> è in grado di riprodurre piuttosto fedelmente le proprietà statistiche principali del Limit Order Book originale. Un esempio degli output di un modello è riportato nella tabella seguente.
+</p>
+
+<table id="tabellaSpread" class="display" style="width:100%; border-collapse: collapse; border: 1px solid #ddd;">
+  <thead>
+    <tr style="background-color: #f2f2f2;">
+      <th>Spread<br>medio</th>
+      <th>Spread<br>mediano</th>
+      <th>Volatilità<br>ann.</th>
+      <th>Volume<br>medio</th>
+      <th>λ_limit</th>
+      <th>λ_mkt</th>
+      <th>λ_cancel</th>
+      <th>Prof.<br>Bid</th>
+      <th>Prof.<br>Ask</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>8.11e-02</td>
+      <td>8.14e-02</td>
+      <td>0.81e-02</td>
+      <td>8.66e+01</td>
+      <td>1.67e-01</td>
+      <td>5.96e-04</td>
+      <td>1.64e-01</td>
+      <td>1.24e+03</td>
+      <td>8.95e+02</td>
+    </tr>
+  </tbody>
+</table>
+<p>
+In basso mostriamo una parte della simulazione del LOB derivante dal nostro simulatore calibrato sui dati. 
+</p>
+
+<div class="flex flex-col items-center mt-10 space-y-4">
+  <img src="/img/MM/lob_animation_simulator.gif" alt="Animazione LOB ETF poco liquido" class="w-full max-w-4xl rounded-xl shadow-md" />
+  <p class="text-lg text-gray-600 text-center max-w-2xl"></p>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+<p>
+  Tale simulatore permette di effettuare uno studio del Limit Order Book e, in particolare, di generare scenari da cui è possibile estrarre informazioni.
+  Uno scenario che mostriamo è quello in cui è introdotta la presenza di un Market Maker secondo il modello di Avellaneda-Stoikov.
+  Quest'ultimo genera le proprie quotazioni in acquisto e in vendita in modo ottimale, risolvendo un problema di controllo stocastico continuo.
+</p>
+Attraverso le simulazioni, è possibile mostrare che è il market maker ha l'effetto di ridurre lo spread. Questo produce una riduzione della volatilità e un aumento della
+liquidità del book grazie a un fenomeno di herding. 
+
+  <!-- Riga 2: testo a sinistra, grafico ancora più spostato a destra -->
+  <div class="flex flex-col items-center gap-4">
+
+  <!-- Grafico centrato -->
+  <div>
+    <iframe src="/img/MM/Spread_Sim_MM.html"
+            style="width:1200px; height:800px; border:none;"></iframe>
+  </div>
+
+  <!-- Testo sotto, centrato -->
+  <div class="text-center px-4 max-w-3xl">
+    <p class="text-gray-600 text-base">
+      <strong>Figura 2.</strong> Il grafico mostra la dinamica dello spread del LOB in funzione del tempo nel caso del simulatore in presenza di Market Maker di Avellaneda-Stoikov.
+    </p>
+  </div>
+</div>
+
+<p>
+Nella simulazione seguente le barre nere rappresentano gli ordini inseriti dal Market Maker di Avellaneda-Stoikov. 
+</p>
+
+<img src="/img/MM/lob_animation_simulator_MM.gif" alt="Animazione LOB ETF poco liquido" class="w-full max-w-4xl rounded-xl shadow-md" />
+
+ <p> 
+  Quello che si può osservare è che la presenza di tali ordini genera una riduzione dello spread e di conseguenza una stabilizzazione del mid-price. 
+  Questo genera un aumento degli ordini che si concentrano nelle vicinanze del nuovo best bid e best ask del Market Maker dovuto anche ad un meccanismo di herding.
+</p>
+<p>
+  Attraverso queste modellizzazioni del mercato siamo in grado di generare scenari sotto diverse condizioni e, dunque, effettuare stime dei costi, dei guadagni e dell'impatto che certe policy o certi accordi avrebbero sul Limit Order Book.
+</p>
+
 
     <!-- D3 plot remains unchanged -->
     <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js" client:load></script>
