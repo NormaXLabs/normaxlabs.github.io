@@ -35,63 +35,103 @@ import Layout from '../../../layouts/BaseLayout.astro';
   </section>
 
   <!-- INTRODUZIONE --------------------------------------------->
-  <section class="py-24 bg-gray-50 dark:bg-gray-900/50 dark:text-gray-50">
+  <section class="py-24 bg-white-50 dark:bg-white-900/50 dark:text-white-50">
     <div class="container mx-auto px-4 lg:px-8 max-w-8xl grid gap-16">
       <article class="prose text-[24px] lg:prose-lg dark:prose-invert mx-auto">
         <h1 class="text-5xl md-5">Introduzione generale</h1>
         <div>
-          Il mercato <em>pump.fun</em> presenta due fasi distinte – <strong>virtuale</strong> e
-          <strong>reale</strong> – separate da una soglia di liquidità. All'origine ogni nuovo token
-          parte con 30 SOL virtuali e <code>1 073 000 191</code> token in circolazione. Finché la
-          liquidità reale non oltrepassa circa 115 SOL, il prezzo segue la
-          <a href="#bonding-curve">bonding curve</a> <span class="whitespace-nowrap">\(x·y=k\)</span>.
-          Raggiunta la soglia, la curva viene "laureata" e confluisce in una pool AMM reale,
-          mantenendo inalterato il prezzo al momento della transizione.
+          
         </div>
       </article>
 
       <div class="container px-4 max-w-8xl">
         <div class="flex flex-col md:flex-row items-center gap-8">
-          <!-- Colonna Testo -->
+          
+          
+
+          <div class="md:w-2/3">
+            <!-- GRAFICO BONDING CURVE --------------------------------->
+            <div id="bonding-curve" class="mx-auto max-w-3xl">
+              <canvas id="curveChart" class="w-full h-72"></canvas>
+              <p class="mt-4 text-center text-xl text-gray-500 dark:text-gray-400">
+                Figura 1<br class="hidden md:block"/>- Virtual Bonding Curve (BC) (<code>y = k / (x+30) - 279_900_191 </code>)<br class="hidden md:block"/>
+                - Real BC (<code>y = k' / x </code>, <code> k' &lt k </code>)
+              </p>
+            </div>
+          </div>
+
+
           <div class="md:w-1/3">
-            <h2 class="text-3xl font-extrabold mb-4">Token Graduation</h2>
+            <h2 class="text-3xl font-extrabold mb-4">Reserves</h2>
             <p class="text-lg mb-6">
-              Andamento delle riserve <em>SOL</em> e <em>Token</em>, della liquidità <em>Kappa</em> e del <em>Prezzo</em> per un particolare token graduato nella piattaforma.<br class="hidden md:block mb-5"/>
-              Cambio repentino della liquidità e continuità nei prezzi nei prezzi della transizione di <em>"fase"</em> tra virtual e Bonding Curve.
+              Il mercato <em>pump.fun</em> presenta due fasi distinte – <strong>virtuale</strong> e
+              <strong>reale</strong> – separate da una soglia di liquidità. All'origine ogni nuovo token
+              parte con 30 SOL virtuali e <code>1 073 000 191</code> token in circolazione. Finché la
+              liquidità reale non oltrepassa circa 115 SOL, il prezzo segue la
+              <a href="#bonding-curve">bonding curve</a> <span class="whitespace-nowrap">\(x·y=k\)</span>.
+              Raggiunta la soglia, la curva viene "laureata" e confluisce in una pool AMM reale,
+              mantenendo inalterato il prezzo al momento della transizione.
             </p>
-            <a href="/img/pumpfun/grad_token.png" target="_blank"
+            <a href="/img/pumpfun/grad_token_clean_interactive.html" target="_blank"
               class="inline-block px-5 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition">
               Ingrandisci
             </a>
+            
           </div>
 
-          <!-- Colonna Immagine -->
-          <div class="md:w-2/3">
-            <img
-              src={"/img/pumpfun/grad_token.png"}
-              alt="Descrizione immagine"
-              class="w-full h-full rounded-lg shadow-lg object-cover"
-            />
-          </div>
+
+
         </div>
       </div>
 
       <div class="container px-4 max-w-8xl">
         <div class="flex flex-col md:flex-row items-center gap-8">
-          <div class="md:w-2/3">
-            <img
-              src={"/img/pumpfun/grad_time_histogram.png"}
-              alt="Descrizione immagine"
-              class="w-full h-full rounded-lg shadow-lg object-cover"
-            />
+          <!-- Colonna Testo -->
+          <div class="md:w-1/2">
+            <h2 class="text-3xl font-extrabold mb-4">Token Graduation</h2>
+            <p class="text-lg mb-6">
+              Andamento delle riserve <em>SOL</em> e <em>Token</em>, della liquidità <em>Kappa</em> e del <em>Prezzo</em> per un particolare token graduato nella piattaforma.<br class="hidden md:block mb-5"/>
+              Cambio repentino della liquidità e continuità nei prezzi nei prezzi della transizione di <em>"fase"</em> tra virtual e Bonding Curve.
+            </p>
+            <a href="/img/pumpfun/grad_token_clean_interactive.html" target="_blank"
+              class="inline-block px-5 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition">
+              Ingrandisci
+            </a>
+            
           </div>
 
-          <div class="md:w-1/3">
+          <!-- Colonna Immagine -->
+          <div class="md:w-1/2">
+            <iframe
+              src="/img/pumpfun/grad_token_clean_interactive.html"  
+              class="w-[830px] h-[700px] rounded-lg shadow-lg border"
+              scrolling="no"                  
+              title="Grafico embedded"
+            ></iframe>
+          </div>
+
+
+
+        </div>
+      </div>
+
+      <div class="container px-4 max-w-8xl">
+        <div class="flex flex-col md:flex-row items-center gap-80">
+          <div class="md:w-1/2">
+            <iframe
+              src="/img/pumpfun/grad_time_histogram_interactive.html"  
+              class="w-[650px] h-[420px] rounded-lg shadow-lg border"
+              scrolling="no"                  
+              title="Grafico embedded"
+            ></iframe>
+          </div>
+
+          <div class="md:w-1/2">
             <h2 class="text-3xl font-extrabold mb-4">Tempo di Graduation</h2>
             <p class="text-lg mb-6">
               Frequenza di gradution dopo un certo intervallo di tempo
             </p>
-            <a href="/img/pumpfun/grad_time_histogram.png" target="_blank"
+            <a href="/img/pumpfun/grad_time_histogram_interactive.html" target="_blank"
               class="inline-block px-5 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition">
               Ingrandisci
             </a>
@@ -103,62 +143,33 @@ import Layout from '../../../layouts/BaseLayout.astro';
       <div class="container px-4 max-w-8xl">
         <div class="flex flex-col md:flex-row items-center gap-8">
           <!-- Colonna Testo -->
-          <div class="md:w-1/3">
+          <div class="md:w-1/2">
             <h2 class="text-3xl font-extrabold mb-4">Probabilità di Graduation</h2>
             <p class="text-lg mb-6">
-              Andamento di come evolve la probabilità di graduation in funzione della quantità di SOL presenti nella riserva della Bonding Curve o pool virtuale.
+              Nei dati di una settimana osserviamo <strong>208 851</strong> nuovi token, di cui solo
+              <strong>1 581</strong> hanno superato la soglia, corrispondente a un tasso di graduation di
+              appena <strong>0,7 %</strong>. Il grafico interattivo mostra come la probabilità di successo
+              cresca con i SOL raccolti.
             </p>
-            <a href="/img/pumpfun/prob_grad.png" target="_blank"
+            <a href="/img/pumpfun/prob_grad_interactive.html" target="_blank"
               class="inline-block px-5 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition">
               Ingrandisci
             </a>
           </div>
 
           <!-- Colonna Immagine -->
-          <div class="md:w-2/3">
-            <img
-              src={"/img/pumpfun/prob_grad.png"}
-              alt="Descrizione immagine"
-              class="w-full h-full rounded-lg shadow-lg object-cover"
-            />
+          <div class="md:w-1/2">
+            <iframe
+              src="/img/pumpfun/prob_grad_interactive.html"  
+              class="w-[650px] h-[420px] rounded-lg shadow-lg border"
+              scrolling="no"                  
+              title="Grafico embedded"
+            ></iframe>
           </div>
         </div>
       </div>
 
-      <!-- GRAFICO BONDING CURVE --------------------------------->
-      <div id="bonding-curve" class="mx-auto max-w-3xl">
-        <canvas id="curveChart" class="w-full h-72"></canvas>
-        <p class="mt-4 text-center text-sm text-gray-500 dark:text-gray-400">
-          Figura 1 – Bonding curve (<code>y = k / (x+30)</code>)
-        </p>
-      </div>
 
-    </div>
-  </section>
-
-  <!-- PROBABILITÀ DI GRADUATION -------------------------------->
-  <section class="py-24 relative bg-white dark:bg-gray-950">
-    <div class="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-emerald-100/60 to-transparent dark:from-emerald-800/40 -z-10" />
-    <div class="container mx-auto px-4 lg:px-8 max-w-6xl grid lg:grid-cols-2 gap-16 items-center">
-      <div>
-        <h2 class="text-3xl font-extrabold mb-4">Quanto è probabile che un token si laurei?</h2>
-        <p class="mb-8 text-lg leading-relaxed dark:text-gray-300">
-          Nei dati di una settimana osserviamo <strong>208 851</strong> nuovi token, di cui solo
-          <strong>1 581</strong> hanno superato la soglia, corrispondente a un tasso di graduation di
-          appena <strong>0,7 %</strong>. Il grafico interattivo mostra come la probabilità di successo
-          cresca con i SOL raccolti.
-        </p>
-        <div class="flex flex-col gap-4">
-          <label for="solInput" class="font-medium">SOL attuali:</label>
-          <input type="range" id="solInput" min="0" max="120" value="50" class="w-full accent-emerald-600" />
-          <p class="text-center text-xl font-semibold">
-            Probabilità graduazione: <span id="probOutput">0 %</span>
-          </p>
-        </div>
-      </div>
-      <div>
-        <canvas id="probChart" class="w-full h-80" />
-      </div>
     </div>
   </section>
 
@@ -192,9 +203,8 @@ import Layout from '../../../layouts/BaseLayout.astro';
   <section class="py-20 bg-gradient-to-br from-indigo-600 via-sky-600 to-emerald-500 text-white text-center">
     <div class="container mx-auto px-4 max-w-4xl">
       <h2 class="text-4xl font-black mb-4">Esplora i dati in tempo reale</h2>
-      <p class="text-lg mb-8">Collegati con wallet per visualizzare i token live, simulare trade e
-        salvare dashboard personalizzate.</p>
-      <a href="/dashboard" class="inline-block px-8 py-4 bg-white/10 rounded-full backdrop-blur hover:bg-white/20 transition font-semibold">Apri Dashboard</a>
+      <p class="text-lg mb-8">Collegati per visualizzare i token live e osservare tutte le transazioni<br class="hidden md:block"/>nella blockchain di Solana, utilizzando i programId di Pump.fun.</p>
+      <a href="https://solscan.io/" target="_blank" class="inline-block px-8 py-4 bg-white/10 rounded-full backdrop-blur hover:bg-white/20 transition font-semibold">Apri Dashboard</a>
     </div>
   </section>
 
@@ -212,13 +222,25 @@ import Layout from '../../../layouts/BaseLayout.astro';
   const data   = labels.map(x => (30 * 1_073_000_191) / (30 + x) - 279_900_191);
   //(x => 1_073_000_191 - (30 * 1_073_000_191) / (30 + x));
 
+  const labels1 = Array.from({ length: 85 }, (_, i) => i);
+  const data1   = labels1.map(x => (85 * 206_900_000) / x);
   new Chart(ctx, {
     type : 'line',
     data : {
       labels,
       datasets: [{
-        label: 'Token residui',
+        label: 'Virtual',
         data,
+        borderColor     : 'red',
+        backgroundColor : 'orange',
+        borderWidth     : 2,
+        tension         : 0.25,
+        pointRadius     : 0,
+        fill            : true,
+      },
+      {
+        label: 'Real',
+        data: data1,
         borderColor     : '#4f46e5',
         backgroundColor : 'rgba(99,102,241,0.15)',
         borderWidth     : 2,
@@ -227,9 +249,20 @@ import Layout from '../../../layouts/BaseLayout.astro';
         fill            : true,
       }],
     },
-    options: { plugins: { legend: { display: false } } },
+    options: { plugins: { legend: { position: 'bottom' , labels: {font: {size: 26}}} },
+          scales: {
+            x: { title: { display: true, text: 'SOL in BC', font: {
+            size: 26  } }, ticks: { font: {size: 18}, maxTicksLimit: 8, stepSize: 100} },
+            y: {  max: 8e8,  title: { display: true, text: 'Token in BC', font: { size: 26  } }, ticks: { font: {size: 18}, stepSize: 4e8, autoSkip: true, maxTicksLimit: 6, callback: value => {
+              if (value === 0) return '0';
+              const [m, e] = value.toExponential().split('e');
+              const mant = parseFloat(m).toFixed(0);
+              const exp  = e.replace('+','');
+              return `${mant}e${exp}`;
+            }} }
+          },
+          animation: { duration: 500 } },
   });
 </script>
-
 
 </Layout>
