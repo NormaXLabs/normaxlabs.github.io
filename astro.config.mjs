@@ -10,7 +10,7 @@ import rehypeKatex from 'rehype-katex';
 export default defineConfig({
   // ――― Adapter ―――
   adapter: netlify({
-    dist: 'dist',   // cartella di output (Netlify la serve in automatico)
+    dist: { outDir: './docs' },   // cartella di output (Netlify la serve in automatico)
     edge: false     // true se vuoi Edge Functions
   }),
 
@@ -23,7 +23,7 @@ export default defineConfig({
   ],
 
   // ――― Sito pubblico (opzionale ma consigliato) ―――
-  site: 'https://normaxlabs.netlify.app',
+  site: 'https://normaxlabs.github.io',
 
   // ――― Markdown & KaTeX ―――
   markdown: {
