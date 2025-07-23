@@ -1,0 +1,148 @@
+---
+import Layout from '../../layouts/BaseLayout.astro';
+
+/* === JSON di default (puoi incollarne un altro nel form) === */
+const defaultJSON = `{
+  "portfolio": [
+    { "ticker": "VOO",       "weight_pct": 15 },
+    { "ticker": "URTH",      "weight_pct": 15 },
+    { "ticker": "JNJ",       "weight_pct": 7  },
+    { "ticker": "PG",        "weight_pct": 7  },
+    { "ticker": "AWK",       "weight_pct": 5  },
+    { "ticker": "NEE",       "weight_pct": 5  },
+    { "ticker": "GLD",       "weight_pct": 6  },
+    { "ticker": "GOVT",      "weight_pct": 10 },
+    { "ticker": "FEZ",       "weight_pct": 6  },
+    { "ticker": "GOOGL",     "weight_pct": 4  },
+    { "ticker": "V",         "weight_pct": 4  },
+    { "ticker": "UL",        "weight_pct": 4  },
+    { "ticker": "KO",        "weight_pct": 4  },
+    { "ticker": "ETH-USD",   "weight_pct": 3  }
+  ]
+}`;
+---
+
+<Layout title="Return Portfolio">
+  <section class="py-24 max-w-5xl mx-auto space-y-14">
+    <h1 class="text-3xl font-bold text-center">Rendimento del portfolio in una finestra annuale</h1>
+    <p class="mt-4 max-w-xl mx-auto text-xl/relaxed font-gray tracking-tight drop-shadow-lg">
+      Incolla qui il tuo portfolio nello stesso formato riportato nell'esempio della sezione sottostante.
+    </p>
+
+    <!-- ===== Form JSON ===== -->
+    <form id="pfForm" class="space-y-6">
+      <textarea id="jsonArea"
+                class="w-full h-60 p-3 border rounded font-mono text-xs"
+                spellcheck="false">{defaultJSON}</textarea>
+      <button class="px-6 py-3 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition">
+        Elabora & Plot
+      </button>
+    </form>
+
+    <!-- Loader -->
+    <div id="loader" class="hidden flex items-center gap-3">
+      <span class="h-6 w-6 border-4 border-indigo-300 border-t-transparent rounded-full animate-spin"></span>
+      <p class="text-slate-600">Download prezzi…</p>
+    </div>
+
+    <!-- Canvas -->
+    <canvas id="pfChart" class="w-full h-96"></canvas>
+  </section>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- ===== Client-side ===== -->
+  <script type="module" client:load>
+    const $ = s => document.querySelector(s);
+
+    const form   = $('#pfForm');
+    const area   = $('#jsonArea');
+    const loader = $('#loader');
+    const canvas = $('#pfChart');
+    let   chart;
+
+    /* ------- helper ------- */
+    const ln = Math.log;
+    function pct2w(p){ return p/100; }
+
+    async function fetchSeries(ticker){
+      const sym = ticker;
+      console.log(sym);
+      const r = await fetch(`/api/chart/${sym}`);
+      if(!r.ok) throw new Error(`dati ${ticker} mancanti`);
+      return await r.json();        // [{date,close}, …]
+    }
+
+    form.onsubmit = async e=>{
+      e.preventDefault();
+      loader.classList.remove('hidden');
+
+      try{
+        const obj = JSON.parse(area.value);
+        const pos = obj.portfolio ?? [];
+        if(pos.length===0) throw new Error('portfolio vuoto');
+
+        /* scarica tutte le serie in parallelo */
+        const seriesMap = Object.fromEntries(
+          await Promise.all(pos.map(async p=>{
+            const rows = await fetchSeries(p.ticker);
+            return [p.ticker, rows];
+          }))
+        );
+
+        /* trova il set minimo di date comuni */
+        const commonDates = seriesMap[pos[0].ticker].map(r=>r.date)
+          .filter(d => pos.every(p => seriesMap[p.ticker].some(r=>r.date===d)));
+
+        /* calcola rendimenti log e cumulato */
+        const cumLog = [];
+        let acc = 0;
+        for(let i=1;i<commonDates.length;i++){
+          const d0 = commonDates[i-1];
+          const d1 = commonDates[i];
+
+          let daily = 0;
+          pos.forEach(p=>{
+            const arr = seriesMap[p.ticker];
+            const c0  = arr.find(r=>r.date===d0).close;
+            const c1  = arr.find(r=>r.date===d1).close;
+            const ret = ln(c1/c0);
+            daily += pct2w(p.weight_pct)*ret;
+          });
+
+          acc += daily;
+          cumLog.push({date:d1, value:acc});
+        }
+
+        /* build chart */
+        if(chart) chart.destroy();
+        chart = new Chart(canvas,{
+          type:'line',
+          data:{
+            labels: cumLog.map(r=>r.date),
+            datasets:[{
+              label:'Log-return cumulato',
+              data : cumLog.map(r=>r.value),
+              borderColor:'#4f46e5',
+              backgroundColor:'rgba(79,70,229,.15)',
+              pointRadius:0,
+              tension:.25,
+              fill:true,
+            }]
+          },
+          options:{
+            plugins:{legend:{position:'bottom'}},
+            scales:{ y:{ ticks:{ callback:v=>v.toFixed(3) } } }
+          }
+        });
+
+      }catch(err){
+        console.error(err);
+        alert(err.message);
+      }finally{
+        loader.classList.add('hidden');
+      }
+    };
+  </script>
+</Layout>

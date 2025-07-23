@@ -1,0 +1,94 @@
+---
+import Layout from '../../layouts/BaseLayout.astro';
+---
+
+<Layout title="Storico prezzi – Yahoo Finance">
+  <section class="py-20">
+    <div class="max-w-xl mx-auto space-y-10">
+      <h1 class="text-3xl font-extrabold text-center">
+        Storico 1 anno (dati Yahoo Finance)
+      </h1>
+
+      <!-- FORM -------------------------------------------------------------->
+      <form id="symForm" class="flex gap-3 justify-center">
+        <input id="symInput" required
+               class="border px-4 py-2 rounded w-40 text-center uppercase"
+               placeholder="AAPL" maxlength="10" />
+        <button class="px-5 py-2 bg-indigo-600 text-white rounded
+                       hover:bg-indigo-700 transition">Scarica</button>
+      </form>
+
+      <!-- Loader ------------------------------------------------------------>
+      <div id="loader" class="hidden flex items-center gap-3 justify-center">
+        <span class="h-6 w-6 border-4 border-indigo-300
+                     border-t-transparent rounded-full animate-spin"></span>
+        <p class="text-slate-600">Caricamento…</p>
+      </div>
+
+      <!-- Grafico ----------------------------------------------------------->
+      <canvas id="chart" class="w-full h-64 hidden"></canvas>
+    </div>
+  </section>
+
+  <!-- Chart.js ---------------------------------------------------------------->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Client JS --------------------------------------------------------------->
+  <script is:inline client:load>
+    const form   = document.getElementById('symForm');
+    const input  = document.getElementById('symInput');
+    const loader = document.getElementById('loader');
+    const canvas = document.getElementById('chart');
+    let   chart  = null;
+
+    const show = (el, state) => el.classList.toggle('hidden', !state);
+
+    form.onsubmit = async e => {
+      e.preventDefault();
+      const sym = input.value.trim().toUpperCase();
+      if (!sym) return;
+
+      show(loader, true); show(canvas, false);
+
+      try {
+        
+        const res   = await fetch(`/api/chart/${sym}`);
+        if (!res.ok) throw new Error('Dati non trovati');
+        const json  = await res.json();
+        //console.log(json);
+        const labels= json.map(d => d.date);
+        const prices= json.map(d => d.close);
+
+        if (chart) chart.destroy();
+        chart = new Chart(canvas, {
+          type : 'line',
+          data : {
+            labels,
+            datasets: [{
+              label: sym,
+              data : prices,
+              borderColor : '#4f46e5',
+              backgroundColor: 'rgba(99,102,241,.15)',
+              pointRadius: 0,
+              fill: true,
+              tension: .2
+            }],
+          },
+          options: {
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { ticks: { maxTicksLimit: 8 } },
+              y: { ticks: { callback:v=>v.toLocaleString() } }
+            },
+          }
+        });
+
+        show(canvas, true);
+      } catch(err){
+        alert(err.message);
+      } finally {
+        show(loader, false);
+      }
+    };
+  </script>
+</Layout>
