@@ -1,0 +1,88 @@
+---
+// src/pages/chart.astro
+import Layout from '../layouts/BaseLayout.astro';
+---
+
+<Layout title="Yahoo – 1-Year Chart">
+  <section class="py-16">
+    <div class="max-w-lg mx-auto space-y-10 text-center">
+
+      <h1 class="text-3xl font-extrabold">Grafico prezzi (12 mesi)</h1>
+
+      <!-- ===== FORM ===== -->
+      <form id="symForm" class="flex justify-center gap-3">
+        <input id="symInput" required placeholder="AAPL"
+               class="border p-2 rounded w-32 text-center uppercase" />
+        <button class="bg-indigo-600 text-white px-4 rounded">
+          Disegna
+        </button>
+      </form>
+
+      <!-- ===== LOADER / CANVAS ===== -->
+      <p id="loader" class="hidden text-slate-600">Caricamento …</p>
+      <canvas id="chart" class="hidden max-w-full h-72"></canvas>
+
+    </div>
+  </section>
+
+  <!-- Chart.js (UMD) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script is:inline client:load>
+  const $ = s=>document.querySelector(s);
+  const form=$('#symForm'), input=$('#symInput');
+  const loader=$('#loader'), canvas=$('#chart');
+  let chart=null;
+
+  /* ----------- helper visibilità ----------- */
+  const show=(el,v)=>el.classList.toggle('hidden',!v);
+
+  /* ----------- fetch direttamente da Yahoo via corsproxy.io ----------- */
+  async function fetchSeries(sym){
+    const now=Math.floor(Date.now()/1000);
+    const year=now-60*60*24*365;
+    const url=`https://query2.finance.yahoo.com/v8/finance/chart/${sym}?period1=${year}&period2=${now}&interval=1d`;
+
+    /* <-- la magia: proxy anti-CORS –> */
+    const prox=`https://corsproxy.io/?${encodeURIComponent(url)}`;
+
+    const r=await fetch(prox,{headers:{'User-Agent':'Mozilla/5.0'}});
+    if(!r.ok)throw new Error('Yahoo non risponde');
+    const j=await r.json();
+    const res=j.chart?.result?.[0];
+    if(!res)throw new Error('Ticker assente');
+    return res.timestamp.map((t,i)=>({
+      date : new Date(t*1000).toISOString().slice(0,10),
+      close: res.indicators.quote[0].close[i]
+    })).filter(d=>d.close!=null);
+  }
+
+  /* ----------- submit ----------- */
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();
+    const sym=input.value.trim().toUpperCase();
+    if(!sym)return;
+
+    show(loader,true); show(canvas,false);
+    try{
+      const rows=await fetchSeries(sym);
+      const labels=rows.map(r=>r.date);
+      const prices=rows.map(r=>r.close);
+
+      chart?.destroy();
+      chart=new Chart(canvas,{
+        type:'line',
+        data:{labels,
+              datasets:[{label:sym,data:prices,borderColor:'#4f46e5',
+                         backgroundColor:'rgba(99,102,241,.15)',
+                         pointRadius:0,tension:.25,fill:true}]},
+        options:{plugins:{legend:{display:false}},
+                 scales:{x:{ticks:{maxTicksLimit:10}},
+                         y:{ticks:{callback:v=>v.toLocaleString()}}}}
+      });
+      show(canvas,true);
+    }catch(err){alert(err.message);}
+    finally{show(loader,false);}
+  });
+</script>
+</Layout>
