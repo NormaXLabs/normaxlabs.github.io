@@ -225,7 +225,7 @@ const CALLS = import.meta.env.PUBLIC_OPENAI_API_KEY;
         const prox=`https://corsproxy.io/?${encodeURIComponent(url)}`;
 
         const r=await fetch(prox,{headers:{'User-Agent':'Mozilla/5.0'}});
-        if(!r.ok)throw new Error(`${sym} Pesa dati NON risponde`);
+        if(!r.ok)throw new Error(`Pesa dati di [ "ticker": ${sym} ] NON presente, eliminalo dal portfolio e riprova`);
         const j=await r.json();
         const res=j.chart?.result?.[0];
         if(!res)throw new Error('Ticker assente');
@@ -250,8 +250,8 @@ const CALLS = import.meta.env.PUBLIC_OPENAI_API_KEY;
                 const rows = await fetchSeries(p.ticker);
                 return [p.ticker, rows];
             } catch(e){
-                console.error(e);
-                return [p.ticker, null];
+                throw e;
+                //return [p.ticker, null];
             }
           }))
         );
