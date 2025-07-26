@@ -119,15 +119,17 @@ const defaultJSON = `{
           const d1 = commonDates[i];
 
           let daily = 0;
+          let sum_weight = 0;
           pos.forEach(p=>{
             const arr = seriesMap[p.ticker];
             const c0  = arr.find(r=>r.date===d0).close;
             const c1  = arr.find(r=>r.date===d1).close;
-            const ret = ln(c1/c0);
-            daily += pct2w(p.weight_pct)*ret;
+            const ret = c1/c0;
+            sum_weight += p.weight_pct; 
+            daily += p.weight_pct*ret;
           });
 
-          acc += daily;
+          acc += ln(daily/sum_weight);
           cumLog.push({date:d1, value:acc});
         }
 

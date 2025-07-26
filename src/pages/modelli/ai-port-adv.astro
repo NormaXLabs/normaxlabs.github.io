@@ -8,7 +8,7 @@ const CALLS = import.meta.env.PUBLIC_OPENAI_API_KEY;
   <meta id="opcalls" content={CALLS} />
 
 
-    <div class="max-w-3xl mx-auto space-y-10">
+    <div class="max-w-5xl mx-auto space-y-10">
 
       <h1 class="text-6xl font-extrabold text-center">
         Profilo Investitore
@@ -49,8 +49,20 @@ const CALLS = import.meta.env.PUBLIC_OPENAI_API_KEY;
         <!-- JSON raw toggle -->
         <details class="border rounded p-2">
           <summary class="cursor-pointer font-semibold">Mostra JSON raw</summary>
-          <pre id="jsonRaw" data-json
-              class="mt-3 bg-slate-100 p-4 rounded text-sm overflow-x-auto"></pre>
+
+          <div class="mt-2 flex justify-end">
+            <button
+              type="button"
+              id="copyJson"
+              class="text-sm bg-indigo-600 text-white px-3 py-1 rounded hover:bg-indigo-700 transition"
+            >Copia JSON</button>
+          </div>
+
+          <pre
+            id="jsonRaw"
+            data-json
+            class="mt-3 bg-slate-100 p-4 rounded text-sm overflow-x-auto"
+          ></pre>
         </details>
 
         <h2 class="text-2xl font-bold text-center">Log-Ritorno Cumulato Annuale</h2>
@@ -179,6 +191,22 @@ const CALLS = import.meta.env.PUBLIC_OPENAI_API_KEY;
       showLoader(false);
     }
 
+    const btnCopy = document.getElementById('copyJson');
+    const preJson = document.getElementById('jsonRaw');
+    btnCopy.addEventListener('click', () => {
+      const text = preJson.textContent.trim();
+      if (!text) return;
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          btnCopy.textContent = 'Copiato!';
+          setTimeout(() => { btnCopy.textContent = 'Copia JSON'; }, 1500);
+        })
+        .catch(err => {
+          console.error('Copy failed', err);
+          alert('Errore nel copiare il testo');
+        });
+    });
+
 
 
 
@@ -247,15 +275,17 @@ const CALLS = import.meta.env.PUBLIC_OPENAI_API_KEY;
         const d1 = commonDates[i];
 
         let daily = 0;
+        let sum_weight = 0;
         pos.forEach(p=>{
           const arr = seriesMap[p.ticker];
           const c0  = arr.find(r=>r.date===d0).close;
           const c1  = arr.find(r=>r.date===d1).close;
-          const ret = ln(c1/c0);
-          daily += pct2w(p.weight_pct)*ret;
+          const ret = c1/c0;
+          sum_weight += p.weight_pct; 
+          daily += p.weight_pct*ret;
         });
 
-        acc += daily;
+        acc += ln(daily/sum_weight);
         cumLog.push({date:d1, value:acc});
       }
 
@@ -410,15 +440,17 @@ const CALLS = import.meta.env.PUBLIC_OPENAI_API_KEY;
           const d1 = commonDates[i];
 
           let daily = 0;
+          let sum_weight = 0;
           pos.forEach(p=>{
             const arr = seriesMap[p.ticker];
             const c0  = arr.find(r=>r.date===d0).close;
             const c1  = arr.find(r=>r.date===d1).close;
-            const ret = ln(c1/c0);
-            daily += pct2w(p.weight_pct)*ret;
+            const ret = c1/c0;
+            sum_weight += p.weight_pct; 
+            daily += p.weight_pct*ret;
           });
 
-          acc += daily;
+          acc += ln(daily/sum_weight);
           cumLog.push({date:d1, value:acc});
         }
 
