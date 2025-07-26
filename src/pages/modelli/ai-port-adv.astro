@@ -8,7 +8,7 @@ const CALLS = import.meta.env.PUBLIC_OPENAI_API_KEY;
   <meta id="opcalls" content={CALLS} />
 
 
-    <div class="max-w-5xl mx-auto space-y-10">
+    <div class="max-w-xl mx-auto space-y-10">
 
       <h1 class="text-6xl font-extrabold text-center">
         Profilo Investitore
@@ -32,8 +32,10 @@ const CALLS = import.meta.env.PUBLIC_OPENAI_API_KEY;
 
         <button class="btn-primary w-full">Genera Portfolio</button>
       </form>
+    </div>
 
       <!-- ======== RISULTATO / LOADER ======== -->
+    <div class="max-w-5xl mx-auto space-y-6 pt-12">
       <div id="loading" class="hidden flex flex-col items-center gap-3">
         <div class="h-8 w-8 border-4 border-indigo-300 rounded-full border-t-transparent animate-spin"></div>
         <p class="text-slate-600">Generazione Portfolio…</p>
@@ -151,6 +153,11 @@ const CALLS = import.meta.env.PUBLIC_OPENAI_API_KEY;
 
   function renderCards(portfolioArr) {
     cardsC.innerHTML = "";            // reset
+    var sum = 0;
+    portfolioArr.forEach(p => {
+      sum += p.weight_pct/100;
+    });
+
     portfolioArr.forEach(p => {
       const card = document.createElement("div");
       card.className =
@@ -158,7 +165,7 @@ const CALLS = import.meta.env.PUBLIC_OPENAI_API_KEY;
       card.innerHTML = `
         <h3 class="text-xl font-bold mb-2">${p.ticker}</h3>
         <p class="text-sm text-slate-500 mb-1">${p.name}</p>
-        <p class="text-lg font-semibold mb-2">${p.weight_pct}%</p>
+        <p class="text-lg font-semibold mb-2">${(p.weight_pct/sum).toFixed(0)}%</p>
         <p class="text-xs text-slate-600">${p.rationale}</p>`;
       cardsC.appendChild(card);
     });
