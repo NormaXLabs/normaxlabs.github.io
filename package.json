@@ -18,7 +18,7 @@
     "typescript": "^5.8.3"
   },
   "devDependencies": {
-    "@astrojs/netlify": "^6.5.2",
+    "@astrojs/netlify": "^6.5.10",
     "@astrojs/tailwind": "^6.0.2",
     "@iconify-json/mdi": "^1.2.3",
     "astro-icon": "^1.1.5",

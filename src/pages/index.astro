@@ -1,49 +1,61 @@
 ---
-// pages/index.astro
-import Layout      from '../layouts/BaseLayout.astro';
-import HeroVideo   from '../components/HeroVideo.astro';
-import Hero        from '../components/Hero.astro';
-import FeatureCard from '../components/FeatureCard.astro';
-import { features } from '../data/features';
+import Layout from '../layouts/BaseLayout.astro';
 ---
 
-
 <Layout title="NormaX Labs">
-  <HeroVideo
-    src="/videos/intro.mp4"
-    headline="Il futuro è arrivato"
-    items={[
-      { text: 'Processo Geometrico Gaussiano', href: '/modelli/gbm' },
-      { text: 'Creazione di indici Crypto', href: '/modelli/cex-opt-portf' },
-      {text: 'AI Portfolio Manager', href: '/modelli/ai-port-adv'},
-      {text: 'Studio di Limit Order Book', href: '/modelli/lim-ord-book'},
-      {text: 'AI Modeling', href: '/modelli/aiModels'},
-      {text: 'Pump.Fun', href: '/modelli/pumpfun'},
-      {text: 'Sicurezza Blockchain', href: '/modelli/security-honeypot'}
-    ]}
-    links={[
-      "/modelli/gbm",
-      "/#",
-      "/#"
-    ]}
-  />
+  <!-- Hero con video “striscia” -->
+<section class="relative w-full h-[60vh] overflow-hidden">
+  <video id="heroVideo" autoplay muted playsinline class="w-full h-full object-cover">
+    <source src="/videos/intro.mp4" type="video/mp4" />
+    Il tuo browser non supporta il video.
+  </video>
 
-  <Hero
-    headline="Costruiamo il futuro finanziario"
-    tagline="Soluzioni open-source, community e innovazione senza compromessi."
-    cta="Parla con noi"
-    link="/contacts/"
-  />
+  <!-- Scritta nascosta -->
+  <div id="heroText"
+       class="absolute inset-0 flex items-center justify-center bg-black/40 text-white
+              text-4xl md:text-6xl font-extrabold opacity-0 transition-opacity duration-1000">
+    NormaX Labs, il futuro della finanza
+  </div>
+</section>
 
-  <section id="features" class="py-24 bg-slate-50">
-    <div class="max-w-6xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-16 reveal">
-        Perché sceglierci
-      </h2>
+<script is:raw>
+  const video = document.getElementById('heroVideo');
+  const text  = document.getElementById('heroText');
 
-      <div class="grid gap-12 md:grid-cols-3">
-        {features.map((f) => <FeatureCard {...f} />)}
-      </div>
+  video.addEventListener('ended', () => {
+    text.classList.remove('opacity-0');
+    text.classList.add('opacity-100');
+  });
+</script>
+
+
+
+
+  <!-- Fascia con loghi -->
+  <section class="bg-white py-12">
+    <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-center gap-12">
+      <!-- Logo Scuola Normale -->
+      <img src="/img/SNS.png" alt="Scuola Normale Superiore"
+           class="h-24 md:h-40  w-auto object-contain" />
+
+      <!-- Logo Spinoff -->
+      <img src="/img/normax.png" alt="NormaX Labs"
+           class="h-24 md:h-40 w-auto object-contain" />
     </div>
+  </section>
+
+  <!-- Testo sotto i loghi -->
+  <section class="max-w-4xl mx-auto px-6 md:px-10 py-20 text-center">
+    <h2 class="text-4xl md:text-5xl font-bold mb-6 text-slate-900">
+      Costruiamo il futuro finanziario
+    </h2>
+    <p class="text-lg md:text-xl text-slate-600 leading-relaxed">
+      Soluzioni open-source, ricerca quantitativa e innovazione senza compromessi.
+    </p>
+    <a href="/contacts/"
+       class="inline-block mt-8 px-8 py-4 rounded-2xl text-white font-semibold
+              bg-gradient-to-r from-indigo-600 to-purple-700 shadow-md hover:brightness-110">
+      Parla con noi
+    </a>
   </section>
 </Layout>
