@@ -1,0 +1,553 @@
+---
+import Layout from "../../layouts/BaseLayout.astro";
+
+const pageTitle = "Tokenized Asset Market";
+const pageSubtitle = "DeFi x TradFi Settlement Layer";
+---
+
+<Layout title={pageTitle}>
+
+  <div class="fixed inset-0 -z-10 h-full w-full bg-slate-950">
+    <div class="absolute top-0 -left-4 w-96 h-96 bg-indigo-900/40 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-blob"></div>
+    <div class="absolute top-0 right-0 w-96 h-96 bg-emerald-900/40 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+    <div class="absolute -bottom-8 left-20 w-96 h-96 bg-blue-900/40 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+    <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 brightness-100 contrast-150"></div>
+  </div>
+
+  <section class="relative pt-32 pb-20 overflow-hidden">
+    <div class="container mx-auto px-4 text-center relative z-10">
+      
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-md shadow-sm mb-8">
+        <span class="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span class="text-xs font-mono font-medium text-emerald-400 tracking-widest uppercase">
+          Live Testnet Environment
+        </span>
+      </div>
+
+      <h1 class="text-6xl md:text-7xl font-black tracking-tight mb-6 text-white">
+        Tokenized Asset <br />
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-sky-400 to-indigo-400">
+          Market Infrastructure
+        </span>
+      </h1>
+
+      <p class="mt-6 max-w-3xl mx-auto text-xl text-slate-400 font-light leading-relaxed">
+        Walkthrough tecnico del flusso di emissione, rimborso e trading secondario con compliance gating. 
+        <span class="text-slate-200 font-medium">TradFi controls, DeFi settlement.</span>
+      </p>
+
+      <div class="mt-12 flex flex-wrap justify-center gap-6">
+        
+        <div class="group bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 min-w-[180px]">
+          <div class="flex items-center justify-center mb-2">
+             <span class="text-3xl font-black text-sky-400">T+0</span>
+          </div>
+          <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Settlement Cycle</p>
+        </div>
+
+        <div class="group bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 min-w-[180px]">
+          <div class="flex items-center justify-center gap-2 mb-2">
+             <span class="text-3xl font-black text-indigo-400">DVP</span>
+          </div>
+          <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Atomic Delivery</p>
+        </div>
+
+        <div class="group bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 min-w-[180px]">
+          <div class="flex items-center justify-center mb-2">
+             <span class="text-3xl font-black text-emerald-400">KYC</span>
+          </div>
+          <p class="text-xs font-bold uppercase tracking-wider text-slate-500">On-chain Gating</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  
+  
+
+  <section class="py-12 px-4 relative z-10">
+    <div class="container mx-auto max-w-7xl">
+      
+      <div class="grid lg:grid-cols-3 gap-8 items-start">
+        
+        <div class="lg:col-span-2">
+            <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-white/20 bg-slate-900">
+                <div class="absolute top-0 w-full h-10 bg-slate-900/90 backdrop-blur flex items-center px-4 gap-2 border-b border-white/10 z-20">
+                    <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                    <div class="w-3 h-3 rounded-full bg-amber-500/80"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                    <div class="ml-4 text-xs font-mono text-slate-500">platform_demo_v2.mp4</div>
+                </div>
+
+                <video
+                    id="platformVideo"
+                    class="w-full mt-10"
+                    controls
+                    playsinline
+                    preload="metadata"
+                    poster="/images/video-poster-placeholder.jpg" 
+                >
+                    <source src="/videos/platform.mp4" type="video/mp4" />
+                    Il tuo browser non supporta il tag video.
+                </video>
+            </div>
+
+            <div class="mt-6 grid sm:grid-cols-2 gap-3">
+                <button class="chapterBtn group relative p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-indigo-500/50 transition-all text-left" data-time="10">
+                    <div class="absolute top-4 right-4 text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity">▶</div>
+                    <p class="font-bold text-slate-200 group-hover:text-white">01. Compliance Gate</p>
+                    <p class="text-xs text-slate-400 mt-1">Whitelist, screening & blocchi</p>
+                </button>
+
+                <button class="chapterBtn group relative p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-indigo-500/50 transition-all text-left" data-time="40">
+                    <div class="absolute top-4 right-4 text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity">▶</div>
+                    <p class="font-bold text-slate-200 group-hover:text-white">02. Issuance Flow</p>
+                    <p class="text-xs text-slate-400 mt-1">Primary market minting request</p>
+                </button>
+
+                <button class="chapterBtn group relative p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-indigo-500/50 transition-all text-left" data-time="60">
+                    <div class="absolute top-4 right-4 text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity">▶</div>
+                    <p class="font-bold text-slate-200 group-hover:text-white">03. Custody Sign-off</p>
+                    <p class="text-xs text-slate-400 mt-1">Attestazione riserve on-chain</p>
+                </button>
+
+                <button class="chapterBtn group relative p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-indigo-500/50 transition-all text-left" data-time="100">
+                    <div class="absolute top-4 right-4 text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity">▶</div>
+                    <p class="font-bold text-slate-200 group-hover:text-white">04. Settlement</p>
+                    <p class="text-xs text-slate-400 mt-1">Finalità immediata & Transfer</p>
+                </button>
+            </div>
+        </div>
+
+        <aside class="space-y-6">
+            <div class="bg-indigo-950/30 backdrop-blur-md rounded-2xl p-6 border border-indigo-500/20">
+                <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    Segnali Chiave
+                </h3>
+                <ul class="space-y-4">
+                    <li class="flex gap-3">
+                        <div class="w-1 h-full min-h-[24px] bg-slate-700 rounded-full"></div>
+                        <p class="text-sm text-slate-300"><strong class="text-white block">Separation of Duties</strong>Chi propone (Issuer) non è chi autorizza (Custodian).</p>
+                    </li>
+                    <li class="flex gap-3">
+                        <div class="w-1 h-full min-h-[24px] bg-slate-700 rounded-full"></div>
+                        <p class="text-sm text-slate-300"><strong class="text-white block">Immutable Audit</strong>Ogni approvazione e trasferimento è un evento on-chain.</p>
+                    </li>
+                    <li class="flex gap-3">
+                        <div class="w-1 h-full min-h-[24px] bg-slate-700 rounded-full"></div>
+                        <p class="text-sm text-slate-300"><strong class="text-white block">Oracle Integration</strong>NAV e Pricing feed per controlli di rischio automatici.</p>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bg-amber-500/10 backdrop-blur-md rounded-xl p-4 border border-amber-500/20">
+                <p class="text-xs text-amber-200 flex gap-2">
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                    Se MetaMask mostra "Unknown Token", importalo manualmente usando l'indirizzo del contratto visualizzato nel video.
+                </p>
+            </div>
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 relative z-10" id="config-section">
+    <div class="container mx-auto px-4 lg:px-8 max-w-7xl">
+      
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-black text-white">Configurazione Operativa</h2>
+        <p class="text-slate-400 mt-2">Collega il tuo wallet e imposta gli indirizzi per interagire con la demo.</p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-8">
+        
+        <div class="bg-slate-900/50 backdrop-blur-lg rounded-3xl p-8 border border-white/10 shadow-2xl">
+          <div class="flex items-center justify-between mb-6">
+            <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                <span class="w-2 h-2 bg-emerald-500 rounded-full"></span> Smart Contracts
+            </h3>
+            <span class="text-xs font-mono text-slate-500">localStorage: active</span>
+          </div>
+
+          <form id="contractsForm" class="space-y-5">
+            <div class="space-y-1">
+              <label class="text-xs font-bold text-slate-400 uppercase tracking-wide">Market (Venue)</label>
+              <div class="relative">
+                  <input id="marketAddr" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white font-mono placeholder:text-slate-700 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition" placeholder="0x..." />
+                  <div class="absolute right-3 top-3 text-slate-700"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg></div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div class="space-y-1">
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wide">Stable (Settlement)</label>
+                    <input id="stableAddr" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white font-mono placeholder:text-slate-700 focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="0x..." />
+                </div>
+                <div class="space-y-1">
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wide">Oracle (Pricing)</label>
+                    <input id="oracleAddr" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white font-mono placeholder:text-slate-700 focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="0x..." />
+                </div>
+            </div>
+
+            <div class="space-y-1">
+              <label class="text-xs font-bold text-slate-400 uppercase tracking-wide">Compliance Registry</label>
+              <input id="complianceAddr" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white font-mono placeholder:text-slate-700 focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="0x..." />
+            </div>
+
+            <div class="pt-4 flex flex-wrap gap-3">
+              <button type="button" id="btnAutofill" class="flex-1 rounded-xl px-4 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-semibold transition border border-slate-700">
+                Load .env
+              </button>
+              <button type="button" id="btnClear" class="rounded-xl px-4 py-3 bg-transparent hover:bg-red-900/20 text-slate-500 hover:text-red-400 text-sm font-semibold transition border border-transparent hover:border-red-900/30">
+                Reset
+              </button>
+              <button type="button" id="btnSave" class="flex-[2] rounded-xl px-4 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-sm font-bold shadow-lg shadow-emerald-900/20 transition transform hover:-translate-y-0.5">
+                Salva Configurazione
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="bg-slate-900/50 backdrop-blur-lg rounded-3xl p-8 border border-white/10 shadow-2xl flex flex-col justify-between">
+            <div>
+                <h3 class="text-xl font-bold text-white flex items-center gap-2 mb-6">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg" class="w-6 h-6" alt="MM"/>
+                    Wallet Connection
+                </h3>
+                
+                <div class="space-y-4 mb-8">
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="col-span-1 space-y-1">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-wide">Chain ID (Hex)</label>
+                            <input id="chainId" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-3 py-3 text-sm text-white font-mono placeholder:text-slate-700" placeholder="0x1" />
+                        </div>
+                        <div class="col-span-2 space-y-1">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-wide">RPC URL</label>
+                            <input id="rpcUrl" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-3 py-3 text-sm text-white font-mono placeholder:text-slate-700" placeholder="https://..." />
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-1">
+                        <label class="text-xs font-bold text-slate-400 uppercase tracking-wide">Block Explorer</label>
+                        <input id="explorerUrl" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-3 py-3 text-sm text-white font-mono placeholder:text-slate-700" placeholder="https://etherscan.io" />
+                    </div>
+                </div>
+
+                <div class="bg-black/40 rounded-xl p-4 border border-white/5 font-mono text-xs space-y-2">
+                    <div class="flex justify-between">
+                        <span class="text-slate-500">Status:</span>
+                        <span id="walletStatus" class="text-white">Disconnected</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-slate-500">Account:</span>
+                        <span id="walletAccount" class="text-emerald-400 truncate max-w-[200px]">—</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-slate-500">Chain:</span>
+                        <span id="walletChain" class="text-indigo-400">—</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 mt-6">
+                <button type="button" id="btnConnect" class="col-span-2 rounded-xl px-4 py-4 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-bold shadow-lg shadow-indigo-900/20 transition transform hover:-translate-y-0.5">
+                    Connetti MetaMask
+                </button>
+                <button type="button" id="btnAddNetwork" class="rounded-xl px-4 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-sm transition border border-slate-700">
+                    Add Network
+                </button>
+                <button type="button" id="btnSwitchNetwork" class="rounded-xl px-4 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-sm transition border border-slate-700">
+                    Switch Network
+                </button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-slate-900/30 border-y border-white/5 relative z-10">
+    <div class="container mx-auto px-4 lg:px-8 max-w-7xl">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-black text-white">Mapping dei Ruoli</h2>
+        <p class="text-slate-400">Architettura permissioned su infrastruttura pubblica.</p>
+      </div>
+
+      
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+        
+        <div class="group relative bg-slate-800/40 backdrop-blur rounded-2xl p-6 border border-white/5 hover:border-indigo-500/30 transition-colors">
+          <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-transparent rounded-t-2xl opacity-50 group-hover:opacity-100 transition-opacity"></div>
+          <h3 class="text-xl font-bold text-white mb-1">Custodian</h3>
+          <p class="text-xs font-mono text-indigo-400 mb-4">DeFi Analog: Reserve Manager</p>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Firma le transazioni di <strong>Authorize/Refuse</strong> on-chain garantendo che i token siano sempre backed 1:1.
+          </p>
+        </div>
+
+        <div class="group relative bg-slate-800/40 backdrop-blur rounded-2xl p-6 border border-white/5 hover:border-emerald-500/30 transition-colors">
+          <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-transparent rounded-t-2xl opacity-50 group-hover:opacity-100 transition-opacity"></div>
+          <h3 class="text-xl font-bold text-white mb-1">Compliance</h3>
+          <p class="text-xs font-mono text-emerald-400 mb-4">DeFi Analog: Whitelist Module</p>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Gestisce il registro degli investitori qualificati. Se il KYC scade, il token diventa <strong>non trasferibile</strong> (soulbound-like).
+          </p>
+        </div>
+
+        <div class="group relative bg-slate-800/40 backdrop-blur rounded-2xl p-6 border border-white/5 hover:border-sky-500/30 transition-colors">
+          <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-sky-500 to-transparent rounded-t-2xl opacity-50 group-hover:opacity-100 transition-opacity"></div>
+          <h3 class="text-xl font-bold text-white mb-1">Dealer</h3>
+          <p class="text-xs font-mono text-sky-400 mb-4">DeFi Analog: LP / RFQ Maker</p>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Inietta liquidità e prezza l'asset basandosi sull'Oracle NAV. Agisce come controparte per l'issuance primario.
+          </p>
+        </div>
+
+        <div class="group relative bg-slate-800/40 backdrop-blur rounded-2xl p-6 border border-white/5 hover:border-fuchsia-500/30 transition-colors">
+          <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-fuchsia-500 to-transparent rounded-t-2xl opacity-50 group-hover:opacity-100 transition-opacity"></div>
+          <h3 class="text-xl font-bold text-white mb-1">Investor</h3>
+          <p class="text-xs font-mono text-fuchsia-400 mb-4">DeFi Analog: Token Holder</p>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Detiene l'asset nel wallet personale. Interagisce via <code>approve()</code> e <code>swap()</code> con settlement atomico.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 text-center relative z-10">
+    <div class="container mx-auto px-4 max-w-3xl">
+       <h2 class="text-4xl font-black text-white mb-6">Pronto per il Deployment?</h2>
+       <p class="text-slate-400 text-lg mb-8">
+         Vai alla configurazione per inserire gli indirizzi reali dei contratti e iniziare a interagire con la blockchain.
+       </p>
+       <a href="#config-section" class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white transition-all duration-200 bg-white/10 border border-white/10 rounded-full hover:bg-white/20 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 backdrop-blur-md">
+         Configura Parametri
+       </a>
+    </div>
+  </section>
+
+
+  <style>
+    @keyframes blob {
+      0% { transform: translate(0px, 0px) scale(1); }
+      33% { transform: translate(30px, -50px) scale(1.1); }
+      66% { transform: translate(-20px, 20px) scale(0.9); }
+      100% { transform: translate(0px, 0px) scale(1); }
+    }
+    .animate-blob {
+      animation: blob 7s infinite;
+    }
+    .animation-delay-2000 {
+      animation-delay: 2s;
+    }
+    .animation-delay-4000 {
+      animation-delay: 4s;
+    }
+  </style>
+
+
+  <script type="module" client:load>
+    // --- UTILS ---
+    const el = (id) => document.getElementById(id);
+
+    // --- VIDEO HANDLING ---
+    const video = document.getElementById("platformVideo");
+    const chapterBtns = document.querySelectorAll(".chapterBtn, .flowBtn");
+
+    if (video) {
+        chapterBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const t = Number(btn.getAttribute("data-time") || "0");
+            if (!Number.isNaN(t)) {
+                video.currentTime = Math.max(0, t);
+                // Safe play attempt (browser might block audio/video without user interaction)
+                video.play().catch(e => console.log("Auto-play blocked, user interaction needed", e));
+            }
+        });
+        });
+    }
+
+    // --- CONTRACTS STORAGE ---
+    const LS_KEY = "tokenized_market_contracts_v1";
+    const fields = {
+      market: el("marketAddr"),
+      stable: el("stableAddr"),
+      oracle: el("oracleAddr"),
+      compliance: el("complianceAddr"),
+      chainId: el("chainId"),
+      rpcUrl: el("rpcUrl"),
+      explorerUrl: el("explorerUrl"),
+    };
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(LS_KEY);
+        return raw ? JSON.parse(raw) : null;
+      } catch { return null; }
+    }
+
+    function saveState(state) {
+      localStorage.setItem(LS_KEY, JSON.stringify(state));
+    }
+
+    function applyToForm(state) {
+      if (!state) return;
+      Object.keys(fields).forEach(key => {
+          if (fields[key] && state[key]) fields[key].value = state[key];
+      });
+    }
+
+    // Init form
+    applyToForm(loadState());
+
+    // Auto-fill from env (works only if variables start with PUBLIC_)
+    el("btnAutofill")?.addEventListener("click", () => {
+      // NOTE: Astro replaces import.meta.env.* at build time. 
+      // Ensure .env has PUBLIC_MARKET_ADDRESS etc.
+      const env = import.meta.env; 
+      const next = {
+        market: env.PUBLIC_MARKET_ADDRESS || fields.market?.value || "",
+        stable: env.PUBLIC_STABLE_ADDRESS || fields.stable?.value || "",
+        oracle: env.PUBLIC_ORACLE_ADDRESS || fields.oracle?.value || "",
+        compliance: env.PUBLIC_COMPLIANCE_REGISTRY_ADDRESS || fields.compliance?.value || "",
+        chainId: env.PUBLIC_CHAIN_ID || fields.chainId?.value || "",
+        rpcUrl: env.PUBLIC_RPC_URL || fields.rpcUrl?.value || "",
+        explorerUrl: env.PUBLIC_EXPLORER_URL || fields.explorerUrl?.value || "",
+      };
+      applyToForm(next);
+      saveState(next);
+    });
+
+    el("btnSave")?.addEventListener("click", () => {
+      const next = {};
+      Object.keys(fields).forEach(key => {
+          if (fields[key]) next[key] = fields[key].value.trim();
+      });
+      saveState(next);
+      // Visual feedback
+      const btn = el("btnSave");
+      const originalText = btn.innerText;
+      btn.innerText = "Salvato!";
+      btn.classList.add("bg-emerald-500");
+      setTimeout(() => {
+          btn.innerText = originalText;
+          btn.classList.remove("bg-emerald-500");
+      }, 1500);
+    });
+
+    el("btnClear")?.addEventListener("click", () => {
+      localStorage.removeItem(LS_KEY);
+      Object.keys(fields).forEach(key => { if(fields[key]) fields[key].value = ""; });
+    });
+
+    // --- WALLET LOGIC ---
+    function setWalletUI({ status, account, chainId }) {
+      const statusEl = el("walletStatus");
+      const accountEl = el("walletAccount");
+      const chainEl = el("walletChain");
+      
+      if (statusEl) {
+          statusEl.textContent = status || "Disconnected";
+          statusEl.className = status === "Connected" ? "text-emerald-400 font-bold" : "text-white";
+      }
+      if (accountEl) accountEl.textContent = account || "—";
+      if (chainEl) chainEl.textContent = chainId || "—";
+    }
+
+    async function refreshWalletState() {
+      // Safety check for SSR or missing extension
+      if (typeof window === 'undefined' || !window.ethereum) {
+        setWalletUI({ status: "MetaMask not found", account: "", chainId: "" });
+        return;
+      }
+
+      try {
+        const accounts = await window.ethereum.request({ method: "eth_accounts" });
+        const chainId = await window.ethereum.request({ method: "eth_chainId" });
+        
+        if (accounts.length > 0) {
+            setWalletUI({
+                status: "Connected",
+                account: accounts[0],
+                chainId: chainId,
+            });
+        } else {
+            setWalletUI({ status: "Disconnected", account: "", chainId: "" });
+        }
+      } catch (err) {
+        console.error("Wallet check failed", err);
+      }
+    }
+
+    // Connect
+    el("btnConnect")?.addEventListener("click", async () => {
+      if (!window.ethereum) return alert("MetaMask non installato!");
+      try {
+        setWalletUI({ status: "Requesting...", account: "", chainId: "" });
+        await window.ethereum.request({ method: "eth_requestAccounts" });
+        refreshWalletState();
+      } catch (err) {
+        console.error(err);
+        setWalletUI({ status: "Connection Rejected", account: "", chainId: "" });
+      }
+    });
+
+    // Add Network
+    el("btnAddNetwork")?.addEventListener("click", async () => {
+        if (!window.ethereum) return;
+        const chainId = fields.chainId?.value?.trim();
+        const rpcUrl = fields.rpcUrl?.value?.trim();
+        
+        if (!chainId || !rpcUrl) return alert("Compila Chain ID e RPC URL prima.");
+        
+        try {
+            await window.ethereum.request({
+                method: "wallet_addEthereumChain",
+                params: [{
+                    chainId,
+                    chainName: "Custom Demo Network",
+                    rpcUrls: [rpcUrl],
+                    nativeCurrency: { name: "Gas", symbol: "GAS", decimals: 18 },
+                    blockExplorerUrls: fields.explorerUrl?.value ? [fields.explorerUrl.value] : []
+                }]
+            });
+            refreshWalletState();
+        } catch (e) {
+            console.error(e);
+            alert("Errore aggiunta rete: " + e.message);
+        }
+    });
+
+    // Switch Network
+    el("btnSwitchNetwork")?.addEventListener("click", async () => {
+        if (!window.ethereum) return;
+        const chainId = fields.chainId?.value?.trim();
+        if (!chainId) return alert("Inserisci Chain ID");
+
+        try {
+            await window.ethereum.request({
+                method: "wallet_switchEthereumChain",
+                params: [{ chainId }]
+            });
+            refreshWalletState();
+        } catch (e) {
+            console.error(e);
+            alert("Switch fallito (la rete è stata aggiunta?).");
+        }
+    });
+
+    // Listeners
+    if (typeof window !== 'undefined' && window.ethereum) {
+      window.ethereum.on('accountsChanged', refreshWalletState);
+      window.ethereum.on('chainChanged', refreshWalletState);
+    }
+    
+    // Init wallet check
+    refreshWalletState();
+
+  </script>
+</Layout>
