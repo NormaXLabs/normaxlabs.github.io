@@ -16,60 +16,91 @@ const pageSubtitle = "DeFi x TradFi Settlement Layer";
 
   <section class="relative pt-32 pb-20 overflow-hidden">
     <div class="container mx-auto px-4 text-center relative z-10">
-      
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-md shadow-sm mb-8">
-        <span class="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
-        <span class="text-xs font-mono font-medium text-emerald-400 tracking-widest uppercase">
-          Live Testnet Environment
-        </span>
-      </div>
-
       <h1 class="text-6xl md:text-7xl font-black tracking-tight mb-6 text-white">
         Tokenized Asset <br />
         <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-sky-400 to-indigo-400">
           Market Infrastructure
         </span>
       </h1>
-
       <p class="mt-6 max-w-3xl mx-auto text-xl text-slate-400 font-light leading-relaxed">
-        Walkthrough tecnico del flusso di emissione, rimborso e trading secondario con compliance gating. 
-        <span class="text-slate-200 font-medium">TradFi controls, DeFi settlement.</span>
+        Build a global market accessible anywhere in a secure, transparent, and inclusive way, bypassing the inefficiencies of international monetary and market rails.
+        <span class="text-slate-200 font-medium"> DeFi settlement.</span>
       </p>
-
       <div class="mt-12 flex flex-wrap justify-center gap-6">
-        
         <div class="group bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 min-w-[180px]">
           <div class="flex items-center justify-center mb-2">
              <span class="text-3xl font-black text-sky-400">T+0</span>
           </div>
           <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Settlement Cycle</p>
         </div>
-
         <div class="group bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 min-w-[180px]">
           <div class="flex items-center justify-center gap-2 mb-2">
              <span class="text-3xl font-black text-indigo-400">DVP</span>
           </div>
           <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Atomic Delivery</p>
         </div>
-
         <div class="group bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 min-w-[180px]">
           <div class="flex items-center justify-center mb-2">
              <span class="text-3xl font-black text-emerald-400">KYC</span>
           </div>
           <p class="text-xs font-bold uppercase tracking-wider text-slate-500">On-chain Gating</p>
         </div>
-
       </div>
     </div>
   </section>
   
-  
+  <section class="py-20 relative z-10 bg-slate-900/30 border-y border-white/5 backdrop-blur-sm">
+    <div class="container mx-auto px-4 lg:px-8 max-w-7xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-black text-white tracking-tight">Why an On-Chain Market?</h2>
+        <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-400">
+          We overcome the limits of legacy infrastructure by moving trust and ownership guarantees to blockchain consensus and cryptography.
+        </p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="relative group p-8 rounded-3xl bg-gradient-to-b from-white/5 to-transparent border border-white/10 hover:border-indigo-500/50 transition-all duration-500">
+          <div class="absolute inset-0 bg-indigo-500/10 opacity-0 group-hover:opacity-100 rounded-3xl transition-opacity duration-500"></div>
+          <div class="relative z-10">
+            <div class="w-12 h-12 mb-6 rounded-2xl bg-indigo-500/20 flex items-center justify-center text-indigo-400">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-3">Equities & Bonds</h3>
+            <p class="text-slate-400 leading-relaxed text-sm">
+              Today, when you buy an Apple share, you buy a “promise” recorded in a centralized registry. On blockchain, you own the asset directly.
+            </p>
+          </div>
+        </div>
+        <div class="relative group p-8 rounded-3xl bg-gradient-to-b from-white/5 to-transparent border border-white/10 hover:border-emerald-500/50 transition-all duration-500">
+          <div class="absolute inset-0 bg-emerald-500/10 opacity-0 group-hover:opacity-100 rounded-3xl transition-opacity duration-500"></div>
+          <div class="relative z-10">
+            <div class="w-12 h-12 mb-6 rounded-2xl bg-emerald-500/20 flex items-center justify-center text-emerald-400">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-3">Funds</h3>
+            <p class="text-slate-400 leading-relaxed text-sm">
+              The costs of fund issuance and operations drop dramatically by disintermediating expensive financial intermediaries.
+            </p>
+          </div>
+        </div>
+        <div class="relative group p-8 rounded-3xl bg-gradient-to-b from-white/5 to-transparent border border-white/10 hover:border-amber-500/50 transition-all duration-500">
+          <div class="absolute inset-0 bg-amber-500/10 opacity-0 group-hover:opacity-100 rounded-3xl transition-opacity duration-500"></div>
+          <div class="relative z-10">
+            <div class="w-12 h-12 mb-6 rounded-2xl bg-amber-500/20 flex items-center justify-center text-amber-400">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-3">Carbon & Commodities</h3>
+            <p class="text-slate-400 leading-relaxed text-sm">
+              Gold, oil, and carbon credits are ideal for blockchain because they require absolute traceability to prevent fraud (e.g., selling the same bar to two people).
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section class="py-12 px-4 relative z-10">
     <div class="container mx-auto max-w-7xl">
-      
       <div class="grid lg:grid-cols-3 gap-8 items-start">
-        
         <div class="lg:col-span-2">
             <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-white/20 bg-slate-900">
                 <div class="absolute top-0 w-full h-10 bg-slate-900/90 backdrop-blur flex items-center px-4 gap-2 border-b border-white/10 z-20">
@@ -78,87 +109,481 @@ const pageSubtitle = "DeFi x TradFi Settlement Layer";
                     <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
                     <div class="ml-4 text-xs font-mono text-slate-500">platform_demo_v2.mp4</div>
                 </div>
-
-                <video
-                    id="platformVideo"
-                    class="w-full mt-10"
-                    controls
-                    playsinline
-                    preload="metadata"
-                    poster="/images/video-poster-placeholder.jpg" 
-                >
+                <video id="platformVideo" class="w-full mt-10" controls playsinline preload="metadata" poster="/images/video-poster-placeholder.jpg">
                     <source src="/videos/platform.mp4" type="video/mp4" />
-                    Il tuo browser non supporta il tag video.
+                    Your browser does not support the video tag.
                 </video>
             </div>
-
             <div class="mt-6 grid sm:grid-cols-2 gap-3">
                 <button class="chapterBtn group relative p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-indigo-500/50 transition-all text-left" data-time="10">
                     <div class="absolute top-4 right-4 text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity">▶</div>
                     <p class="font-bold text-slate-200 group-hover:text-white">01. Compliance Gate</p>
-                    <p class="text-xs text-slate-400 mt-1">Whitelist, screening & blocchi</p>
+                    <p class="text-xs text-slate-400 mt-1">Whitelist, screening & blocks</p>
                 </button>
-
                 <button class="chapterBtn group relative p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-indigo-500/50 transition-all text-left" data-time="40">
                     <div class="absolute top-4 right-4 text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity">▶</div>
                     <p class="font-bold text-slate-200 group-hover:text-white">02. Issuance Flow</p>
                     <p class="text-xs text-slate-400 mt-1">Primary market minting request</p>
                 </button>
-
                 <button class="chapterBtn group relative p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-indigo-500/50 transition-all text-left" data-time="60">
                     <div class="absolute top-4 right-4 text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity">▶</div>
                     <p class="font-bold text-slate-200 group-hover:text-white">03. Custody Sign-off</p>
-                    <p class="text-xs text-slate-400 mt-1">Attestazione riserve on-chain</p>
+                    <p class="text-xs text-slate-400 mt-1">On-chain reserve attestation</p>
                 </button>
-
                 <button class="chapterBtn group relative p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-indigo-500/50 transition-all text-left" data-time="100">
                     <div class="absolute top-4 right-4 text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity">▶</div>
                     <p class="font-bold text-slate-200 group-hover:text-white">04. Settlement</p>
-                    <p class="text-xs text-slate-400 mt-1">Finalità immediata & Transfer</p>
+                    <p class="text-xs text-slate-400 mt-1">Immediate finality & transfer</p>
                 </button>
             </div>
         </div>
-
         <aside class="space-y-6">
             <div class="bg-indigo-950/30 backdrop-blur-md rounded-2xl p-6 border border-indigo-500/20">
-                <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                    <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                    Segnali Chiave
-                </h3>
+                <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">Key Signals</h3>
                 <ul class="space-y-4">
                     <li class="flex gap-3">
                         <div class="w-1 h-full min-h-[24px] bg-slate-700 rounded-full"></div>
-                        <p class="text-sm text-slate-300"><strong class="text-white block">Separation of Duties</strong>Chi propone (Issuer) non è chi autorizza (Custodian).</p>
+                        <p class="text-sm text-slate-300"><strong class="text-white block">Separation of Duties</strong>The party proposing (Issuer) is not the party authorizing (Custodian).</p>
                     </li>
                     <li class="flex gap-3">
                         <div class="w-1 h-full min-h-[24px] bg-slate-700 rounded-full"></div>
-                        <p class="text-sm text-slate-300"><strong class="text-white block">Immutable Audit</strong>Ogni approvazione e trasferimento è un evento on-chain.</p>
-                    </li>
-                    <li class="flex gap-3">
-                        <div class="w-1 h-full min-h-[24px] bg-slate-700 rounded-full"></div>
-                        <p class="text-sm text-slate-300"><strong class="text-white block">Oracle Integration</strong>NAV e Pricing feed per controlli di rischio automatici.</p>
+                        <p class="text-sm text-slate-300"><strong class="text-white block">Immutable Audit</strong>Every approval and transfer is an on-chain event.</p>
                     </li>
                 </ul>
             </div>
-
-            <div class="bg-amber-500/10 backdrop-blur-md rounded-xl p-4 border border-amber-500/20">
-                <p class="text-xs text-amber-200 flex gap-2">
-                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                    Se MetaMask mostra "Unknown Token", importalo manualmente usando l'indirizzo del contratto visualizzato nel video.
-                </p>
-            </div>
         </aside>
+      </div>
+    </div>
+  </section>
 
+  <section class="py-24 relative z-10 overflow-hidden bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900">
+    <div class="absolute right-0 top-1/4 w-1/2 h-1/2 bg-orange-500/5 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
+    <div class="container mx-auto px-4 lg:px-8 max-w-7xl">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-bold uppercase tracking-wider mb-6">
+            <span class="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
+            Seamless Integration
+          </div>
+          <h2 class="text-3xl md:text-5xl font-black text-white mb-6 leading-tight">
+            Institutional Security,<br/>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-200">Web3 Simplicity.</span>
+          </h2>
+          <p class="text-lg text-slate-400 mb-10 leading-relaxed">
+            We abstracted away blockchain complexity. The interface connects directly to the industry-standard wallet.
+          </p>
+          <div class="space-y-8">
+            <div class="flex gap-5">
+              <div class="flex-shrink-0 w-12 h-12 bg-slate-800 rounded-xl flex items-center justify-center border border-white/5 shadow-lg shadow-orange-900/10">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg" class="w-7 h-7" alt="MetaMask" />
+              </div>
+              <div>
+                <h4 class="text-white font-bold text-lg">Native MetaMask Integration</h4>
+                <p class="text-slate-400 text-sm mt-1">Your private keys always remain under your control.</p>
+              </div>
+            </div>
+            <div class="flex gap-5">
+              <div class="flex-shrink-0 w-12 h-12 bg-slate-800 rounded-xl flex items-center justify-center border border-white/5 shadow-lg">
+                <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              </div>
+              <div>
+                <h4 class="text-white font-bold text-lg">Zero Gas Costs</h4>
+                <p class="text-slate-400 text-sm mt-1">Order management off-chain, execution on-chain.</p>
+              </div>
+            </div>
+            <div class="flex gap-5">
+              <div class="flex-shrink-0 w-12 h-12 bg-slate-800 rounded-xl flex items-center justify-center border border-white/5 shadow-lg">
+                <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+              </div>
+              <div>
+                <h4 class="text-white font-bold text-lg">No Code</h4>
+                <p class="text-slate-400 text-sm mt-1">No Solidity, just a clean interface.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="relative">
+          <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-[2.5rem] p-8 border border-white/10 shadow-2xl relative z-10 transform rotate-1 hover:rotate-0 transition-transform duration-500">
+            <div class="flex justify-between items-center mb-8 border-b border-white/5 pb-6">
+               <div class="flex items-center gap-3">
+                 <div class="w-10 h-10 rounded-full bg-orange-500/20 flex items-center justify-center">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg" class="w-6 h-6" alt="MM" />
+                 </div>
+                 <div>
+                    <div class="text-white font-bold text-sm">Account 1</div>
+                    <div class="text-emerald-400 text-xs font-mono bg-emerald-500/10 px-2 py-0.5 rounded">Connected</div>
+                 </div>
+               </div>
+               <div class="text-slate-500 text-xs font-mono">0x71C...9A21</div>
+            </div>
+            <div class="text-center py-6">
+                <p class="text-slate-400 text-sm mb-1">Total Balance</p>
+                <h3 class="text-4xl font-black text-white tracking-tight">$ 1,240,500.00</h3>
+            </div>
+            <div class="grid grid-cols-2 gap-4 mb-8">
+                <div class="bg-blue-600/20 text-blue-400 py-3 rounded-xl text-center text-sm font-bold border border-blue-500/30">Receive</div>
+                <div class="bg-emerald-600/20 text-emerald-400 py-3 rounded-xl text-center text-sm font-bold border border-emerald-500/30">Send</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 relative z-10 bg-slate-950 border-y border-white/5">
+    <div class="container mx-auto px-4 lg:px-8 max-w-7xl">
+      
+      <div class="text-center mb-20">
+        <h2 class="text-4xl md:text-5xl font-black text-white tracking-tight">Operational Architecture</h2>
+        <p class="mt-4 max-w-3xl mx-auto text-lg text-slate-400">
+          A permissioned ecosystem that combines strict financial controls with the speed of decentralized trading.
+        </p>
+      </div>
+
+      <div class="relative">
+        <div class="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-emerald-500 via-indigo-500 to-fuchsia-500 opacity-30 md:-translate-x-1/2 z-0 hidden md:block"></div>
+        
+        <div class="space-y-24">
+            
+            <div class="relative grid md:grid-cols-2 gap-12 items-center group">
+                <div class="md:text-right order-2 md:order-1 relative">
+                    
+                    
+                    <div class="bg-emerald-950/20 border border-emerald-500/20 p-8 rounded-3xl backdrop-blur-sm relative overflow-hidden">
+                        <div class="absolute -right-10 -top-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl"></div>
+                        <h3 class="text-2xl font-bold text-white mb-2 text-emerald-400">1. Onboarding & Compliance</h3>
+                        <p class="text-slate-400 mb-6">No one enters without identity. The Compliance Registry acts as an on-chain gatekeeper.</p>
+                        
+                        <div class="flex flex-col md:flex-row gap-4 justify-end">
+                             <div class="bg-slate-900 rounded-xl p-4 border border-white/5 flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                </div>
+                                <div class="text-left">
+                                    <div class="text-xs text-slate-500 uppercase font-bold">Role</div>
+                                    <div class="text-white font-mono text-sm">Compliance Officer</div>
+                                </div>
+                             </div>
+                             <div class="bg-slate-900 rounded-xl p-4 border border-white/5 flex items-center gap-3">
+                                <div class="text-left">
+                                    <div class="text-xs text-slate-500 uppercase font-bold">Action</div>
+                                    <div class="text-emerald-300 font-mono text-sm">Whitelist(0xUser)</div>
+                                </div>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-1 md:order-2">
+                    <div class="text-emerald-500 font-mono text-xs mb-2">PHASE 01 — IDENTITY</div>
+                    <h4 class="text-xl font-bold text-white mb-3">Permissioned Gateway</h4>
+                    <p class="text-slate-400 leading-relaxed">
+                        Before any interaction, the investor must pass off-chain KYC. Once approved, the <strong>Compliance Registry</strong> (Smart Contract) records the identity hash. Without this “digital passport,” any attempt to buy or mint is automatically blocked at the protocol level.
+                    </p>
+                </div>
+            </div>
+
+            <div class="relative grid md:grid-cols-2 gap-12 items-center group">
+                 <div class="md:text-right order-1">
+                    <div class="text-indigo-500 font-mono text-xs mb-2">PHASE 02 — TOKENIZATION</div>
+                    <h4 class="text-xl font-bold text-white mb-3">Asset Backed Minting</h4>
+                    <p class="text-slate-400 leading-relaxed">
+                        Issuance requires dual sign-off to ensure every token is backed 1:1 by the real-world asset. The <strong>Issuer</strong> proposes creation, but tokens are not generated until the <strong>Custodian</strong> confirms receipt of the asset in the real world.
+                    </p>
+                 </div>
+                 <div class="order-2 relative">
+                    
+
+                    <div class="bg-indigo-950/20 border border-indigo-500/20 p-8 rounded-3xl backdrop-blur-sm relative overflow-hidden">
+                        <div class="absolute -left-10 -bottom-10 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl"></div>
+                        <h3 class="text-2xl font-bold text-white mb-6 text-indigo-400">2. Primary Market</h3>
+                        
+                        <div class="flex flex-col gap-4">
+                            <div class="flex items-center gap-4">
+                                <div class="w-24 text-right text-xs font-bold text-slate-400 uppercase">Issuer</div>
+                                <div class="flex-1 h-12 bg-slate-900 rounded border border-white/5 flex items-center px-4 text-white text-sm font-mono relative">
+                                    Request Mint()
+                                    <div class="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-yellow-500 rounded-full animate-pulse"></div>
+                                </div>
+                            </div>
+                            <div class="flex justify-center pl-24 text-slate-600"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg></div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-24 text-right text-xs font-bold text-slate-400 uppercase">Custodian</div>
+                                <div class="flex-1 h-12 bg-slate-900 rounded border border-indigo-500/50 flex items-center justify-between px-4 text-indigo-300 text-sm font-mono shadow-[0_0_15px_rgba(99,102,241,0.3)]">
+                                    <span>Confirm & Mint</span>
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+
+            <div class="relative grid md:grid-cols-2 gap-12 items-center group">
+                <div class="md:text-right order-2 md:order-1 relative">
+                    
+                    
+                    <div class="bg-fuchsia-950/20 border border-fuchsia-500/20 p-8 rounded-3xl backdrop-blur-sm relative overflow-hidden">
+                        <div class="absolute -right-10 top-0 w-32 h-32 bg-fuchsia-500/10 rounded-full blur-2xl"></div>
+                        <h3 class="text-2xl font-bold text-white mb-2 text-fuchsia-400">3. Trading & T+0</h3>
+                        <p class="text-slate-400 mb-6">Atomic exchange among qualified investors. Counterparty risk eliminated.</p>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-slate-900 p-4 rounded-xl border border-white/5 text-center">
+                                <div class="text-xs text-slate-500 mb-1">Seller (Investor)</div>
+                                <div class="text-white font-bold">Tokenized Asset</div>
+                                <div class="text-red-400 text-xs mt-1">⬇ Out</div>
+                            </div>
+                            <div class="bg-slate-900 p-4 rounded-xl border border-white/5 text-center">
+                                <div class="text-xs text-slate-500 mb-1">Buyer (Investor)</div>
+                                <div class="text-white font-bold">Platform Stablecoin</div>
+                                <div class="text-red-400 text-xs mt-1">⬇ Out</div>
+                            </div>
+                            
+                            <div class="col-span-2 relative h-10 flex items-center justify-center">
+                                <div class="absolute inset-0 flex items-center">
+                                    <div class="w-full border-t border-dashed border-slate-600"></div>
+                                </div>
+                                <div class="relative bg-slate-950 px-4 py-1 border border-fuchsia-500 rounded-full text-fuchsia-400 text-xs font-bold uppercase z-10">
+                                    Atomic Swap Contract
+                                </div>
+                            </div>
+
+                            <div class="col-span-2 bg-gradient-to-r from-emerald-900/40 to-emerald-900/10 border border-emerald-500/30 p-3 rounded-xl flex justify-between items-center px-6">
+                                <span class="text-emerald-400 font-bold text-sm">Settlement Complete</span>
+                                <span class="text-white font-mono text-xs bg-black/30 px-2 py-1 rounded">Time: 0s</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-1 md:order-2">
+                    <div class="text-fuchsia-500 font-mono text-xs mb-2">PHASE 03 — MARKET</div>
+                    <h4 class="text-xl font-bold text-white mb-3">Instant Liquidity</h4>
+                    <p class="text-slate-400 leading-relaxed">
+                        In the secondary market, investors (who have passed KYC) can trade asset shares freely. There is no need for a central Clearing House that takes days (T+2) to reconcile accounts.
+                    </p>
+                    <p class="text-slate-400 leading-relaxed mt-4">
+                        The exchange is Delivery vs Payment (DvP) atomic: either Asset and Cash move simultaneously, or the transaction fails for both parties. No one can take the money without delivering the asset.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-slate-900/30 border-y border-white/5 relative z-10">
+    <div class="container mx-auto px-4 lg:px-8 max-w-7xl">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-black text-white">Role Mapping</h2>
+        <p class="text-slate-400">Permissioned architecture on public infrastructure.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+        
+        <div class="group relative bg-slate-800/40 backdrop-blur rounded-2xl p-6 border border-white/5 hover:border-indigo-500/30 transition-colors">
+          <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-transparent rounded-t-2xl opacity-50 group-hover:opacity-100 transition-opacity"></div>
+          <h3 class="text-xl font-bold text-white mb-1">Custodian</h3>
+          <p class="text-xs font-mono text-indigo-400 mb-4">DeFi Analog: Reserve Manager</p>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Signs <strong>Authorize/Refuse</strong> transactions on-chain, ensuring tokens are always backed 1:1.
+          </p>
+        </div>
+
+        <div class="group relative bg-slate-800/40 backdrop-blur rounded-2xl p-6 border border-white/5 hover:border-emerald-500/30 transition-colors">
+          <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-transparent rounded-t-2xl opacity-50 group-hover:opacity-100 transition-opacity"></div>
+          <h3 class="text-xl font-bold text-white mb-1">Compliance</h3>
+          <p class="text-xs font-mono text-emerald-400 mb-4">DeFi Analog: Whitelist Module</p>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Manages the registry of qualified investors. If KYC expires, the token becomes <strong>non-transferable</strong>.
+          </p>
+        </div>
+
+        <div class="group relative bg-slate-800/40 backdrop-blur rounded-2xl p-6 border border-white/5 hover:border-sky-500/30 transition-colors">
+          <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-sky-500 to-transparent rounded-t-2xl opacity-50 group-hover:opacity-100 transition-opacity"></div>
+          <h3 class="text-xl font-bold text-white mb-1">Dealer</h3>
+          <p class="text-xs font-mono text-sky-400 mb-4">DeFi Analog: LP / RFQ Maker</p>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Injects liquidity and prices the asset based on the Oracle NAV. Acts as a counterparty for primary issuance.
+          </p>
+        </div>
+
+        <div class="group relative bg-slate-800/40 backdrop-blur rounded-2xl p-6 border border-white/5 hover:border-fuchsia-500/30 transition-colors">
+          <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-fuchsia-500 to-transparent rounded-t-2xl opacity-50 group-hover:opacity-100 transition-opacity"></div>
+          <h3 class="text-xl font-bold text-white mb-1">Investor</h3>
+          <p class="text-xs font-mono text-fuchsia-400 mb-4">DeFi Analog: Token Holder</p>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Holds the asset in a personal wallet. Interacts via <code>approve()</code> and <code>swap()</code> with atomic settlement.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 relative z-10 bg-slate-900 overflow-hidden">
+    
+    <div class="absolute inset-0 opacity-10 pointer-events-none">
+        <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path d="M0 100 Q 50 0 100 100" stroke="white" fill="none" stroke-width="0.1"/>
+            <path d="M0 100 Q 50 20 100 100" stroke="white" fill="none" stroke-width="0.1"/>
+            <path d="M0 100 Q 50 40 100 100" stroke="white" fill="none" stroke-width="0.1"/>
+            <path d="M0 100 Q 50 60 100 100" stroke="white" fill="none" stroke-width="0.1"/>
+        </svg>
+    </div>
+
+    <div class="container mx-auto px-4 lg:px-8 max-w-7xl relative">
+      
+      <div class="text-center mb-20">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-bold uppercase tracking-wider mb-6">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 3.659c0 3.074-1.8 6-6 6a4.438 4.438 0 01-1.424-.236 7.765 7.766 0 001.723-.198 3.003 3.003 0 003.701-3.701 7.766 7.766 0 00-.198-1.723A4.438 4.438 0 0113 10.659v.003z"></path></svg>
+            Quantitative Foundation
+        </div>
+        <h2 class="text-4xl md:text-5xl font-black text-white tracking-tight mb-6">
+          Market making driven by<br/>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-fuchsia-400 font-serif italic">Data Science.</span>
+        </h2>
+        <p class="mt-4 max-w-3xl mx-auto text-lg text-slate-400 leading-relaxed">
+          Unlike traditional DeFi AMMs that suffer from <i>Impermanent Loss</i>, our inventory management and pricing algorithms build on decades of academic research in <strong>Econophysics</strong> and <strong>Market Microstructure</strong>.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12 mb-20">
+        
+        <div class="relative group">
+            <div class="absolute inset-0 bg-gradient-to-r from-indigo-600 to-blue-600 rounded-3xl blur opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
+            <div class="relative bg-slate-950/80 backdrop-blur-xl border border-white/10 rounded-3xl p-8 h-full">
+                <div class="flex items-start justify-between mb-6">
+                    <div>
+                        <h3 class="text-2xl font-bold text-white">Prof. Fabrizio Lillo</h3>
+                        <p class="text-indigo-400 font-medium mt-1">Scuola Normale Superiore</p>
+                    </div>
+                    <div class="w-16 h-16 rounded-full bg-slate-800 border border-white/10 overflow-hidden flex items-center justify-center">
+                         <span class="text-2xl font-serif text-slate-500">FL</span>
+                    </div>
+                </div>
+                <p class="text-slate-400 text-sm mb-6 leading-relaxed">
+                    A global authority in modeling <strong>Market Impact</strong> and complex financial networks. His models define how large-order execution (Block Trades) impacts asset prices, enabling our platform to minimize slippage for institutional investors.
+                </p>
+                <div class="flex flex-wrap gap-2 mt-auto">
+                    <span class="px-3 py-1 bg-slate-900 rounded-md border border-white/5 text-xs text-slate-300 font-mono">High Frequency Trading</span>
+                    <span class="px-3 py-1 bg-slate-900 rounded-md border border-white/5 text-xs text-slate-300 font-mono">Systemic Risk</span>
+                    <span class="px-3 py-1 bg-slate-900 rounded-md border border-white/5 text-xs text-slate-300 font-mono">Market Microstructure</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="relative group">
+            <div class="absolute inset-0 bg-gradient-to-r from-fuchsia-600 to-purple-600 rounded-3xl blur opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
+            <div class="relative bg-slate-950/80 backdrop-blur-xl border border-white/10 rounded-3xl p-8 h-full">
+                <div class="flex items-start justify-between mb-6">
+                    <div>
+                        <h3 class="text-2xl font-bold text-white">Prof. Stefano Marmi</h3>
+                        <p class="text-fuchsia-400 font-medium mt-1">Scuola Normale Superiore</p>
+                    </div>
+                    <div class="w-16 h-16 rounded-full bg-slate-800 border border-white/10 overflow-hidden flex items-center justify-center">
+                        <span class="text-2xl font-serif text-slate-500">SM</span>
+                    </div>
+                </div>
+                <p class="text-slate-400 text-sm mb-6 leading-relaxed">
+                    An expert in <strong>Dynamical Systems</strong> and financial time-series analysis. His research on volatility and long-term market memory (Long Memory Processes) is fundamental to our <strong>Inventory Risk Management</strong> algorithms, ensuring stability even under stress.
+                </p>
+                <div class="flex flex-wrap gap-2 mt-auto">
+                    <span class="px-3 py-1 bg-slate-900 rounded-md border border-white/5 text-xs text-slate-300 font-mono">Dynamical Systems</span>
+                    <span class="px-3 py-1 bg-slate-900 rounded-md border border-white/5 text-xs text-slate-300 font-mono">Volatility Analysis</span>
+                    <span class="px-3 py-1 bg-slate-900 rounded-md border border-white/5 text-xs text-slate-300 font-mono">Entropy Measures</span>
+                </div>
+            </div>
+        </div>
+
+      </div>
+
+      <div class="border-t border-white/10 pt-16">
+        <h3 class="text-xl font-bold text-white mb-8 flex items-center gap-3">
+            <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+            Selected Relevant Publications
+        </h3>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <a href="https://scholar.google.com/scholar?q=Master+equation+for+the+price+impact+function" target="_blank" class="group block bg-white/5 hover:bg-white/10 border border-white/5 hover:border-indigo-500/30 p-6 rounded-xl transition-all duration-300">
+                <div class="text-xs font-mono text-indigo-400 mb-2">Physical Review E</div>
+                <h4 class="text-lg font-serif font-medium text-slate-200 group-hover:text-white leading-tight mb-3">
+                    "Master equation for the price impact function"
+                </h4>
+                <p class="text-xs text-slate-500">Lillo, F., Farmer, J. D., & Mantegna, R. N.</p>
+                <div class="mt-4 flex items-center gap-2 text-xs text-slate-600 group-hover:text-indigo-400 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    <span>Cited by 500+</span>
+                </div>
+            </a>
+
+            <a href="https://scholar.google.com/scholar?q=Limit+order+placement+as+a+utility+maximization+problem" target="_blank" class="group block bg-white/5 hover:bg-white/10 border border-white/5 hover:border-emerald-500/30 p-6 rounded-xl transition-all duration-300">
+                <div class="text-xs font-mono text-emerald-400 mb-2">Quantitative Finance</div>
+                <h4 class="text-lg font-serif font-medium text-slate-200 group-hover:text-white leading-tight mb-3">
+                    "Limit order placement as a utility maximization problem"
+                </h4>
+                <p class="text-xs text-slate-500">Lillo, F.</p>
+                <div class="mt-4 flex items-center gap-2 text-xs text-slate-600 group-hover:text-emerald-400 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <span>Core Algorithm Base</span>
+                </div>
+            </a>
+
+            <a href="https://scholar.google.com/scholar?q=Long+memory+in+the+volatility+of+financial+markets" target="_blank" class="group block bg-white/5 hover:bg-white/10 border border-white/5 hover:border-fuchsia-500/30 p-6 rounded-xl transition-all duration-300">
+                <div class="text-xs font-mono text-fuchsia-400 mb-2">Journal of Empirical Finance</div>
+                <h4 class="text-lg font-serif font-medium text-slate-200 group-hover:text-white leading-tight mb-3">
+                    "Long memory in the volatility of financial markets"
+                </h4>
+                <p class="text-xs text-slate-500">Marmi, S. et al.</p>
+                <div class="mt-4 flex items-center gap-2 text-xs text-slate-600 group-hover:text-fuchsia-400 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    <span>Risk Model Input</span>
+                </div>
+            </a>
+
+            <a href="https://scholar.google.com/scholar?q=Systemic+risk+in+financial+networks" target="_blank" class="group block bg-white/5 hover:bg-white/10 border border-white/5 hover:border-amber-500/30 p-6 rounded-xl transition-all duration-300">
+                <div class="text-xs font-mono text-amber-400 mb-2">Journal of Economic Dynamics</div>
+                <h4 class="text-lg font-serif font-medium text-slate-200 group-hover:text-white leading-tight mb-3">
+                    "Debt-Rank: A microscopic foundation for shock propagation"
+                </h4>
+                <p class="text-xs text-slate-500">Battiston, S., Puliga, M., Kaushik, R., Tasca, P., & Caldarelli, G.</p>
+                <div class="mt-4 flex items-center gap-2 text-xs text-slate-600 group-hover:text-amber-400 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    <span>Systemic Resilience</span>
+                </div>
+            </a>
+
+             <a href="https://scholar.google.com/scholar?q=Market+efficiency+and+liquidity" target="_blank" class="group block bg-white/5 hover:bg-white/10 border border-white/5 hover:border-sky-500/30 p-6 rounded-xl transition-all duration-300">
+                <div class="text-xs font-mono text-sky-400 mb-2">Chaos, Solitons & Fractals</div>
+                <h4 class="text-lg font-serif font-medium text-slate-200 group-hover:text-white leading-tight mb-3">
+                    "Multifractality and long range dependence in finance"
+                </h4>
+                <p class="text-xs text-slate-500">Marmi, S. et al.</p>
+                <div class="mt-4 flex items-center gap-2 text-xs text-slate-600 group-hover:text-sky-400 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path></svg>
+                    <span>Price Discovery</span>
+                </div>
+            </a>
+            
+            <a href="https://scholar.google.com/" target="_blank" class="group flex flex-col items-center justify-center bg-indigo-600/10 hover:bg-indigo-600/20 border border-indigo-500/30 hover:border-indigo-500/50 p-6 rounded-xl transition-all duration-300 cursor-pointer">
+                <div class="w-12 h-12 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400 mb-4 group-hover:scale-110 transition-transform">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                </div>
+                <h4 class="text-white font-bold">Explore 100+ Papers</h4>
+                <p class="text-xs text-indigo-300 mt-1">Google Scholar Database</p>
+            </a>
+
+        </div>
       </div>
     </div>
   </section>
 
   <section class="py-20 relative z-10" id="config-section">
     <div class="container mx-auto px-4 lg:px-8 max-w-7xl">
-      
       <div class="text-center mb-12">
-        <h2 class="text-3xl font-black text-white">Configurazione Operativa</h2>
-        <p class="text-slate-400 mt-2">Collega il tuo wallet e imposta gli indirizzi per interagire con la demo.</p>
+        <h2 class="text-3xl font-black text-white">Operational Configuration</h2>
+        <p class="text-slate-400 mt-2">Connect your wallet and set the addresses to interact with the demo.</p>
       </div>
 
       <div class="grid lg:grid-cols-2 gap-8">
@@ -204,7 +629,7 @@ const pageSubtitle = "DeFi x TradFi Settlement Layer";
                 Reset
               </button>
               <button type="button" id="btnSave" class="flex-[2] rounded-xl px-4 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-sm font-bold shadow-lg shadow-emerald-900/20 transition transform hover:-translate-y-0.5">
-                Salva Configurazione
+                Save Configuration
               </button>
             </div>
           </form>
@@ -253,7 +678,7 @@ const pageSubtitle = "DeFi x TradFi Settlement Layer";
 
             <div class="grid grid-cols-2 gap-3 mt-6">
                 <button type="button" id="btnConnect" class="col-span-2 rounded-xl px-4 py-4 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-bold shadow-lg shadow-indigo-900/20 transition transform hover:-translate-y-0.5">
-                    Connetti MetaMask
+                    Connect MetaMask
                 </button>
                 <button type="button" id="btnAddNetwork" class="rounded-xl px-4 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-sm transition border border-slate-700">
                     Add Network
@@ -267,65 +692,16 @@ const pageSubtitle = "DeFi x TradFi Settlement Layer";
     </div>
   </section>
 
-  <section class="py-20 bg-slate-900/30 border-y border-white/5 relative z-10">
-    <div class="container mx-auto px-4 lg:px-8 max-w-7xl">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-black text-white">Mapping dei Ruoli</h2>
-        <p class="text-slate-400">Architettura permissioned su infrastruttura pubblica.</p>
-      </div>
-
-      
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
-        
-        <div class="group relative bg-slate-800/40 backdrop-blur rounded-2xl p-6 border border-white/5 hover:border-indigo-500/30 transition-colors">
-          <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-transparent rounded-t-2xl opacity-50 group-hover:opacity-100 transition-opacity"></div>
-          <h3 class="text-xl font-bold text-white mb-1">Custodian</h3>
-          <p class="text-xs font-mono text-indigo-400 mb-4">DeFi Analog: Reserve Manager</p>
-          <p class="text-sm text-slate-400 leading-relaxed">
-            Firma le transazioni di <strong>Authorize/Refuse</strong> on-chain garantendo che i token siano sempre backed 1:1.
-          </p>
-        </div>
-
-        <div class="group relative bg-slate-800/40 backdrop-blur rounded-2xl p-6 border border-white/5 hover:border-emerald-500/30 transition-colors">
-          <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-transparent rounded-t-2xl opacity-50 group-hover:opacity-100 transition-opacity"></div>
-          <h3 class="text-xl font-bold text-white mb-1">Compliance</h3>
-          <p class="text-xs font-mono text-emerald-400 mb-4">DeFi Analog: Whitelist Module</p>
-          <p class="text-sm text-slate-400 leading-relaxed">
-            Gestisce il registro degli investitori qualificati. Se il KYC scade, il token diventa <strong>non trasferibile</strong> (soulbound-like).
-          </p>
-        </div>
-
-        <div class="group relative bg-slate-800/40 backdrop-blur rounded-2xl p-6 border border-white/5 hover:border-sky-500/30 transition-colors">
-          <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-sky-500 to-transparent rounded-t-2xl opacity-50 group-hover:opacity-100 transition-opacity"></div>
-          <h3 class="text-xl font-bold text-white mb-1">Dealer</h3>
-          <p class="text-xs font-mono text-sky-400 mb-4">DeFi Analog: LP / RFQ Maker</p>
-          <p class="text-sm text-slate-400 leading-relaxed">
-            Inietta liquidità e prezza l'asset basandosi sull'Oracle NAV. Agisce come controparte per l'issuance primario.
-          </p>
-        </div>
-
-        <div class="group relative bg-slate-800/40 backdrop-blur rounded-2xl p-6 border border-white/5 hover:border-fuchsia-500/30 transition-colors">
-          <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-fuchsia-500 to-transparent rounded-t-2xl opacity-50 group-hover:opacity-100 transition-opacity"></div>
-          <h3 class="text-xl font-bold text-white mb-1">Investor</h3>
-          <p class="text-xs font-mono text-fuchsia-400 mb-4">DeFi Analog: Token Holder</p>
-          <p class="text-sm text-slate-400 leading-relaxed">
-            Detiene l'asset nel wallet personale. Interagisce via <code>approve()</code> e <code>swap()</code> con settlement atomico.
-          </p>
-        </div>
-
-      </div>
-    </div>
-  </section>
+  
 
   <section class="py-20 text-center relative z-10">
     <div class="container mx-auto px-4 max-w-3xl">
-       <h2 class="text-4xl font-black text-white mb-6">Pronto per il Deployment?</h2>
+       <h2 class="text-4xl font-black text-white mb-6">Ready to Deploy?</h2>
        <p class="text-slate-400 text-lg mb-8">
-         Vai alla configurazione per inserire gli indirizzi reali dei contratti e iniziare a interagire con la blockchain.
+         Go to the configuration section to enter the real contract addresses and start interacting with the blockchain.
        </p>
        <a href="#config-section" class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white transition-all duration-200 bg-white/10 border border-white/10 rounded-full hover:bg-white/20 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 backdrop-blur-md">
-         Configura Parametri
+         Configure Parameters
        </a>
     </div>
   </section>
@@ -364,7 +740,6 @@ const pageSubtitle = "DeFi x TradFi Settlement Layer";
             const t = Number(btn.getAttribute("data-time") || "0");
             if (!Number.isNaN(t)) {
                 video.currentTime = Math.max(0, t);
-                // Safe play attempt (browser might block audio/video without user interaction)
                 video.play().catch(e => console.log("Auto-play blocked, user interaction needed", e));
             }
         });
@@ -406,8 +781,6 @@ const pageSubtitle = "DeFi x TradFi Settlement Layer";
 
     // Auto-fill from env (works only if variables start with PUBLIC_)
     el("btnAutofill")?.addEventListener("click", () => {
-      // NOTE: Astro replaces import.meta.env.* at build time. 
-      // Ensure .env has PUBLIC_MARKET_ADDRESS etc.
       const env = import.meta.env; 
       const next = {
         market: env.PUBLIC_MARKET_ADDRESS || fields.market?.value || "",
@@ -428,10 +801,9 @@ const pageSubtitle = "DeFi x TradFi Settlement Layer";
           if (fields[key]) next[key] = fields[key].value.trim();
       });
       saveState(next);
-      // Visual feedback
       const btn = el("btnSave");
       const originalText = btn.innerText;
-      btn.innerText = "Salvato!";
+      btn.innerText = "Saved!";
       btn.classList.add("bg-emerald-500");
       setTimeout(() => {
           btn.innerText = originalText;
@@ -459,16 +831,13 @@ const pageSubtitle = "DeFi x TradFi Settlement Layer";
     }
 
     async function refreshWalletState() {
-      // Safety check for SSR or missing extension
       if (typeof window === 'undefined' || !window.ethereum) {
         setWalletUI({ status: "MetaMask not found", account: "", chainId: "" });
         return;
       }
-
       try {
         const accounts = await window.ethereum.request({ method: "eth_accounts" });
         const chainId = await window.ethereum.request({ method: "eth_chainId" });
-        
         if (accounts.length > 0) {
             setWalletUI({
                 status: "Connected",
@@ -483,9 +852,8 @@ const pageSubtitle = "DeFi x TradFi Settlement Layer";
       }
     }
 
-    // Connect
     el("btnConnect")?.addEventListener("click", async () => {
-      if (!window.ethereum) return alert("MetaMask non installato!");
+      if (!window.ethereum) return alert("MetaMask is not installed!");
       try {
         setWalletUI({ status: "Requesting...", account: "", chainId: "" });
         await window.ethereum.request({ method: "eth_requestAccounts" });
@@ -496,14 +864,11 @@ const pageSubtitle = "DeFi x TradFi Settlement Layer";
       }
     });
 
-    // Add Network
     el("btnAddNetwork")?.addEventListener("click", async () => {
         if (!window.ethereum) return;
         const chainId = fields.chainId?.value?.trim();
         const rpcUrl = fields.rpcUrl?.value?.trim();
-        
-        if (!chainId || !rpcUrl) return alert("Compila Chain ID e RPC URL prima.");
-        
+        if (!chainId || !rpcUrl) return alert("Fill in Chain ID and RPC URL first.");
         try {
             await window.ethereum.request({
                 method: "wallet_addEthereumChain",
@@ -518,16 +883,14 @@ const pageSubtitle = "DeFi x TradFi Settlement Layer";
             refreshWalletState();
         } catch (e) {
             console.error(e);
-            alert("Errore aggiunta rete: " + e.message);
+            alert("Network add error: " + e.message);
         }
     });
 
-    // Switch Network
     el("btnSwitchNetwork")?.addEventListener("click", async () => {
         if (!window.ethereum) return;
         const chainId = fields.chainId?.value?.trim();
-        if (!chainId) return alert("Inserisci Chain ID");
-
+        if (!chainId) return alert("Enter Chain ID");
         try {
             await window.ethereum.request({
                 method: "wallet_switchEthereumChain",
@@ -536,17 +899,15 @@ const pageSubtitle = "DeFi x TradFi Settlement Layer";
             refreshWalletState();
         } catch (e) {
             console.error(e);
-            alert("Switch fallito (la rete è stata aggiunta?).");
+            alert("Switch failed (was the network added?).");
         }
     });
 
-    // Listeners
     if (typeof window !== 'undefined' && window.ethereum) {
       window.ethereum.on('accountsChanged', refreshWalletState);
       window.ethereum.on('chainChanged', refreshWalletState);
     }
     
-    // Init wallet check
     refreshWalletState();
 
   </script>
