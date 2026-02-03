@@ -1,13 +1,137 @@
 ---
+// src/pages/contacts.astro
 import Layout from '../../layouts/BaseLayout.astro';
 ---
 
-<Layout title="Area riservata">
-  <section class="py-24">
-    <div class="max-w-3xl mx-auto px-4 text-center">
-      <h1 class="text-4xl font-extrabold mb-8 text-primary-600">
-        In progress ...
-      </h1>
+<Layout title="Contact NormaX | Quantitative Finance Infrastructure">
+  
+  
+
+  <section class="py-24 border-t border-white/10 bg-black/20">
+    <div class="container mx-auto max-w-7xl px-6">
+      
+      <div class="mb-16">
+        
+        <h2 class="text-4xl font-black text-white mb-4">Team</h2>
+        
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-10">
+        
+        <div class="relative group h-full">
+            <div class="absolute inset-0 bg-gradient-to-r from-indigo-600 to-blue-600 rounded-3xl blur-xl opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
+            
+            <div class="relative bg-slate-950/80 backdrop-blur-md border border-white/10 rounded-3xl p-8 h-full flex flex-col 
+                        transition-all duration-300 transform group-hover:scale-[1.03] group-hover:-translate-y-2 group-hover:shadow-2xl group-hover:border-indigo-500/50">
+              
+              <div class="flex items-start justify-between mb-6">
+                <div>
+                  <h3 class="text-2xl font-bold text-white group-hover:text-indigo-300 transition-colors">Prof. Fabrizio Lillo</h3>
+                  <p class="text-indigo-400 font-medium mt-1 uppercase text-xs tracking-widest">Scientific Advisor</p>
+                  <p class="text-slate-500 text-sm">Scuola Normale Superiore</p>
+                </div>
+                <div class="w-20 h-20 rounded-2xl border-2 border-white/10 overflow-hidden shadow-2xl group-hover:border-indigo-400/50 transition-colors">
+                  <img src="/img/team/lillo.jpeg" alt="Fabrizio Lillo" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+                </div>
+              </div>
+              
+              <p class="text-slate-400 text-sm mb-6 leading-relaxed flex-grow">
+                A global authority in modeling <strong>Market Impact</strong> and complex financial networks. His models define how large-order execution impacts asset prices, enabling our platform to minimize slippage.
+              </p>
+              
+              <div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-white/5">
+                <span class="px-3 py-1 bg-indigo-500/10 rounded-md border border-indigo-500/20 text-xs text-indigo-300 font-mono">Market Microstructure</span>
+                <span class="px-3 py-1 bg-indigo-500/10 rounded-md border border-indigo-500/20 text-xs text-indigo-300 font-mono">Systemic Risk</span>
+              </div>
+            </div>
+        </div>
+
+        <div class="relative group h-full">
+            <div class="absolute inset-0 bg-gradient-to-r from-fuchsia-600 to-pink-600 rounded-3xl blur-xl opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
+            
+            <div class="relative bg-slate-950/80 backdrop-blur-md border border-white/10 rounded-3xl p-8 h-full flex flex-col 
+                        transition-all duration-300 transform group-hover:scale-[1.03] group-hover:-translate-y-2 group-hover:shadow-2xl group-hover:border-fuchsia-500/50">
+              
+              <div class="flex items-start justify-between mb-6">
+                <div>
+                  <h3 class="text-2xl font-bold text-white group-hover:text-fuchsia-300 transition-colors">Prof. Stefano Marmi</h3>
+                  <p class="text-indigo-400 font-medium mt-1 uppercase text-xs tracking-widest">Scientific Advisor</p>
+                  <p class="text-slate-500 text-sm">Scuola Normale Superiore</p>
+                </div>
+                <div class="w-20 h-20 rounded-2xl border-2 border-white/10 overflow-hidden shadow-2xl group-hover:border-fuchsia-400/50 transition-colors">
+                   <img src="/img/team/marmi.jpeg" alt="Stefano Marmi" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+                </div>
+              </div>
+              
+              <p class="text-slate-400 text-sm mb-6 leading-relaxed flex-grow">
+                Expert in <strong>Dynamical Systems</strong> and time-series analysis. His research on volatility and long-term market memory (Long Memory Processes) is fundamental to our <strong>Inventory Risk Management</strong>.
+              </p>
+              
+              <div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-white/5">
+                <span class="px-3 py-1 bg-fuchsia-500/10 rounded-md border border-fuchsia-500/20 text-xs text-fuchsia-300 font-mono">Dynamical Systems</span>
+                <span class="px-3 py-1 bg-fuchsia-500/10 rounded-md border border-fuchsia-500/20 text-xs text-fuchsia-300 font-mono">Volatility</span>
+              </div>
+            </div>
+        </div>
+
+        <div class="relative group h-full">
+            <div class="absolute inset-0 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-3xl blur-xl opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
+            
+            <div class="relative bg-slate-950/80 backdrop-blur-md border border-white/10 rounded-3xl p-8 h-full flex flex-col 
+                        transition-all duration-300 transform group-hover:scale-[1.03] group-hover:-translate-y-2 group-hover:shadow-2xl group-hover:border-emerald-500/50">
+              
+              <div class="flex items-start justify-between mb-6">
+                <div>
+                  <h3 class="text-2xl font-bold text-white group-hover:text-emerald-300 transition-colors">Dr. Manuel Naviglio, PhD</h3>
+                  
+                  <p class="text-slate-500 text-sm">Scuola Normale Superiore</p>
+                </div>
+                <div class="w-20 h-20 rounded-2xl border-2 border-white/10 overflow-hidden shadow-2xl group-hover:border-emerald-400/50 transition-colors">
+                   <img src="/img/team/naviglio.jpeg" alt="Manuel Naviglio" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+                </div>
+              </div>
+              
+              <p class="text-slate-400 text-sm mb-6 leading-relaxed flex-grow">
+                Working at the intersection of <strong>market microstructure</strong> and on-chain data. His recent work studies cryptocurrency proliferation and liquidity dynamics in AMMs.
+              </p>
+              
+              <div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-white/5">
+                <span class="px-3 py-1 bg-emerald-500/10 rounded-md border border-emerald-500/20 text-xs text-emerald-300 font-mono">DEX Microstructure</span>
+                <span class="px-3 py-1 bg-emerald-500/10 rounded-md border border-emerald-500/20 text-xs text-emerald-300 font-mono">Complex Systems</span>
+              </div>
+            </div>
+        </div>
+
+        <div class="relative group h-full">
+            <div class="absolute inset-0 bg-gradient-to-r from-amber-600 to-orange-600 rounded-3xl blur-xl opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
+            
+            <div class="relative bg-slate-950/80 backdrop-blur-md border border-white/10 rounded-3xl p-8 h-full flex flex-col 
+                        transition-all duration-300 transform group-hover:scale-[1.03] group-hover:-translate-y-2 group-hover:shadow-2xl group-hover:border-amber-500/50">
+              
+              <div class="flex items-start justify-between mb-6">
+                <div>
+                  <h3 class="text-2xl font-bold text-white group-hover:text-amber-300 transition-colors">Dr. Francesco Tarantelli, PhD</h3>
+                  
+                  <p class="text-slate-500 text-sm">University of Bologna</p>
+                </div>
+                <div class="w-20 h-20 rounded-2xl border-2 border-white/10 overflow-hidden shadow-2xl group-hover:border-amber-400/50 transition-colors">
+                   <img src="/img/team/tarantelli.jpeg" alt="Francesco Tarantelli" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+                </div>
+              </div>
+              
+              <p class="text-slate-400 text-sm mb-6 leading-relaxed flex-grow">
+                Focusing on <strong>liquidity</strong> and market behavior across centralized and decentralized venues. His research leverages on-chain data to quantify market structure and manipulation risk.
+              </p>
+              
+              <div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-white/5">
+                <span class="px-3 py-1 bg-amber-500/10 rounded-md border border-amber-500/20 text-xs text-amber-300 font-mono">DeFi Liquidity</span>
+                <span class="px-3 py-1 bg-amber-500/10 rounded-md border border-amber-500/20 text-xs text-amber-300 font-mono">Crypto Markets</span>
+              </div>
+            </div>
+        </div>
+
+      </div>
     </div>
   </section>
+
 </Layout>

@@ -1,87 +1,405 @@
 ---
 // BaseLayout.astro
-const { title = 'NormaX Labs', description = 'Soluzioni open-source' } = Astro.props;
+const { title = 'NormaX Labs | Quantitative Finance', description = 'Institutional-grade market infrastructure.' } = Astro.props;
 const currentPath = Astro.url.pathname;
-const isActive = (href: string) => currentPath === new URL(href, 'https://dummy').pathname;
+
+const normalize = (path: string) => path.replace(/\/$/, '') || '/';
+const isActive = (href: string) => normalize(currentPath) === normalize(href);
 ---
 
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="icon" href="/img/normax.png" />
+    <link rel="icon" type="image/png" href="/img/normax.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Manrope:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+      /* GLOBAL */
+      body {
+        font-family: 'Manrope', sans-serif;
+        background-color: #0b1121; /* Darker Slate for better contrast */
+        color: #f1f5f9;
+        overflow-x: hidden; /* Prevent horizontal scroll from particles */
+      }
+      .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+      /* --- NEW BACKGROUND SYSTEM --- */
+
+      /* 1. Deep Space Gradient Layer */
+      .bg-layer {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+        z-index: -3;
+        background: radial-gradient(circle at 50% 0%, #1e293b 0%, #0b1121 80%);
+      }
+
+      /* 2. Cyber Grid (The "Floor") */
+      .cyber-grid {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+        z-index: -2;
+        perspective: 1000px;
+        opacity: 0.35;
+        pointer-events: none;
+        overflow: hidden;
+      }
+      .grid-lines {
+        position: absolute;
+        top: -50%; left: -50%; width: 200%; height: 200%;
+        background-image:
+          linear-gradient(rgba(99, 102, 241, 0.25) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(99, 102, 241, 0.25) 1px, transparent 1px);
+        background-size: 60px 60px;
+        transform: rotateX(60deg);
+        animation: gridMove 20s linear infinite;
+        mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 80%);
+      }
+
+      @keyframes gridMove {
+        0% { transform: rotateX(60deg) translateY(0); }
+        100% { transform: rotateX(60deg) translateY(60px); }
+      }
+
+      /* 3. Canvas Network (Nodes & Connections) */
+      #networkCanvas {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+        z-index: -1;
+        opacity: 0.8;
+        pointer-events: none;
+      }
+
+      /* NAVBAR GLASS - Mantenuta la tua versione */
+      .glass-nav {
+        background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        border: 0;
+        box-shadow:
+          0 14px 40px rgba(0, 0, 0, 0.35),
+          inset 0 1px 0 rgba(255,255,255,0.08);
+      }
+      
+      /* Utilità per animazione bottone */
+      @keyframes shine { 100% { left: 125%; } }
+      .animate-shine { animation: shine 1s; }
+
+      @media (prefers-reduced-motion: reduce) {
+        .grid-lines { animation: none !important; }
+      }
+    </style>
   </head>
 
-  <body class="font-sans text-slate-800 antialiased scroll-smooth
-             bg-slate-50 bg-[radial-gradient(circle_at_top,rgba(99,102,241,0.08)_1px,transparent_1px)]
-             [background-size:16px_16px]">
+  <body class="text-slate-100 antialiased selection:bg-indigo-500 selection:text-white">
 
-    <!-- Navbar “pill” -->
-    <header class="sticky top-0 z-50 pt-4">
-      <div class="mx-3 md:mx-8">
-        <nav
-          class="bg-white/90 backdrop-blur rounded-full shadow-lg ring-1 ring-slate-200
-                 px-5 md:px-8 py-5 flex items-center justify-between">
-          
-          <!-- logo -->
-          <a href="/" class="flex items-center gap-2">
-            <img src="/img/normax.png" alt="Logo" class="h-20 w-20 md:h-9 md:w-9" />
-            <img src="/img/char.png" alt="Logo testo" class="h-20 md:h-16 w-auto" />
+    <div class="bg-layer"></div>
+    <div class="cyber-grid">
+      <div class="grid-lines"></div>
+    </div>
+    <canvas id="networkCanvas"></canvas>
+    <header class="fixed top-0 left-0 right-0 z-50 pt-3 px-4 md:px-8 transition-all duration-300">
+      <nav class="mx-auto max-w-[96%] glass-nav rounded-2xl px-6 md:px-8 py-3 flex items-center justify-between transition-all duration-300">
+
+        <a href="/" class="flex items-center gap-5 group">
+          <div class="relative w-20 h-20 flex items-center justify-center rounded-2xl bg-white/10 group-hover:bg-white/14 transition-all shadow-2xl shadow-indigo-500/15 group-hover:scale-[1.02]">
+            <img src="/img/normax.png" alt="NormaX Icon" class="h-16 w-auto drop-shadow-[0_0_18px_rgba(255,255,255,0.65)]" />
+          </div>
+
+          <div class="hidden md:block">
+            <span class="block text-3xl font-extrabold text-white tracking-tight leading-none">NormaX</span>
+            <div class="flex items-center gap-3 mt-1">
+              <span class="block text-xs font-mono text-indigo-200 tracking-[0.35em] uppercase font-bold">Labs</span>
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_10px_rgba(52,211,153,0.7)]"></span>
+            </div>
+          </div>
+        </a>
+
+        <ul class="hidden lg:flex items-center gap-2 bg-white/5 rounded-2xl px-2 py-2 shadow-inner">
+          {[
+            { href: '/',            label: 'Home' },
+            /*{ href: '/modelli',     label: 'R&D' },*/
+            { href: '/team',        label: 'Team' },
+            { href: '/contacts',    label: 'Contact Us' }
+          ].map(({ href, label }) => {
+            const active = isActive(href);
+            return (
+              <li>
+                <a
+                  href={href}
+                  class={`
+                    relative px-6 py-3 rounded-xl text-lg font-semibold transition-all duration-300 block tracking-tight
+                    ${active
+                      ? 'text-white bg-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.25)]'
+                      : 'text-slate-200 hover:text-white hover:bg-white/7'}
+                  `}
+                >
+                  {label}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+
+        <div class="hidden lg:flex items-center gap-8">
+          <a href="/login.html" class="text-lg font-semibold text-slate-200 hover:text-white transition-colors relative group">
+            Log In
+            <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-indigo-300 transition-all group-hover:w-full rounded-full"></span>
           </a>
 
-          <!-- menu desktop -->
-          <ul class="hidden md:flex items-center gap-6 text-[16px] font-semibold">
-            {[
-              { href: '/',            label: 'HOME'           },
-              { href: '/modelli',     label: 'R&D'            },
-              { href: '/team',        label: 'TEAM'           },
-              { href: '/contacts',    label: 'CONTATTI'       },
-              { href: '/login.html',  label: 'AREA PERSONALE' }
-            ].map(({ href, label }) => {
-              const active = isActive(href);
-              return (
-                <li class="relative group">
-                  <a
-                    href={href}
-                    class={
-                      `inline-block pb-1 transition ` +
-                      (active
-                        ? 'text-slate-900 underline underline-offset-[6px]'
-                        : 'text-slate-700 hover:text-slate-900 hover:underline underline-offset-[6px]')
-                    }
-                  >
-                    {label}
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-
-          <!-- CTA -->
-          <a href="/contacts"
-             class="text-white text-sm md:text-base font-medium px-4 md:px-5 py-2 rounded-2xl
-                    shadow-md transition
-                    bg-gradient-to-r from-indigo-600 to-purple-700 hover:brightness-110">
-            Contattaci
+          <a href="/modelli/platform_market"
+            class="group relative inline-flex items-center gap-3 px-9 py-4 rounded-2xl bg-gradient-to-r from-indigo-400 via-violet-400 to-indigo-400 bg-[length:220%_auto] hover:bg-right text-white font-bold text-lg tracking-wide shadow-2xl shadow-indigo-500/35 overflow-hidden hover:scale-[1.03] transition-all duration-500">
+            <span class="relative z-10">Platform</span>
+            <svg class="w-6 h-6 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+            </svg>
+            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                 style="background: radial-gradient(800px 200px at 20% 0%, rgba(255,255,255,0.20), transparent 60%);">
+            </div>
+            <div class="absolute top-0 -left-[120%] w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-[25deg] group-hover:animate-shine"></div>
           </a>
-        </nav>
+        </div>
+
+        <button id="mobileMenuBtn" class="lg:hidden p-4 text-white bg-white/10 rounded-2xl active:scale-95 transition-transform hover:bg-white/16">
+          <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
+        </button>
+
+      </nav>
+
+      <div id="mobileMenu" class="fixed inset-0 z-[60] bg-slate-900/95 backdrop-blur-3xl flex flex-col justify-center items-center gap-10 transition-all duration-500 opacity-0 pointer-events-none translate-y-10">
+        <button id="closeMenuBtn" class="absolute top-8 right-8 p-4 text-slate-200 hover:text-white bg-white/10 rounded-full">
+          <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+
+        <a href="/" class="mobile-link text-6xl font-black text-white hover:text-indigo-300 transition-colors drop-shadow-lg">Home</a>
+        <a href="/modelli" class="mobile-link text-6xl font-black text-slate-200 hover:text-indigo-300 transition-colors">Technology</a>
+        <a href="/team" class="mobile-link text-6xl font-black text-slate-200 hover:text-indigo-300 transition-colors">Research Team</a>
+        <a href="/contacts" class="mobile-link text-6xl font-black text-slate-200 hover:text-indigo-300 transition-colors">Contacts</a>
+        <a href="/login.html" class="text-2xl font-bold text-indigo-200 uppercase tracking-widest mt-8 px-10 py-5 rounded-2xl bg-white/8 hover:bg-white/12 transition-all">Personal Area</a>
       </div>
     </header>
 
-    <main class="pt-40">
-      <slot />           
+    <main class="relative pt-40 min-h-screen z-10">
+      <slot />
     </main>
 
-    <footer class="bg-slate-900 text-slate-400 text-sm py-8">
-      <div class="max-w-6xl mx-auto px-4 text-center">
-        © {new Date().getFullYear()} NormaX Labs — All Rights Reserved
+    <footer class="relative bg-slate-900/90 backdrop-blur-xl border-t border-white/15 pt-32 pb-16 z-10 mt-32 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
+      <div class="container mx-auto px-6 max-w-7xl">
+
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-24 gap-10">
+          <div>
+            <div class="flex items-center gap-6 mb-8">
+              <img src="/img/normax.png" alt="NormaX" class="h-24 w-auto drop-shadow-lg" />
+              <div class="h-20 w-px bg-white/20"></div>
+              <img src="/img/SNS.png" alt="SNS" class="h-28 md:h-32 w-auto brightness-0 invert drop-shadow-lg" />
+            </div>
+            <h2 class="text-6xl md:text-7xl font-black text-white tracking-tighter mb-6 drop-shadow-xl">NormaX Labs.</h2>
+            <p class="text-2xl text-slate-300/80 max-w-2xl font-light leading-relaxed">
+              Deploying the mathematical standards for the decentralized economy.
+            </p>
+          </div>
+          <a href="/contacts" class="px-14 py-7 rounded-full bg-white/10 text-white font-bold text-2xl hover:bg-white hover:text-slate-900 transition-all duration-300 shadow-xl hover:shadow-white/20">
+            Contact us
+          </a>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-12 border-t border-white/15 pt-20 mb-20">
+          <div>
+            <h4 class="text-white font-bold mb-10 text-2xl">Platform</h4>
+            <ul class="space-y-6 text-xl text-slate-200/80 font-medium">
+              <li><a href="#" class="hover:text-indigo-200 transition-colors">Market Maker Bot</a></li>
+              <li><a href="#" class="hover:text-indigo-200 transition-colors">Inventory Risk</a></li>
+              <li><a href="#" class="hover:text-indigo-200 transition-colors">Smart Routing</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-white font-bold mb-10 text-2xl">Research</h4>
+            <ul class="space-y-6 text-xl text-slate-200/80 font-medium">
+              <li><a href="#" class="hover:text-indigo-200 transition-colors">Whitepapers</a></li>
+              <li><a href="#" class="hover:text-indigo-200 transition-colors">Scholar Data</a></li>
+              <li><a href="#" class="hover:text-indigo-200 transition-colors">Documentation</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-white font-bold mb-10 text-2xl">Company</h4>
+            <ul class="space-y-6 text-xl text-slate-200/80 font-medium">
+              <li><a href="/team" class="hover:text-indigo-200 transition-colors">About Us</a></li>
+              <li><a href="#" class="hover:text-indigo-200 transition-colors">Careers</a></li>
+              <li><a href="/contacts" class="hover:text-indigo-200 transition-colors">Contact</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-white font-bold mb-10 text-2xl">Legal</h4>
+            <ul class="space-y-6 text-xl text-slate-200/80 font-medium">
+              <li><a href="#" class="hover:text-indigo-200 transition-colors">Privacy Policy</a></li>
+              <li><a href="#" class="hover:text-indigo-200 transition-colors">Terms of Use</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="text-slate-300/70 text-lg font-mono flex flex-col md:flex-row justify-between items-center gap-4 pt-8 border-t border-white/10">
+          <p>&copy; {new Date().getFullYear()} NormaX Labs S.r.l. — Pisa, Italy.</p>
+          <p class="text-indigo-200 font-bold">Scuola Normale Superiore Spinoff</p>
+        </div>
       </div>
     </footer>
 
-    <script src="https://unpkg.com/scrollreveal"></script>
-    
+    <script is:raw>
+      // MENU MOBILE
+      const btn = document.getElementById('mobileMenuBtn');
+      const closeBtn = document.getElementById('closeMenuBtn');
+      const menu = document.getElementById('mobileMenu');
+      const links = document.querySelectorAll('.mobile-link');
+
+      function toggleMenu() {
+        const isClosed = menu.classList.contains('pointer-events-none');
+        if (isClosed) {
+          menu.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-10');
+          document.body.style.overflow = 'hidden';
+        } else {
+          menu.classList.add('opacity-0', 'pointer-events-none', 'translate-y-10');
+          document.body.style.overflow = '';
+        }
+      }
+      btn?.addEventListener('click', toggleMenu);
+      closeBtn?.addEventListener('click', toggleMenu);
+      links.forEach(link => link.addEventListener('click', toggleMenu));
+
+      // --- NUOVO SISTEMA DI SFONDO (CANVAS + PARTICLES) ---
+      const canvas = document.getElementById('networkCanvas');
+      const ctx = canvas.getContext('2d');
+      let width, height;
+
+      // Configurazione
+      const config = {
+        particleCount: window.innerWidth < 768 ? 25 : 60,
+        connectionDistance: 160,
+        mouseDistance: 200,
+        speed: 0.35
+      };
+
+      // Tickers Finanziari/Crypto
+      const tickers = ['BTC', 'ETH', 'SOL', 'XRP', 'SPX', 'NDX', 'VIX', 'EUR', 'USD', 'DEFI', 'HFT', 'AI'];
+
+      let particles = [];
+      let mouse = { x: null, y: null };
+
+      function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', () => {
+        resize();
+        initParticles();
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        mouse.x = e.x;
+        mouse.y = e.y;
+      });
+      window.addEventListener('mouseleave', () => {
+        mouse.x = null;
+        mouse.y = null;
+      });
+
+      class Particle {
+        constructor() {
+          this.x = Math.random() * width;
+          this.y = Math.random() * height;
+          this.vx = (Math.random() - 0.5) * config.speed;
+          this.vy = (Math.random() - 0.5) * config.speed;
+          
+          // 30% probabilità di essere testo, 70% di essere un punto
+          this.isTicker = Math.random() > 0.70;
+          this.text = this.isTicker ? tickers[Math.floor(Math.random() * tickers.length)] : null;
+          this.size = Math.random() * 2 + 1.5;
+        }
+
+        update() {
+          this.x += this.vx;
+          this.y += this.vy;
+
+          // Rimbalzo bordi
+          if (this.x < 0 || this.x > width) this.vx *= -1;
+          if (this.y < 0 || this.y > height) this.vy *= -1;
+
+          // Interazione Mouse
+          if (mouse.x != null) {
+            let dx = mouse.x - this.x;
+            let dy = mouse.y - this.y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance < config.mouseDistance) {
+              const force = (config.mouseDistance - distance) / config.mouseDistance;
+              const directionX = (dx / distance) * force * 2;
+              const directionY = (dy / distance) * force * 2;
+              this.vx -= directionX * 0.05;
+              this.vy -= directionY * 0.05;
+            }
+          }
+        }
+
+        draw() {
+          ctx.beginPath();
+          if (this.isTicker) {
+            ctx.font = '11px JetBrains Mono';
+            ctx.fillStyle = 'rgba(129, 140, 248, 0.75)'; // Indigo-300
+            ctx.fillText(this.text, this.x, this.y);
+          } else {
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(99, 102, 241, 0.5)'; // Indigo-500
+            ctx.fill();
+          }
+        }
+      }
+
+      function initParticles() {
+        particles = [];
+        for (let i = 0; i < config.particleCount; i++) {
+          particles.push(new Particle());
+        }
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+
+        for (let i = 0; i < particles.length; i++) {
+          let p = particles[i];
+          p.update();
+          p.draw();
+
+          // Disegna connessioni
+          for (let j = i; j < particles.length; j++) {
+            let p2 = particles[j];
+            let dx = p.x - p2.x;
+            let dy = p.y - p2.y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < config.connectionDistance) {
+              ctx.beginPath();
+              let opacity = 1 - (distance / config.connectionDistance);
+              ctx.strokeStyle = `rgba(148, 163, 184, ${opacity * 0.2})`; // Slate line
+              ctx.lineWidth = 1;
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(animate);
+      }
+
+      // Start
+      resize();
+      initParticles();
+      animate();
+    </script>
+
   </body>
 </html>

@@ -1,20 +1,154 @@
-<!-- login.html -->
-<!DOCTYPE html><html><head>
-<meta charset="utf-8"><title>Area riservata</title>
-<script>
-function unlock(e){
-  e.preventDefault();
-  const pw = document.getElementById('pw').value;
-  if(pw === 'normax2025'){ 
-    location.href = '/OPGROfzwvcPiuyE/';
-  } else {
-    alert('Password errata');
-  }
-}
-</script></head><body class="font-sans bg-slate-50 flex h-screen items-center justify-center">
-<form onsubmit="unlock(event)" class="bg-white p-8 rounded-xl shadow">
-  <h1 class="text-2xl font-bold mb-4">Area riservata</h1>
-  <input id="pw" type="password" placeholder="Password" class="border p-2 w-full mb-4 rounded">
-  <button class="bg-indigo-600 text-white py-2 px-4 rounded w-full">Entra</button>
-</form>
-</body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NormaX | Institutional Access</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Manrope', sans-serif; background-color: #020617; overflow: hidden; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+        /* Sfumature di sfondo animate */
+        .mesh-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+        }
+        .mesh-blob {
+            position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.4;
+            animation: float 20s infinite alternate ease-in-out;
+        }
+        .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: #4f46e5; animation-delay: 0s; }
+        .blob-2 { bottom: -10%; right: -10%; width: 50vw; height: 50vw; background: #8b5cf6; animation-delay: -5s; }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 30px) scale(1.1); }
+        }
+
+        /* Shake animation for error */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        .shake { animation: shake 0.3s ease-in-out; border-color: #ef4444 !important; }
+
+        /* Loader */
+        .loader {
+            border: 2px solid rgba(255,255,255,0.1);
+            border-left-color: #ffffff;
+            border-radius: 50%;
+            width: 20px; height: 20px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="flex items-center justify-center h-screen text-slate-200">
+
+    <div class="mesh-bg">
+        <div class="mesh-blob blob-1"></div>
+        <div class="mesh-blob blob-2"></div>
+    </div>
+
+    <main id="loginCard" class="relative w-full max-w-md mx-4 p-8 bg-slate-900/60 backdrop-blur-2xl border border-white/10 rounded-3xl shadow-2xl transition-all">
+        
+        <div class="text-center mb-10">
+            <div class="inline-flex items-center justify-center w-36 h-36 rounded-3xl bg-white/5 border border-white/10 mb-6 shadow-lg shadow-indigo-500/20">
+                <img src="/img/normax.png" alt="NormaX" class="w-25 h-auto drop-shadow-[0_0_15px_rgba(255,255,255,0.6)]">
+            </div>
+            <h1 class="text-3xl font-black text-white tracking-tight mb-2">Institutional Access</h1>
+            <p class="text-slate-400 text-sm">Please identify yourself to proceed.</p>
+        </div>
+
+        <form onsubmit="unlock(event)" class="space-y-6">
+            <div class="space-y-2">
+                <label for="pw" class="text-xs font-bold text-indigo-300 uppercase tracking-widest ml-1">Access Key</label>
+                <div class="relative">
+                    <input 
+                        id="pw" 
+                        type="password" 
+                        placeholder="••••••••••••" 
+                        class="w-full bg-slate-950/50 border border-white/10 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 rounded-xl px-5 py-4 text-white placeholder-slate-600 outline-none transition-all font-mono tracking-widest"
+                        autocomplete="off"
+                    >
+                    <div class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                    </div>
+                </div>
+            </div>
+
+            <button 
+                id="btn"
+                class="group relative w-full py-4 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-bold text-lg tracking-wide shadow-lg shadow-indigo-900/40 hover:scale-[1.02] active:scale-[0.98] transition-all overflow-hidden"
+            >
+                <span id="btnText" class="relative z-10 flex items-center justify-center gap-2">
+                    Authenticate
+                    <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </span>
+                <span id="loader" class="hidden absolute inset-0 flex items-center justify-center bg-indigo-600 z-20">
+                    <div class="loader"></div>
+                </span>
+                
+                <div class="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[30deg] group-hover:animate-[shine_0.75s_ease-in-out]"></div>
+            </button>
+        </form>
+
+        <div class="mt-8 text-center border-t border-white/5 pt-6">
+            <p class="text-xs text-slate-600 font-mono">
+                Secured by NormaX Sentinel&trade; <br>
+                &copy; 2025 NormaX Labs.
+            </p>
+        </div>
+    </main>
+
+    <script>
+        function unlock(e) {
+            e.preventDefault();
+            
+            const pwInput = document.getElementById('pw');
+            const btnText = document.getElementById('btnText');
+            const loader = document.getElementById('loader');
+            const card = document.getElementById('loginCard');
+            const pw = pwInput.value;
+
+            // UI Loading State
+            btnText.classList.add('opacity-0');
+            loader.classList.remove('hidden');
+            pwInput.classList.remove('shake', 'border-red-500', 'text-red-500');
+
+            // Simulate network request delay (makes it feel more real)
+            setTimeout(() => {
+                if(pw === 'normax2025'){ 
+                    // Success
+                    location.href = '/OPGROfzwvcPiuyE/'; 
+                } else {
+                    // Error
+                    btnText.classList.remove('opacity-0');
+                    loader.classList.add('hidden');
+                    
+                    // Error feedback
+                    pwInput.classList.add('shake', 'border-red-500', 'text-red-500');
+                    pwInput.value = '';
+                    pwInput.placeholder = 'Access Denied';
+                    
+                    setTimeout(() => {
+                        pwInput.classList.remove('shake');
+                    }, 500);
+                }
+            }, 800);
+        }
+    </script>
+
+    <style>
+        @keyframes shine { 100% { left: 125%; } }
+    </style>
+</body>
+</html>
