@@ -6,12 +6,13 @@ const pageSubtitle = "DeFi x TradFi Settlement Layer";
 ---
 
 <Layout title={pageTitle}>
+  <div class="platform-page">
 
-  <div class="fixed inset-0 -z-10 h-full w-full bg-slate-950">
-    <div class="absolute top-0 -left-4 w-64 h-64 md:w-96 md:h-96 bg-indigo-900/40 rounded-full mix-blend-screen filter blur-2xl md:blur-3xl opacity-10 md:opacity-20 animate-none md:animate-blob"></div>
-    <div class="absolute top-0 right-0 w-64 h-64 md:w-96 md:h-96 bg-emerald-900/40 rounded-full mix-blend-screen filter blur-2xl md:blur-3xl opacity-10 md:opacity-20 animate-none md:animate-blob animation-delay-2000"></div>
-    <div class="absolute -bottom-8 left-20 w-64 h-64 md:w-96 md:h-96 bg-blue-900/40 rounded-full mix-blend-screen filter blur-2xl md:blur-3xl opacity-10 md:opacity-20 animate-none md:animate-blob animation-delay-4000"></div>
-    <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 brightness-100 contrast-150"></div>
+  <div class="fixed inset-0 -z-10 h-full w-full bg-slate-950 platform-fx">
+    <div class="absolute top-0 -left-4 w-64 h-64 md:w-96 md:h-96 bg-indigo-900/40 rounded-full mix-blend-screen filter blur-2xl md:blur-3xl opacity-10 md:opacity-20 animate-none md:animate-blob platform-blob"></div>
+    <div class="absolute top-0 right-0 w-64 h-64 md:w-96 md:h-96 bg-emerald-900/40 rounded-full mix-blend-screen filter blur-2xl md:blur-3xl opacity-10 md:opacity-20 animate-none md:animate-blob animation-delay-2000 platform-blob"></div>
+    <div class="absolute -bottom-8 left-20 w-64 h-64 md:w-96 md:h-96 bg-blue-900/40 rounded-full mix-blend-screen filter blur-2xl md:blur-3xl opacity-10 md:opacity-20 animate-none md:animate-blob animation-delay-4000 platform-blob"></div>
+    <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 brightness-100 contrast-150 platform-noise"></div>
   </div>
 
   <section class="relative pt-32 pb-20 overflow-hidden">
@@ -157,7 +158,7 @@ const pageSubtitle = "DeFi x TradFi Settlement Layer";
   </section>
 
   <section class="py-24 relative z-10 overflow-hidden bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900">
-    <div class="absolute right-0 top-1/4 w-48 h-48 md:w-1/2 md:h-1/2 bg-orange-500/5 rounded-full blur-3xl md:blur-[120px] -z-10 pointer-events-none"></div>
+    <div class="absolute right-0 top-1/4 w-48 h-48 md:w-1/2 md:h-1/2 bg-orange-500/5 rounded-full blur-3xl md:blur-[120px] -z-10 pointer-events-none platform-glow"></div>
     <div class="container mx-auto px-4 lg:px-8 max-w-7xl">
       <div class="grid lg:grid-cols-2 gap-16 items-center">
         <div>
@@ -660,6 +661,8 @@ const pageSubtitle = "DeFi x TradFi Settlement Layer";
   </section>
 
 
+  </div>
+
   <style>
     @keyframes blob {
       0% { transform: translate(0px, 0px) scale(1); }
@@ -675,6 +678,22 @@ const pageSubtitle = "DeFi x TradFi Settlement Layer";
     }
     .animation-delay-4000 {
       animation-delay: 4s;
+    }
+
+    @media (max-width: 767px) {
+      .platform-page .platform-fx {
+        display: none;
+      }
+      .platform-page .platform-glow {
+        display: none;
+      }
+      .platform-page [class*="backdrop-blur"] {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+      }
+      .platform-page [class*="mix-blend"] {
+        mix-blend-mode: normal !important;
+      }
     }
   </style>
 
