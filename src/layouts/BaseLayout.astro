@@ -6,6 +6,7 @@ const currentPath = Astro.url.pathname;
 
 const normalize = (path: string) => path.replace(/\/$/, '') || '/';
 const isActive = (href: string) => normalize(currentPath) === normalize(href);
+const isPlatformMarket = normalize(currentPath) === '/modelli/platform_market';
 
 const navLinks = [
   { href: '/',         label: 'Home' },
@@ -98,10 +99,22 @@ const navLinks = [
       @media (prefers-reduced-motion: reduce) {
         .grid-lines { animation: none !important; }
       }
+
+      @media (max-width: 767px) {
+        body.page-platform-market .cyber-grid,
+        body.page-platform-market #networkCanvas {
+          display: none;
+        }
+        body.page-platform-market .glass-nav {
+          backdrop-filter: none;
+          -webkit-backdrop-filter: none;
+          background: rgba(15, 23, 42, 0.85);
+        }
+      }
     </style>
   </head>
 
-  <body class="text-slate-100 antialiased selection:bg-indigo-500 selection:text-white">
+  <body class={`text-slate-100 antialiased selection:bg-indigo-500 selection:text-white ${isPlatformMarket ? 'page-platform-market' : ''}`}>
 
     <div class="bg-layer"></div>
     <div class="cyber-grid">
@@ -268,6 +281,32 @@ const navLinks = [
         const menu = document.getElementById('mobileMenu');
         const links = document.querySelectorAll('.mobile-link');
 
+        const isMobile = window.matchMedia('(max-width: 767px)').matches;
+        const disableCanvas = document.body.classList.contains('page-platform-market') && isMobile;
+
+        let startAnimation = () => {};
+        let stopAnimation = () => {};
+
+        function toggleMenu() {
+          if (!menu) return;
+          const isClosed = menu.classList.contains('pointer-events-none');
+          if (isClosed) {
+            menu.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-10');
+            document.body.style.overflow = 'hidden';
+            stopAnimation();
+          } else {
+            menu.classList.add('opacity-0', 'pointer-events-none', 'translate-y-10');
+            document.body.style.overflow = '';
+            startAnimation();
+          }
+        }
+
+        btn?.addEventListener('click', toggleMenu);
+        closeBtn?.addEventListener('click', toggleMenu);
+        links.forEach(link => link.addEventListener('click', toggleMenu));
+
+        if (disableCanvas) return;
+
         // --- NUOVO SISTEMA DI SFONDO (CANVAS + PARTICLES) ---
         const canvas = document.getElementById('networkCanvas');
         const ctx = canvas?.getContext('2d');
@@ -287,11 +326,11 @@ const navLinks = [
         };
 
         function applyConfig() {
-          const isMobile = window.innerWidth < 768 || (navigator.connection && navigator.connection.saveData);
-          config.particleCount = isMobile ? 18 : 60;
-          config.connectionDistance = isMobile ? 120 : 160;
-          config.mouseDistance = isMobile ? 140 : 200;
-          config.speed = isMobile ? 0.25 : 0.35;
+          const mobile = window.innerWidth < 768 || (navigator.connection && navigator.connection.saveData);
+          config.particleCount = mobile ? 18 : 60;
+          config.connectionDistance = mobile ? 120 : 160;
+          config.mouseDistance = mobile ? 140 : 200;
+          config.speed = mobile ? 0.25 : 0.35;
         }
 
         // Tickers Finanziari/Crypto
@@ -406,36 +445,18 @@ const navLinks = [
           rafId = requestAnimationFrame(animate);
         }
 
-        function startAnimation() {
+        startAnimation = function startAnimation() {
           if (reduceMotion || running) return;
           running = true;
           rafId = requestAnimationFrame(animate);
-        }
+        };
 
-        function stopAnimation() {
+        stopAnimation = function stopAnimation() {
           if (!running) return;
           running = false;
           if (rafId) cancelAnimationFrame(rafId);
           rafId = null;
-        }
-
-        function toggleMenu() {
-          if (!menu) return;
-          const isClosed = menu.classList.contains('pointer-events-none');
-          if (isClosed) {
-            menu.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-10');
-            document.body.style.overflow = 'hidden';
-            stopAnimation();
-          } else {
-            menu.classList.add('opacity-0', 'pointer-events-none', 'translate-y-10');
-            document.body.style.overflow = '';
-            startAnimation();
-          }
-        }
-
-        btn?.addEventListener('click', toggleMenu);
-        closeBtn?.addEventListener('click', toggleMenu);
-        links.forEach(link => link.addEventListener('click', toggleMenu));
+        };
 
         if (reduceMotion) {
           resize();
