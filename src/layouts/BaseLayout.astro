@@ -1,10 +1,17 @@
 ---
 // BaseLayout.astro
+// /*{ href: '/modelli',     label: 'R&D' },*/
 const { title = 'NormaX Labs | Quantitative Finance', description = 'Institutional-grade market infrastructure.' } = Astro.props;
 const currentPath = Astro.url.pathname;
 
 const normalize = (path: string) => path.replace(/\/$/, '') || '/';
 const isActive = (href: string) => normalize(currentPath) === normalize(href);
+
+const navLinks = [
+  { href: '/',         label: 'Home' },
+  { href: '/team',     label: 'Team' },
+  { href: '/contacts', label: 'Contact Us' }
+];
 ---
 
 <!DOCTYPE html>
@@ -119,12 +126,7 @@ const isActive = (href: string) => normalize(currentPath) === normalize(href);
         </a>
 
         <ul class="hidden lg:flex items-center gap-2 bg-white/5 rounded-2xl px-2 py-2 shadow-inner">
-          {[
-            { href: '/',            label: 'Home' },
-            /*{ href: '/modelli',     label: 'R&D' },*/
-            { href: '/team',        label: 'Team' },
-            { href: '/contacts',    label: 'Contact Us' }
-          ].map(({ href, label }) => {
+          {navLinks.map(({ href, label }) => {
             const active = isActive(href);
             return (
               <li>
@@ -171,17 +173,24 @@ const isActive = (href: string) => normalize(currentPath) === normalize(href);
 
       </nav>
 
-      <div id="mobileMenu" class="fixed inset-0 z-[60] bg-slate-900/95 backdrop-blur-3xl flex flex-col justify-center items-center gap-10 transition-all duration-500 opacity-0 pointer-events-none translate-y-10">
+      <div id="mobileMenu" class="fixed inset-0 z-[60] bg-slate-900/95 backdrop-blur-none md:backdrop-blur-3xl flex flex-col justify-center items-center gap-10 transition-opacity transition-transform duration-500 opacity-0 pointer-events-none translate-y-10">
         <button id="closeMenuBtn" class="absolute top-8 right-8 p-4 text-slate-200 hover:text-white bg-white/10 rounded-full">
           <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
           </svg>
         </button>
 
-        <a href="/" class="mobile-link text-6xl font-black text-white hover:text-indigo-300 transition-colors drop-shadow-lg">Home</a>
-        <a href="/modelli" class="mobile-link text-6xl font-black text-slate-200 hover:text-indigo-300 transition-colors">Technology</a>
-        <a href="/team" class="mobile-link text-6xl font-black text-slate-200 hover:text-indigo-300 transition-colors">Research Team</a>
-        <a href="/contacts" class="mobile-link text-6xl font-black text-slate-200 hover:text-indigo-300 transition-colors">Contacts</a>
+        {navLinks.map(({ href, label }) => {
+          const active = isActive(href);
+          return (
+            <a
+              href={href}
+              class={`mobile-link text-6xl font-black hover:text-indigo-300 transition-colors drop-shadow-lg ${active ? 'text-white' : 'text-slate-200'}`}
+            >
+              {label}
+            </a>
+          );
+        })}
         <a href="/login.html" class="text-2xl font-bold text-indigo-200 uppercase tracking-widest mt-8 px-10 py-5 rounded-2xl bg-white/8 hover:bg-white/12 transition-all">Personal Area</a>
       </div>
     </header>
@@ -252,153 +261,194 @@ const isActive = (href: string) => normalize(currentPath) === normalize(href);
     </footer>
 
     <script is:raw>
-      // MENU MOBILE
-      const btn = document.getElementById('mobileMenuBtn');
-      const closeBtn = document.getElementById('closeMenuBtn');
-      const menu = document.getElementById('mobileMenu');
-      const links = document.querySelectorAll('.mobile-link');
+      (() => {
+        // MENU MOBILE
+        const btn = document.getElementById('mobileMenuBtn');
+        const closeBtn = document.getElementById('closeMenuBtn');
+        const menu = document.getElementById('mobileMenu');
+        const links = document.querySelectorAll('.mobile-link');
 
-      function toggleMenu() {
-        const isClosed = menu.classList.contains('pointer-events-none');
-        if (isClosed) {
-          menu.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-10');
-          document.body.style.overflow = 'hidden';
-        } else {
-          menu.classList.add('opacity-0', 'pointer-events-none', 'translate-y-10');
-          document.body.style.overflow = '';
+        // --- NUOVO SISTEMA DI SFONDO (CANVAS + PARTICLES) ---
+        const canvas = document.getElementById('networkCanvas');
+        const ctx = canvas?.getContext('2d');
+        if (!canvas || !ctx) return;
+
+        let width, height;
+        let rafId = null;
+        let running = false;
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // Configurazione
+        const config = {
+          particleCount: 60,
+          connectionDistance: 160,
+          mouseDistance: 200,
+          speed: 0.35
+        };
+
+        function applyConfig() {
+          const isMobile = window.innerWidth < 768 || (navigator.connection && navigator.connection.saveData);
+          config.particleCount = isMobile ? 18 : 60;
+          config.connectionDistance = isMobile ? 120 : 160;
+          config.mouseDistance = isMobile ? 140 : 200;
+          config.speed = isMobile ? 0.25 : 0.35;
         }
-      }
-      btn?.addEventListener('click', toggleMenu);
-      closeBtn?.addEventListener('click', toggleMenu);
-      links.forEach(link => link.addEventListener('click', toggleMenu));
 
-      // --- NUOVO SISTEMA DI SFONDO (CANVAS + PARTICLES) ---
-      const canvas = document.getElementById('networkCanvas');
-      const ctx = canvas.getContext('2d');
-      let width, height;
+        // Tickers Finanziari/Crypto
+        const tickers = ['BTC', 'ETH', 'SOL', 'XRP', 'SPX', 'NDX', 'VIX', 'EUR', 'USD', 'DEFI', 'HFT', 'AI'];
 
-      // Configurazione
-      const config = {
-        particleCount: window.innerWidth < 768 ? 25 : 60,
-        connectionDistance: 160,
-        mouseDistance: 200,
-        speed: 0.35
-      };
+        let particles = [];
+        let mouse = { x: null, y: null };
 
-      // Tickers Finanziari/Crypto
-      const tickers = ['BTC', 'ETH', 'SOL', 'XRP', 'SPX', 'NDX', 'VIX', 'EUR', 'USD', 'DEFI', 'HFT', 'AI'];
+        function resize() {
+          width = canvas.width = window.innerWidth;
+          height = canvas.height = window.innerHeight;
+          applyConfig();
+        }
+        window.addEventListener('resize', () => {
+          resize();
+          initParticles();
+        });
 
-      let particles = [];
-      let mouse = { x: null, y: null };
+        window.addEventListener('mousemove', (e) => {
+          mouse.x = e.x;
+          mouse.y = e.y;
+        });
+        window.addEventListener('mouseleave', () => {
+          mouse.x = null;
+          mouse.y = null;
+        });
 
-      function resize() {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-      }
-      window.addEventListener('resize', () => {
+        class Particle {
+          constructor() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.vx = (Math.random() - 0.5) * config.speed;
+            this.vy = (Math.random() - 0.5) * config.speed;
+            
+            // 30% probabilità di essere testo, 70% di essere un punto
+            this.isTicker = Math.random() > 0.70;
+            this.text = this.isTicker ? tickers[Math.floor(Math.random() * tickers.length)] : null;
+            this.size = Math.random() * 2 + 1.5;
+          }
+
+          update() {
+            this.x += this.vx;
+            this.y += this.vy;
+
+            // Rimbalzo bordi
+            if (this.x < 0 || this.x > width) this.vx *= -1;
+            if (this.y < 0 || this.y > height) this.vy *= -1;
+
+            // Interazione Mouse
+            if (mouse.x != null) {
+              let dx = mouse.x - this.x;
+              let dy = mouse.y - this.y;
+              let distance = Math.sqrt(dx * dx + dy * dy);
+              if (distance < config.mouseDistance) {
+                const force = (config.mouseDistance - distance) / config.mouseDistance;
+                const directionX = (dx / distance) * force * 2;
+                const directionY = (dy / distance) * force * 2;
+                this.vx -= directionX * 0.05;
+                this.vy -= directionY * 0.05;
+              }
+            }
+          }
+
+          draw() {
+            ctx.beginPath();
+            if (this.isTicker) {
+              ctx.font = '11px JetBrains Mono';
+              ctx.fillStyle = 'rgba(129, 140, 248, 0.75)'; // Indigo-300
+              ctx.fillText(this.text, this.x, this.y);
+            } else {
+              ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+              ctx.fillStyle = 'rgba(99, 102, 241, 0.5)'; // Indigo-500
+              ctx.fill();
+            }
+          }
+        }
+
+        function initParticles() {
+          particles = [];
+          for (let i = 0; i < config.particleCount; i++) {
+            particles.push(new Particle());
+          }
+        }
+
+        function animate() {
+          if (!running) return;
+          ctx.clearRect(0, 0, width, height);
+
+          for (let i = 0; i < particles.length; i++) {
+            let p = particles[i];
+            p.update();
+            p.draw();
+
+            // Disegna connessioni
+            for (let j = i; j < particles.length; j++) {
+              let p2 = particles[j];
+              let dx = p.x - p2.x;
+              let dy = p.y - p2.y;
+              let distance = Math.sqrt(dx * dx + dy * dy);
+
+              if (distance < config.connectionDistance) {
+                ctx.beginPath();
+                let opacity = 1 - (distance / config.connectionDistance);
+                ctx.strokeStyle = `rgba(148, 163, 184, ${opacity * 0.2})`; // Slate line
+                ctx.lineWidth = 1;
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.stroke();
+              }
+            }
+          }
+          rafId = requestAnimationFrame(animate);
+        }
+
+        function startAnimation() {
+          if (reduceMotion || running) return;
+          running = true;
+          rafId = requestAnimationFrame(animate);
+        }
+
+        function stopAnimation() {
+          if (!running) return;
+          running = false;
+          if (rafId) cancelAnimationFrame(rafId);
+          rafId = null;
+        }
+
+        function toggleMenu() {
+          if (!menu) return;
+          const isClosed = menu.classList.contains('pointer-events-none');
+          if (isClosed) {
+            menu.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-10');
+            document.body.style.overflow = 'hidden';
+            stopAnimation();
+          } else {
+            menu.classList.add('opacity-0', 'pointer-events-none', 'translate-y-10');
+            document.body.style.overflow = '';
+            startAnimation();
+          }
+        }
+
+        btn?.addEventListener('click', toggleMenu);
+        closeBtn?.addEventListener('click', toggleMenu);
+        links.forEach(link => link.addEventListener('click', toggleMenu));
+
+        if (reduceMotion) {
+          resize();
+          initParticles();
+          particles.forEach(p => p.draw());
+          return;
+        }
+
+        // Start
         resize();
         initParticles();
-      });
-
-      window.addEventListener('mousemove', (e) => {
-        mouse.x = e.x;
-        mouse.y = e.y;
-      });
-      window.addEventListener('mouseleave', () => {
-        mouse.x = null;
-        mouse.y = null;
-      });
-
-      class Particle {
-        constructor() {
-          this.x = Math.random() * width;
-          this.y = Math.random() * height;
-          this.vx = (Math.random() - 0.5) * config.speed;
-          this.vy = (Math.random() - 0.5) * config.speed;
-          
-          // 30% probabilità di essere testo, 70% di essere un punto
-          this.isTicker = Math.random() > 0.70;
-          this.text = this.isTicker ? tickers[Math.floor(Math.random() * tickers.length)] : null;
-          this.size = Math.random() * 2 + 1.5;
-        }
-
-        update() {
-          this.x += this.vx;
-          this.y += this.vy;
-
-          // Rimbalzo bordi
-          if (this.x < 0 || this.x > width) this.vx *= -1;
-          if (this.y < 0 || this.y > height) this.vy *= -1;
-
-          // Interazione Mouse
-          if (mouse.x != null) {
-            let dx = mouse.x - this.x;
-            let dy = mouse.y - this.y;
-            let distance = Math.sqrt(dx * dx + dy * dy);
-            if (distance < config.mouseDistance) {
-              const force = (config.mouseDistance - distance) / config.mouseDistance;
-              const directionX = (dx / distance) * force * 2;
-              const directionY = (dy / distance) * force * 2;
-              this.vx -= directionX * 0.05;
-              this.vy -= directionY * 0.05;
-            }
-          }
-        }
-
-        draw() {
-          ctx.beginPath();
-          if (this.isTicker) {
-            ctx.font = '11px JetBrains Mono';
-            ctx.fillStyle = 'rgba(129, 140, 248, 0.75)'; // Indigo-300
-            ctx.fillText(this.text, this.x, this.y);
-          } else {
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(99, 102, 241, 0.5)'; // Indigo-500
-            ctx.fill();
-          }
-        }
-      }
-
-      function initParticles() {
-        particles = [];
-        for (let i = 0; i < config.particleCount; i++) {
-          particles.push(new Particle());
-        }
-      }
-
-      function animate() {
-        ctx.clearRect(0, 0, width, height);
-
-        for (let i = 0; i < particles.length; i++) {
-          let p = particles[i];
-          p.update();
-          p.draw();
-
-          // Disegna connessioni
-          for (let j = i; j < particles.length; j++) {
-            let p2 = particles[j];
-            let dx = p.x - p2.x;
-            let dy = p.y - p2.y;
-            let distance = Math.sqrt(dx * dx + dy * dy);
-
-            if (distance < config.connectionDistance) {
-              ctx.beginPath();
-              let opacity = 1 - (distance / config.connectionDistance);
-              ctx.strokeStyle = `rgba(148, 163, 184, ${opacity * 0.2})`; // Slate line
-              ctx.lineWidth = 1;
-              ctx.moveTo(p.x, p.y);
-              ctx.lineTo(p2.x, p2.y);
-              ctx.stroke();
-            }
-          }
-        }
-        requestAnimationFrame(animate);
-      }
-
-      // Start
-      resize();
-      initParticles();
-      animate();
+        startAnimation();
+      })();
     </script>
 
   </body>
