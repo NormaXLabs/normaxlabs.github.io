@@ -1,7 +1,7 @@
 ---
 // BaseLayout.astro
 // /*{ href: '/modelli',     label: 'R&D' },*/
-const { title = 'NormaX Labs | Quantitative Finance', description = 'Institutional-grade market infrastructure.' } = Astro.props;
+const { title = 'Settlr | Quantitative Finance', description = 'Institutional-grade market infrastructure.' } = Astro.props;
 const currentPath = Astro.url.pathname;
 
 const normalize = (path: string) => path.replace(/\/$/, '') || '/';
@@ -130,7 +130,7 @@ const navLinks = [
           </div>
 
           <div class="hidden md:block">
-            <span class="block text-3xl font-extrabold text-white tracking-tight leading-none">NormaX</span>
+            <span class="block text-3xl font-extrabold text-white tracking-tight leading-none">Settlr</span>
             <div class="flex items-center gap-3 mt-1">
               <span class="block text-xs font-mono text-indigo-200 tracking-[0.35em] uppercase font-bold">Labs</span>
               <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_10px_rgba(52,211,153,0.7)]"></span>
@@ -222,7 +222,7 @@ const navLinks = [
               <div class="h-20 w-px bg-white/20"></div>
               <img src="/img/SNS.png" alt="SNS" class="h-28 md:h-32 w-auto brightness-0 invert drop-shadow-lg" />
             </div>
-            <h2 class="text-6xl md:text-7xl font-black text-white tracking-tighter mb-6 drop-shadow-xl">NormaX Labs.</h2>
+            <h2 class="text-6xl md:text-7xl font-black text-white tracking-tighter mb-6 drop-shadow-xl">Settlr.</h2>
             <p class="text-2xl text-slate-300/80 max-w-2xl font-light leading-relaxed">
               Deploying the mathematical standards for the decentralized economy.
             </p>
@@ -266,7 +266,7 @@ const navLinks = [
         </div>
 
         <div class="text-slate-300/70 text-lg font-mono flex flex-col md:flex-row justify-between items-center gap-4 pt-8 border-t border-white/10">
-          <p>&copy; {new Date().getFullYear()} NormaX Labs — Pisa, Italy.</p>
+          <p>&copy; {new Date().getFullYear()} Settlr — Pisa, Italy.</p>
           <p class="text-indigo-200 font-bold">All rights reserved</p>
         </div>
       </div>
