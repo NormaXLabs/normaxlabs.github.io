@@ -134,6 +134,17 @@ const navLinks = [
           background: rgba(15, 23, 42, 0.88);
         }
       }
+
+      #siteHeader {
+        transform: translate3d(0, 0, 0);
+        will-change: transform, opacity;
+      }
+
+      #siteHeader.header-hidden {
+        transform: translate3d(0, calc(-100% - 1rem), 0);
+        opacity: 0;
+        pointer-events: none;
+      }
     </style>
   </head>
 
@@ -144,7 +155,7 @@ const navLinks = [
       <div class="grid-lines"></div>
     </div>
     <canvas id="networkCanvas"></canvas>
-    <header class="fixed top-0 left-0 right-0 z-50 pt-3 px-4 md:px-8 transition-all duration-300">
+    <header id="siteHeader" class="fixed top-0 left-0 right-0 z-50 pt-3 px-4 md:px-8 transition-all duration-300">
       <nav class="mx-auto max-w-[96%] glass-nav rounded-2xl px-6 md:px-8 py-3 flex items-center justify-between transition-all duration-300">
 
         <a href="/" class="flex items-center gap-5 group">
@@ -326,6 +337,37 @@ const navLinks = [
         btn?.addEventListener('click', toggleMenu);
         closeBtn?.addEventListener('click', toggleMenu);
         links.forEach(link => link.addEventListener('click', toggleMenu));
+
+        const header = document.getElementById('siteHeader');
+        if (header) {
+          let lastScrollY = window.scrollY;
+          let ticking = false;
+
+          const syncHeaderVisibility = () => {
+            const isMenuOpen = menu && !menu.classList.contains('pointer-events-none');
+            const currentY = Math.max(window.scrollY, window.pageYOffset, 0);
+            const delta = currentY - lastScrollY;
+
+            if (isMenuOpen || currentY <= 16) {
+              header.classList.remove('header-hidden');
+            } else if (delta > 4) {
+              header.classList.add('header-hidden');
+            } else if (delta < -4) {
+              header.classList.remove('header-hidden');
+            }
+
+            lastScrollY = currentY;
+            ticking = false;
+          };
+
+          window.addEventListener('scroll', () => {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(syncHeaderVisibility);
+          }, { passive: true });
+
+          syncHeaderVisibility();
+        }
 
         if (disableCanvas) return;
 

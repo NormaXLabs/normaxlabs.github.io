@@ -5,16 +5,27 @@ const pageTitle = 'Settlr | Pitch Deck';
 ---
 
 <Layout title={pageTitle}>
-  <main class="max-w-7xl mx-auto px-4 lg:px-8 py-12 space-y-8">
+  <main class="deck-main max-w-7xl mx-auto px-4 lg:px-8 py-12 space-y-8">
+      <button
+        type="button"
+        id="deckPrintBtn"
+        class="deck-export-btn fixed bottom-6 right-6 z-40 inline-flex items-center gap-2 rounded-full border border-white/10 bg-slate-950/40 px-4 py-3 text-sm font-semibold text-slate-100 shadow-lg backdrop-blur-md transition-all duration-300 hover:bg-slate-900/70 hover:text-white hover:shadow-2xl"
+      >
+        <svg class="h-4 w-4 opacity-80" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v12m0 0l4-4m-4 4l-4-4M5 21h14" />
+        </svg>
+        Export PDF
+      </button>
+
       <!-- Slide 01 -->
       <section class="slide-panel reveal theme-cover min-h-[86vh] rounded-3xl border border-white/10 bg-slate-900/60 backdrop-blur-sm p-8 md:p-12 grid lg:grid-cols-2 gap-8 items-center" style="--reveal-delay: 0ms">
-        <div>
+        <div class="pdf-cover-copy">
           <div class="inline-flex items-center gap-3 w-fit px-4 py-2 rounded-full bg-indigo-500/15 border border-indigo-400/30 text-indigo-200 text-xs font-bold uppercase tracking-wider mb-8 pulse-soft">
             Slide 01 · Cover
           </div>
           <h1 class="text-4xl md:text-7xl font-black leading-[1.03] text-white tracking-tight">
             The Institutional Market Infrastructure for
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-sky-400 to-indigo-400">Tokenized Real-World Assets</span>
+            <span class="pdf-gradient-fallback text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-sky-400 to-indigo-400">Tokenized Real-World Assets</span>
           </h1>
           <p class="mt-7 max-w-2xl text-lg md:text-xl text-slate-300 leading-relaxed">
             Settlr unifies compliance, issuance, and settlement into one programmable stack.
@@ -36,7 +47,7 @@ const pageTitle = 'Settlr | Pitch Deck';
           </div>
         </div>
 
-        <div class="rounded-3xl overflow-hidden border border-white/10 shadow-2xl float-card">
+        <div class="pdf-cover-image rounded-3xl overflow-hidden border border-white/10 shadow-2xl float-card">
           <img
             src="/img/investor_deck/1559526324-593bc073d938-w1400.jpg"
             alt="Financial district skyline"
@@ -770,11 +781,36 @@ const pageTitle = 'Settlr | Pitch Deck';
     .roadmap-bar { width: 0%; }
     .roadmap-bar.is-animated { animation: growRoadmap 1.5s ease-out forwards; }
 
+    :global(body.pdf-exporting) .pdf-gradient-fallback {
+      background: none !important;
+      -webkit-background-clip: border-box !important;
+      background-clip: border-box !important;
+      color: #67e8f9 !important;
+      -webkit-text-fill-color: #67e8f9 !important;
+      text-shadow: 0 0 22px rgba(103, 232, 249, 0.18);
+    }
+
+    :global(body.pdf-exporting) .pdf-cover-copy {
+      position: relative;
+      z-index: 3;
+      isolation: isolate;
+    }
+
+    :global(body.pdf-exporting) .pdf-cover-image {
+      position: relative;
+      z-index: 1;
+    }
+
     @media (max-width: 767px) {
       .slide-panel { border-radius: 1.25rem; }
       .slide-panel::before,
       .slide-panel::after {
         opacity: 0.2;
+      }
+      .deck-export-btn {
+        right: 1rem !important;
+        bottom: 1rem !important;
+        padding: 0.8rem 1rem !important;
       }
     }
 
@@ -795,14 +831,184 @@ const pageTitle = 'Settlr | Pitch Deck';
       .donut { --deg: 260deg; }
       .bar-fill { width: 70% !important; }
     }
+
+    @media print {
+      @page {
+        size: 13.333in 7.5in;
+        margin: 0;
+      }
+
+      :global(html),
+      :global(body) {
+        width: 13.333in !important;
+        height: 7.5in !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+        overflow: visible !important;
+      }
+
+      :global(header),
+      :global(footer),
+      :global(#mobileMenu),
+      :global(.bg-layer),
+      :global(.cyber-grid),
+      :global(#networkCanvas),
+      .deck-export-btn {
+        display: none !important;
+      }
+
+      :global(main) {
+        padding-top: 0 !important;
+      }
+
+      .deck-main {
+        max-width: none !important;
+        width: 13.333in !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+      }
+
+      .deck-main > * + * {
+        margin-top: 0 !important;
+      }
+
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+
+      .slide-panel,
+      .float-card,
+      .flow-step,
+      .pulse-soft,
+      .scale-on-load,
+      .animate-blob,
+      .roadmap-bar.is-animated,
+      .slide-panel::after,
+      .bar-fill {
+        animation: none !important;
+        transition: none !important;
+      }
+
+      .slide-panel {
+        width: 13.333in !important;
+        min-height: 7.5in !important;
+        height: 7.5in !important;
+        box-sizing: border-box !important;
+        break-inside: avoid;
+        break-after: page;
+        page-break-inside: avoid;
+        page-break-after: always;
+        border-radius: 0 !important;
+        margin: 0 !important;
+        padding: 0.55in 0.7in !important;
+        box-shadow: none !important;
+        overflow: hidden !important;
+      }
+
+      .slide-panel:last-of-type {
+        break-after: auto;
+        page-break-after: auto;
+      }
+
+      .slide-panel::before,
+      .slide-panel::after {
+        opacity: 0.18 !important;
+      }
+    }
   </style>
 
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
   <script>
+    const printBtn = document.getElementById('deckPrintBtn');
     const revealTargets = document.querySelectorAll('.reveal');
     const roadmapBar = document.querySelector('.roadmap-bar');
     const counters = document.querySelectorAll('.metric-count');
     const donuts = document.querySelectorAll('.donut');
     const bars = document.querySelectorAll('.bar-fill');
+
+    printBtn?.addEventListener('click', async () => {
+      const originalLabel = printBtn.textContent;
+
+      try {
+        printBtn.disabled = true;
+        printBtn.textContent = 'Exporting...';
+        document.body.classList.add('pdf-exporting');
+
+        document.querySelectorAll('.reveal').forEach((el) => el.classList.add('is-visible'));
+        document.querySelectorAll('.metric-count').forEach(animateCounter);
+        document.querySelectorAll('.donut').forEach(animateDonut);
+        animateBars();
+        roadmapBar?.classList.add('is-animated');
+
+        await waitForDeckAssets();
+        await new Promise((resolve) => setTimeout(resolve, 900));
+
+        const { jsPDF } = window.jspdf || {};
+        if (!window.html2canvas || !jsPDF) {
+          throw new Error('PDF libraries not loaded');
+        }
+
+        const slides = Array.from(document.querySelectorAll('.slide-panel'));
+        if (!slides.length) {
+          throw new Error('No slides found');
+        }
+
+        const firstRect = slides[0].getBoundingClientRect();
+        const pdf = new jsPDF({
+          orientation: firstRect.width >= firstRect.height ? 'landscape' : 'portrait',
+          unit: 'pt',
+          format: [firstRect.width, firstRect.height],
+          compress: true,
+        });
+
+        for (let i = 0; i < slides.length; i += 1) {
+          const slide = slides[i];
+          const rect = slide.getBoundingClientRect();
+          const canvas = await window.html2canvas(slide, {
+            backgroundColor: null,
+            scale: Math.max(2, window.devicePixelRatio || 1),
+            useCORS: true,
+            logging: false,
+          });
+
+          const imgData = canvas.toDataURL('image/png');
+          if (i > 0) {
+            pdf.addPage([rect.width, rect.height], rect.width >= rect.height ? 'landscape' : 'portrait');
+          }
+          pdf.addImage(imgData, 'PNG', 0, 0, rect.width, rect.height, undefined, 'FAST');
+        }
+
+        pdf.save('settlr-investor-deck.pdf');
+      } catch (error) {
+        console.error(error);
+        alert('Export PDF failed. Open the desktop version of the deck and try again.');
+      } finally {
+        document.body.classList.remove('pdf-exporting');
+        printBtn.disabled = false;
+        printBtn.textContent = originalLabel;
+      }
+    });
+
+    async function waitForDeckAssets() {
+      if (document.fonts?.ready) {
+        await document.fonts.ready;
+      }
+
+      const images = Array.from(document.images).filter((img) => !img.complete);
+      await Promise.all(
+        images.map(
+          (img) =>
+            new Promise((resolve) => {
+              img.addEventListener('load', resolve, { once: true });
+              img.addEventListener('error', resolve, { once: true });
+            })
+        )
+      );
+    }
 
     function animateCounter(el) {
       if (el.dataset.done === '1') return;
