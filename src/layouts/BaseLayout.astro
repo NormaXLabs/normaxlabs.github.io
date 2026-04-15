@@ -6,7 +6,7 @@ const currentPath = Astro.url.pathname;
 
 const normalize = (path: string) => path.replace(/\/$/, '') || '/';
 const isActive = (href: string) => normalize(currentPath) === normalize(href);
-const isPlatformMarket = normalize(currentPath) === '/modelli/platform_market';
+const isPlatformMarket = normalize(currentPath) === '/tokenization-platform';
 
 const navLinks = [
   { href: '/',              label: 'Home' },
@@ -199,7 +199,7 @@ const navLinks = [
             <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-indigo-300 transition-all group-hover:w-full rounded-full"></span>
           </a>
 
-          <a href="/modelli/platform_market"
+          <a href="/tokenization-platform"
             class="group relative inline-flex items-center gap-3 px-9 py-4 rounded-2xl bg-gradient-to-r from-indigo-400 via-violet-400 to-indigo-400 bg-[length:220%_auto] hover:bg-right text-white font-bold text-lg tracking-wide shadow-2xl shadow-indigo-500/35 overflow-hidden hover:scale-[1.03] transition-all duration-500">
             <span class="relative z-10">Platform</span>
             <svg class="w-6 h-6 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
