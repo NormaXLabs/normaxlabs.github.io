@@ -1,0 +1,527 @@
+<!DOCTYPE html><html lang="en" class="scroll-smooth" data-astro-cid-37fxchfa> <head><meta charset="utf-8"><meta name="viewport" content="width=1280, initial-scale=0.42"><title>Settlr | Tokenized Asset Market</title><meta name="description" content="Institutional-grade market infrastructure."><link rel="icon" type="image/png" href="/img/settlr.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Manrope:wght@300;400;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="/_astro/index.C0vTm9wl.css">
+<style>body{font-family:Manrope,sans-serif;background-color:#0b1121;color:#f1f5f9;overflow-x:hidden}.font-mono[data-astro-cid-37fxchfa]{font-family:JetBrains Mono,monospace}.bg-layer[data-astro-cid-37fxchfa]{position:fixed;top:0;left:0;width:100%;height:100vh;z-index:-3;background:radial-gradient(circle at 50% 0%,#1e293b,#0b1121 80%)}.cyber-grid[data-astro-cid-37fxchfa]{position:fixed;top:0;left:0;width:100%;height:100vh;z-index:-2;perspective:1000px;opacity:.35;pointer-events:none;overflow:hidden}.grid-lines[data-astro-cid-37fxchfa]{position:absolute;top:-50%;left:-50%;width:200%;height:200%;background-image:linear-gradient(rgba(99,102,241,.25) 1px,transparent 1px),linear-gradient(90deg,rgba(99,102,241,.25) 1px,transparent 1px);background-size:60px 60px;transform:rotateX(60deg);animation:gridMove 20s linear infinite;-webkit-mask-image:linear-gradient(to bottom,rgba(0,0,0,0) 0%,rgba(0,0,0,1) 30%,rgba(0,0,0,0) 80%);mask-image:linear-gradient(to bottom,#0000,#000 30%,#0000 80%)}@keyframes gridMove{0%{transform:rotateX(60deg) translateY(0)}to{transform:rotateX(60deg) translateY(60px)}}#networkCanvas[data-astro-cid-37fxchfa]{position:fixed;top:0;left:0;width:100%;height:100vh;z-index:-1;opacity:.8;pointer-events:none}.glass-nav[data-astro-cid-37fxchfa]{background:linear-gradient(180deg,#ffffff14,#ffffff0a);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:0;box-shadow:0 14px 40px #00000059,inset 0 1px #ffffff14}@keyframes shine{to{left:125%}}.animate-shine[data-astro-cid-37fxchfa]{animation:shine 1s}@media(prefers-reduced-motion:reduce){.grid-lines[data-astro-cid-37fxchfa]{animation:none!important}}@media(hover:none)and (pointer:coarse){#networkCanvas[data-astro-cid-37fxchfa]{display:none}.cyber-grid[data-astro-cid-37fxchfa]{display:none;opacity:0}.grid-lines[data-astro-cid-37fxchfa]{animation:none!important;transform:none}.glass-nav[data-astro-cid-37fxchfa]{backdrop-filter:none;-webkit-backdrop-filter:none;background:#0f172ae0}body.page-platform-market .cyber-grid[data-astro-cid-37fxchfa],body.page-platform-market #networkCanvas[data-astro-cid-37fxchfa]{display:none}body.page-platform-market .glass-nav[data-astro-cid-37fxchfa]{backdrop-filter:none;-webkit-backdrop-filter:none;background:#0f172ae0}}#siteHeader[data-astro-cid-37fxchfa]{transform:translateZ(0);will-change:transform,opacity}#siteHeader[data-astro-cid-37fxchfa].header-hidden{transform:translate3d(0,calc(-100% - 1rem),0);opacity:0;pointer-events:none}
+@keyframes blob{0%{transform:translate(0) scale(1)}33%{transform:translate(30px,-50px) scale(1.1)}66%{transform:translate(-20px,20px) scale(.9)}to{transform:translate(0) scale(1)}}.animate-blob[data-astro-cid-xeylcmwl]{animation:blob 7s infinite}.animation-delay-2000[data-astro-cid-xeylcmwl]{animation-delay:2s}.animation-delay-4000[data-astro-cid-xeylcmwl]{animation-delay:4s}@media(hover:none)and (pointer:coarse){.platform-page[data-astro-cid-xeylcmwl] .platform-fx[data-astro-cid-xeylcmwl],.platform-page[data-astro-cid-xeylcmwl] .platform-noise[data-astro-cid-xeylcmwl],.platform-page[data-astro-cid-xeylcmwl] .platform-glow[data-astro-cid-xeylcmwl]{display:none}.platform-page[data-astro-cid-xeylcmwl] [data-astro-cid-xeylcmwl][class*=backdrop-blur]{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}.platform-page[data-astro-cid-xeylcmwl] [data-astro-cid-xeylcmwl][class*=mix-blend]{mix-blend-mode:normal!important}.platform-page[data-astro-cid-xeylcmwl] [data-astro-cid-xeylcmwl]{filter:none!important}.platform-page[data-astro-cid-xeylcmwl] [data-astro-cid-xeylcmwl][class*=blur]{filter:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}.platform-page[data-astro-cid-xeylcmwl] .animate-blob[data-astro-cid-xeylcmwl],.platform-page[data-astro-cid-xeylcmwl] [data-astro-cid-xeylcmwl][class*=animate-]{animation:none!important}.platform-page[data-astro-cid-xeylcmwl] .group[data-astro-cid-xeylcmwl]:hover,.platform-page[data-astro-cid-xeylcmwl] .hover\:bg-white\/10[data-astro-cid-xeylcmwl]:hover,.platform-page[data-astro-cid-xeylcmwl] .hover\:scale-105[data-astro-cid-xeylcmwl]:hover,.platform-page[data-astro-cid-xeylcmwl] .hover\:-translate-y-0\.5[data-astro-cid-xeylcmwl]:hover,.platform-page[data-astro-cid-xeylcmwl] .hover\:rotate-0[data-astro-cid-xeylcmwl]:hover{transform:none!important}}
+</style></head> <body class="text-slate-100 antialiased selection:bg-indigo-500 selection:text-white page-platform-market" data-astro-cid-37fxchfa> <div class="bg-layer" data-astro-cid-37fxchfa></div> <div class="cyber-grid" data-astro-cid-37fxchfa> <div class="grid-lines" data-astro-cid-37fxchfa></div> </div> <canvas id="networkCanvas" data-astro-cid-37fxchfa></canvas> <header id="siteHeader" class="fixed top-0 left-0 right-0 z-50 pt-3 px-4 md:px-8 transition-all duration-300" data-astro-cid-37fxchfa> <nav class="mx-auto max-w-[96%] glass-nav rounded-2xl px-6 md:px-8 py-3 flex items-center justify-between transition-all duration-300" data-astro-cid-37fxchfa> <a href="/" class="flex items-center gap-5 group" data-astro-cid-37fxchfa> <div class="relative w-20 h-20 flex items-center justify-center rounded-2xl bg-white/10 group-hover:bg-white/14 transition-all shadow-2xl shadow-indigo-500/15 group-hover:scale-[1.02]" data-astro-cid-37fxchfa> <img src="/img/settlr.png" alt="Settlr Icon" class="h-16 w-auto drop-shadow-[0_0_18px_rgba(255,255,255,0.65)]" data-astro-cid-37fxchfa> </div> <div class="hidden md:block" data-astro-cid-37fxchfa> <span class="block text-3xl font-extrabold text-white tracking-tight leading-none" data-astro-cid-37fxchfa>Settlr</span> <div class="flex items-center gap-3 mt-1" data-astro-cid-37fxchfa> <span class="block text-xs font-mono text-indigo-200 tracking-[0.35em] uppercase font-bold" data-astro-cid-37fxchfa>Labs</span> <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_10px_rgba(52,211,153,0.7)]" data-astro-cid-37fxchfa></span> </div> </div> </a> <ul class="hidden lg:flex items-center gap-2 bg-white/5 rounded-2xl px-2 py-2 shadow-inner" data-astro-cid-37fxchfa> <li data-astro-cid-37fxchfa> <a href="/" class="
+                    relative px-6 py-3 rounded-xl text-lg font-semibold transition-all duration-300 block tracking-tight
+                    text-slate-200 hover:text-white hover:bg-white/7
+                  " data-astro-cid-37fxchfa> Home </a> </li><li data-astro-cid-37fxchfa> <a href="/investor_deck" class="
+                    relative px-6 py-3 rounded-xl text-lg font-semibold transition-all duration-300 block tracking-tight
+                    text-slate-200 hover:text-white hover:bg-white/7
+                  " data-astro-cid-37fxchfa> Deck </a> </li><li data-astro-cid-37fxchfa> <a href="/use_cases" class="
+                    relative px-6 py-3 rounded-xl text-lg font-semibold transition-all duration-300 block tracking-tight
+                    text-slate-200 hover:text-white hover:bg-white/7
+                  " data-astro-cid-37fxchfa> Use Cases </a> </li><li data-astro-cid-37fxchfa> <a href="/team" class="
+                    relative px-6 py-3 rounded-xl text-lg font-semibold transition-all duration-300 block tracking-tight
+                    text-slate-200 hover:text-white hover:bg-white/7
+                  " data-astro-cid-37fxchfa> Team </a> </li><li data-astro-cid-37fxchfa> <a href="/contacts" class="
+                    relative px-6 py-3 rounded-xl text-lg font-semibold transition-all duration-300 block tracking-tight
+                    text-slate-200 hover:text-white hover:bg-white/7
+                  " data-astro-cid-37fxchfa> Contact Us </a> </li> </ul> <div class="hidden lg:flex items-center gap-8" data-astro-cid-37fxchfa> <a href="/login.html" class="text-lg font-semibold text-slate-200 hover:text-white transition-colors relative group" data-astro-cid-37fxchfa>
+Log In
+<span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-indigo-300 transition-all group-hover:w-full rounded-full" data-astro-cid-37fxchfa></span> </a> <a href="/modelli/platform_market" class="group relative inline-flex items-center gap-3 px-9 py-4 rounded-2xl bg-gradient-to-r from-indigo-400 via-violet-400 to-indigo-400 bg-[length:220%_auto] hover:bg-right text-white font-bold text-lg tracking-wide shadow-2xl shadow-indigo-500/35 overflow-hidden hover:scale-[1.03] transition-all duration-500" data-astro-cid-37fxchfa> <span class="relative z-10" data-astro-cid-37fxchfa>Platform</span> <svg class="w-6 h-6 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-37fxchfa> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7l5 5m0 0l-5 5m5-5H6" data-astro-cid-37fxchfa></path> </svg> <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style="background: radial-gradient(800px 200px at 20% 0%, rgba(255,255,255,0.20), transparent 60%);" data-astro-cid-37fxchfa></div> <div class="absolute top-0 -left-[120%] w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-[25deg] group-hover:animate-shine" data-astro-cid-37fxchfa></div> </a> </div> <button id="mobileMenuBtn" class="lg:hidden p-4 text-white bg-white/10 rounded-2xl active:scale-95 transition-transform hover:bg-white/16" data-astro-cid-37fxchfa> <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-37fxchfa> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" data-astro-cid-37fxchfa></path> </svg> </button> </nav> <div id="mobileMenu" class="fixed inset-0 z-[60] bg-slate-900/95 backdrop-blur-none md:backdrop-blur-3xl flex flex-col justify-center items-center gap-10 transition-opacity transition-transform duration-500 opacity-0 pointer-events-none translate-y-10" data-astro-cid-37fxchfa> <button id="closeMenuBtn" class="absolute top-8 right-8 p-4 text-slate-200 hover:text-white bg-white/10 rounded-full" data-astro-cid-37fxchfa> <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-37fxchfa> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" data-astro-cid-37fxchfa></path> </svg> </button> <a href="/" class="mobile-link text-6xl font-black hover:text-indigo-300 transition-colors drop-shadow-lg text-slate-200" data-astro-cid-37fxchfa> Home </a><a href="/investor_deck" class="mobile-link text-6xl font-black hover:text-indigo-300 transition-colors drop-shadow-lg text-slate-200" data-astro-cid-37fxchfa> Deck </a><a href="/use_cases" class="mobile-link text-6xl font-black hover:text-indigo-300 transition-colors drop-shadow-lg text-slate-200" data-astro-cid-37fxchfa> Use Cases </a><a href="/team" class="mobile-link text-6xl font-black hover:text-indigo-300 transition-colors drop-shadow-lg text-slate-200" data-astro-cid-37fxchfa> Team </a><a href="/contacts" class="mobile-link text-6xl font-black hover:text-indigo-300 transition-colors drop-shadow-lg text-slate-200" data-astro-cid-37fxchfa> Contact Us </a> <a href="/login.html" class="text-2xl font-bold text-indigo-200 uppercase tracking-widest mt-8 px-10 py-5 rounded-2xl bg-white/8 hover:bg-white/12 transition-all" data-astro-cid-37fxchfa>Personal Area</a> </div> </header> <main class="relative pt-40 min-h-screen z-10" data-astro-cid-37fxchfa>  <div class="platform-page" data-astro-cid-xeylcmwl> <div class="fixed inset-0 -z-10 h-full w-full bg-slate-950 platform-fx" data-astro-cid-xeylcmwl> <div class="absolute top-0 -left-4 w-64 h-64 md:w-96 md:h-96 bg-indigo-900/40 rounded-full mix-blend-screen filter blur-2xl md:blur-3xl opacity-10 md:opacity-20 animate-none md:animate-blob platform-blob" data-astro-cid-xeylcmwl></div> <div class="absolute top-0 right-0 w-64 h-64 md:w-96 md:h-96 bg-emerald-900/40 rounded-full mix-blend-screen filter blur-2xl md:blur-3xl opacity-10 md:opacity-20 animate-none md:animate-blob animation-delay-2000 platform-blob" data-astro-cid-xeylcmwl></div> <div class="absolute -bottom-8 left-20 w-64 h-64 md:w-96 md:h-96 bg-blue-900/40 rounded-full mix-blend-screen filter blur-2xl md:blur-3xl opacity-10 md:opacity-20 animate-none md:animate-blob animation-delay-4000 platform-blob" data-astro-cid-xeylcmwl></div> <!-- noise layer removed for mobile stability --> </div> <section class="relative pt-32 pb-20 overflow-hidden" data-astro-cid-xeylcmwl> <div class="container mx-auto px-4 text-center relative z-10" data-astro-cid-xeylcmwl> <h1 class="text-6xl md:text-7xl font-black tracking-tight mb-6 text-white" data-astro-cid-xeylcmwl>
+Tokenized Asset <br data-astro-cid-xeylcmwl> <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-sky-400 to-indigo-400" data-astro-cid-xeylcmwl>
+Market Infrastructure
+</span> </h1> <p class="mt-6 max-w-3xl mx-auto text-xl text-slate-400 font-light leading-relaxed" data-astro-cid-xeylcmwl>
+Build a global market accessible anywhere in a secure, transparent, and inclusive way, bypassing the inefficiencies of international monetary and market rails.
+<span class="text-slate-200 font-medium" data-astro-cid-xeylcmwl> DeFi settlement.</span> </p> <div class="mt-12 flex flex-wrap justify-center gap-6" data-astro-cid-xeylcmwl> <div class="group bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 min-w-[180px]" data-astro-cid-xeylcmwl> <div class="flex items-center justify-center mb-2" data-astro-cid-xeylcmwl> <span class="text-3xl font-black text-sky-400" data-astro-cid-xeylcmwl>T+0</span> </div> <p class="text-xs font-bold uppercase tracking-wider text-slate-500" data-astro-cid-xeylcmwl>Settlement Cycle</p> </div> <div class="group bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 min-w-[180px]" data-astro-cid-xeylcmwl> <div class="flex items-center justify-center gap-2 mb-2" data-astro-cid-xeylcmwl> <span class="text-3xl font-black text-indigo-400" data-astro-cid-xeylcmwl>DVP</span> </div> <p class="text-xs font-bold uppercase tracking-wider text-slate-500" data-astro-cid-xeylcmwl>Atomic Delivery</p> </div> <div class="group bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 min-w-[180px]" data-astro-cid-xeylcmwl> <div class="flex items-center justify-center mb-2" data-astro-cid-xeylcmwl> <span class="text-3xl font-black text-emerald-400" data-astro-cid-xeylcmwl>KYC</span> </div> <p class="text-xs font-bold uppercase tracking-wider text-slate-500" data-astro-cid-xeylcmwl>On-chain Gating</p> </div> </div> </div> </section> <section class="py-20 relative z-10 bg-slate-900/30 border-y border-white/5 backdrop-blur-sm" data-astro-cid-xeylcmwl> <div class="container mx-auto px-4 lg:px-8 max-w-7xl" data-astro-cid-xeylcmwl> <div class="text-center mb-16" data-astro-cid-xeylcmwl> <h2 class="text-4xl font-black text-white tracking-tight" data-astro-cid-xeylcmwl>Why an On-Chain Market?</h2> <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-400" data-astro-cid-xeylcmwl>
+We overcome the limits of legacy infrastructure by moving trust and ownership guarantees to blockchain consensus and cryptography.
+</p> </div> <div class="grid md:grid-cols-3 gap-8" data-astro-cid-xeylcmwl> <div class="relative group p-8 rounded-3xl bg-gradient-to-b from-white/5 to-transparent border border-white/10 hover:border-indigo-500/50 transition-all duration-500" data-astro-cid-xeylcmwl> <div class="absolute inset-0 bg-indigo-500/10 opacity-0 group-hover:opacity-100 rounded-3xl transition-opacity duration-500" data-astro-cid-xeylcmwl></div> <div class="relative z-10" data-astro-cid-xeylcmwl> <div class="w-12 h-12 mb-6 rounded-2xl bg-indigo-500/20 flex items-center justify-center text-indigo-400" data-astro-cid-xeylcmwl> <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-xeylcmwl><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" data-astro-cid-xeylcmwl></path></svg> </div> <h3 class="text-2xl font-bold text-white mb-3" data-astro-cid-xeylcmwl>Equities & Bonds</h3> <p class="text-slate-400 leading-relaxed text-sm" data-astro-cid-xeylcmwl>
+Today, when you buy an Apple share, you buy a “promise” recorded in a centralized registry. On blockchain, you own the asset directly.
+</p> </div> </div> <div class="relative group p-8 rounded-3xl bg-gradient-to-b from-white/5 to-transparent border border-white/10 hover:border-emerald-500/50 transition-all duration-500" data-astro-cid-xeylcmwl> <div class="absolute inset-0 bg-emerald-500/10 opacity-0 group-hover:opacity-100 rounded-3xl transition-opacity duration-500" data-astro-cid-xeylcmwl></div> <div class="relative z-10" data-astro-cid-xeylcmwl> <div class="w-12 h-12 mb-6 rounded-2xl bg-emerald-500/20 flex items-center justify-center text-emerald-400" data-astro-cid-xeylcmwl> <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-xeylcmwl><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" data-astro-cid-xeylcmwl></path></svg> </div> <h3 class="text-2xl font-bold text-white mb-3" data-astro-cid-xeylcmwl>Funds</h3> <p class="text-slate-400 leading-relaxed text-sm" data-astro-cid-xeylcmwl>
+The costs of fund issuance and operations drop dramatically by disintermediating expensive financial intermediaries.
+</p> </div> </div> <div class="relative group p-8 rounded-3xl bg-gradient-to-b from-white/5 to-transparent border border-white/10 hover:border-amber-500/50 transition-all duration-500" data-astro-cid-xeylcmwl> <div class="absolute inset-0 bg-amber-500/10 opacity-0 group-hover:opacity-100 rounded-3xl transition-opacity duration-500" data-astro-cid-xeylcmwl></div> <div class="relative z-10" data-astro-cid-xeylcmwl> <div class="w-12 h-12 mb-6 rounded-2xl bg-amber-500/20 flex items-center justify-center text-amber-400" data-astro-cid-xeylcmwl> <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-xeylcmwl><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" data-astro-cid-xeylcmwl></path></svg> </div> <h3 class="text-2xl font-bold text-white mb-3" data-astro-cid-xeylcmwl>Carbon & Commodities</h3> <p class="text-slate-400 leading-relaxed text-sm" data-astro-cid-xeylcmwl>
+Gold, oil, and carbon credits are ideal for blockchain because they require absolute traceability to prevent fraud (e.g., selling the same bar to two people).
+</p> </div> </div> </div> </div> </section> <section class="py-12 px-4 relative z-10" data-astro-cid-xeylcmwl> <div class="container mx-auto max-w-7xl" data-astro-cid-xeylcmwl> <div class="grid lg:grid-cols-3 gap-8 items-start" data-astro-cid-xeylcmwl> <div class="lg:col-span-2" data-astro-cid-xeylcmwl> <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-white/20 bg-slate-900" data-astro-cid-xeylcmwl> <div class="absolute top-0 w-full h-10 bg-slate-900/90 backdrop-blur flex items-center px-4 gap-2 border-b border-white/10 z-20" data-astro-cid-xeylcmwl> <div class="w-3 h-3 rounded-full bg-red-500/80" data-astro-cid-xeylcmwl></div> <div class="w-3 h-3 rounded-full bg-amber-500/80" data-astro-cid-xeylcmwl></div> <div class="w-3 h-3 rounded-full bg-green-500/80" data-astro-cid-xeylcmwl></div> <div class="ml-4 text-xs font-mono text-slate-500" data-astro-cid-xeylcmwl>platform_demo</div> </div> <video id="platformVideo" class="w-full mt-10" controls playsinline preload="metadata" poster="/img/video-poster-placeholder.png" data-astro-cid-xeylcmwl> <source src="/videos/platform.webm" type="video/mp4" data-astro-cid-xeylcmwl>
+Your browser does not support the video tag.
+</video> </div> <div class="mt-6 grid sm:grid-cols-2 gap-3" data-astro-cid-xeylcmwl> <button class="chapterBtn group relative p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-indigo-500/50 transition-all text-left" data-time="10" data-astro-cid-xeylcmwl> <div class="absolute top-4 right-4 text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity" data-astro-cid-xeylcmwl>▶</div> <p class="font-bold text-slate-200 group-hover:text-white" data-astro-cid-xeylcmwl>01. Compliance Gate</p> <p class="text-xs text-slate-400 mt-1" data-astro-cid-xeylcmwl>Whitelist, screening & blocks</p> </button> <button class="chapterBtn group relative p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-indigo-500/50 transition-all text-left" data-time="40" data-astro-cid-xeylcmwl> <div class="absolute top-4 right-4 text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity" data-astro-cid-xeylcmwl>▶</div> <p class="font-bold text-slate-200 group-hover:text-white" data-astro-cid-xeylcmwl>02. Issuance Flow</p> <p class="text-xs text-slate-400 mt-1" data-astro-cid-xeylcmwl>Primary market minting request</p> </button> <button class="chapterBtn group relative p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-indigo-500/50 transition-all text-left" data-time="100" data-astro-cid-xeylcmwl> <div class="absolute top-4 right-4 text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity" data-astro-cid-xeylcmwl>▶</div> <p class="font-bold text-slate-200 group-hover:text-white" data-astro-cid-xeylcmwl>03. Custody Sign-off</p> <p class="text-xs text-slate-400 mt-1" data-astro-cid-xeylcmwl>On-chain reserve attestation</p> </button> <button class="chapterBtn group relative p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-indigo-500/50 transition-all text-left" data-time="234" data-astro-cid-xeylcmwl> <div class="absolute top-4 right-4 text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity" data-astro-cid-xeylcmwl>▶</div> <p class="font-bold text-slate-200 group-hover:text-white" data-astro-cid-xeylcmwl>04. Settlement</p> <p class="text-xs text-slate-400 mt-1" data-astro-cid-xeylcmwl>Immediate finality & transfer</p> </button> </div> </div> <aside class="space-y-6" data-astro-cid-xeylcmwl> <div class="bg-indigo-950/30 backdrop-blur-md rounded-2xl p-6 border border-indigo-500/20" data-astro-cid-xeylcmwl> <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2" data-astro-cid-xeylcmwl>Key Signals</h3> <ul class="space-y-4" data-astro-cid-xeylcmwl> <li class="flex gap-3" data-astro-cid-xeylcmwl> <div class="w-1 h-full min-h-[24px] bg-slate-700 rounded-full" data-astro-cid-xeylcmwl></div> <p class="text-sm text-slate-300" data-astro-cid-xeylcmwl><strong class="text-white block" data-astro-cid-xeylcmwl>Separation of Duties</strong>The party proposing (Issuer) is not the party authorizing (Custodian).</p> </li> <li class="flex gap-3" data-astro-cid-xeylcmwl> <div class="w-1 h-full min-h-[24px] bg-slate-700 rounded-full" data-astro-cid-xeylcmwl></div> <p class="text-sm text-slate-300" data-astro-cid-xeylcmwl><strong class="text-white block" data-astro-cid-xeylcmwl>Immutable Audit</strong>Every approval and transfer is an on-chain event.</p> </li> </ul> </div> </aside> </div> </div> </section> <section class="py-24 relative z-10 overflow-hidden bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900" data-astro-cid-xeylcmwl> <div class="absolute right-0 top-1/4 w-48 h-48 md:w-1/2 md:h-1/2 bg-orange-500/5 rounded-full blur-3xl md:blur-[120px] -z-10 pointer-events-none platform-glow" data-astro-cid-xeylcmwl></div> <div class="container mx-auto px-4 lg:px-8 max-w-7xl" data-astro-cid-xeylcmwl> <div class="grid lg:grid-cols-2 gap-16 items-center" data-astro-cid-xeylcmwl> <div data-astro-cid-xeylcmwl> <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-bold uppercase tracking-wider mb-6" data-astro-cid-xeylcmwl> <span class="w-2 h-2 rounded-full bg-orange-500 animate-pulse" data-astro-cid-xeylcmwl></span>
+Seamless Integration
+</div> <h2 class="text-3xl md:text-5xl font-black text-white mb-6 leading-tight" data-astro-cid-xeylcmwl>
+Institutional Security,<br data-astro-cid-xeylcmwl> <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-200" data-astro-cid-xeylcmwl>Web3 Simplicity.</span> </h2> <p class="text-lg text-slate-400 mb-10 leading-relaxed" data-astro-cid-xeylcmwl>
+We abstracted away blockchain complexity. The interface connects directly to the industry-standard wallet.
+</p> <div class="space-y-8" data-astro-cid-xeylcmwl> <div class="flex gap-5" data-astro-cid-xeylcmwl> <div class="flex-shrink-0 w-12 h-12 bg-slate-800 rounded-xl flex items-center justify-center border border-white/5 shadow-lg shadow-orange-900/10" data-astro-cid-xeylcmwl> <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg" class="w-7 h-7" alt="MetaMask" data-astro-cid-xeylcmwl> </div> <div data-astro-cid-xeylcmwl> <h4 class="text-white font-bold text-lg" data-astro-cid-xeylcmwl>Native MetaMask Integration</h4> <p class="text-slate-400 text-sm mt-1" data-astro-cid-xeylcmwl>Your private keys always remain under your control.</p> </div> </div> <div class="flex gap-5" data-astro-cid-xeylcmwl> <div class="flex-shrink-0 w-12 h-12 bg-slate-800 rounded-xl flex items-center justify-center border border-white/5 shadow-lg" data-astro-cid-xeylcmwl> <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-xeylcmwl><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" data-astro-cid-xeylcmwl></path></svg> </div> <div data-astro-cid-xeylcmwl> <h4 class="text-white font-bold text-lg" data-astro-cid-xeylcmwl>Zero Gas Costs</h4> <p class="text-slate-400 text-sm mt-1" data-astro-cid-xeylcmwl>Order management off-chain, execution on-chain.</p> </div> </div> <div class="flex gap-5" data-astro-cid-xeylcmwl> <div class="flex-shrink-0 w-12 h-12 bg-slate-800 rounded-xl flex items-center justify-center border border-white/5 shadow-lg" data-astro-cid-xeylcmwl> <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-xeylcmwl><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" data-astro-cid-xeylcmwl></path></svg> </div> <div data-astro-cid-xeylcmwl> <h4 class="text-white font-bold text-lg" data-astro-cid-xeylcmwl>No Code</h4> <p class="text-slate-400 text-sm mt-1" data-astro-cid-xeylcmwl>No Solidity, just a clean interface.</p> </div> </div> </div> </div> <div class="relative" data-astro-cid-xeylcmwl> <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-[2.5rem] p-8 border border-white/10 shadow-2xl relative z-10 transform rotate-1 hover:rotate-0 transition-transform duration-500" data-astro-cid-xeylcmwl> <div class="flex justify-between items-center mb-8 border-b border-white/5 pb-6" data-astro-cid-xeylcmwl> <div class="flex items-center gap-3" data-astro-cid-xeylcmwl> <div class="w-10 h-10 rounded-full bg-orange-500/20 flex items-center justify-center" data-astro-cid-xeylcmwl> <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg" class="w-6 h-6" alt="MM" data-astro-cid-xeylcmwl> </div> <div data-astro-cid-xeylcmwl> <div class="text-white font-bold text-sm" data-astro-cid-xeylcmwl>Account 1</div> <div class="text-emerald-400 text-xs font-mono bg-emerald-500/10 px-2 py-0.5 rounded" data-astro-cid-xeylcmwl>Connected</div> </div> </div> <div class="text-slate-500 text-xs font-mono" data-astro-cid-xeylcmwl>0x71C...9A21</div> </div> <div class="text-center py-6" data-astro-cid-xeylcmwl> <p class="text-slate-400 text-sm mb-1" data-astro-cid-xeylcmwl>Total Balance</p> <h3 class="text-4xl font-black text-white tracking-tight" data-astro-cid-xeylcmwl>$ 1,240,500.00</h3> </div> <div class="grid grid-cols-2 gap-4 mb-8" data-astro-cid-xeylcmwl> <div class="bg-blue-600/20 text-blue-400 py-3 rounded-xl text-center text-sm font-bold border border-blue-500/30" data-astro-cid-xeylcmwl>Receive</div> <div class="bg-emerald-600/20 text-emerald-400 py-3 rounded-xl text-center text-sm font-bold border border-emerald-500/30" data-astro-cid-xeylcmwl>Send</div> </div> </div> </div> </div> </div> </section> <section class="py-24 relative z-10 bg-slate-950 border-y border-white/5" data-astro-cid-xeylcmwl> <div class="container mx-auto px-4 lg:px-8 max-w-7xl" data-astro-cid-xeylcmwl> <div class="text-center mb-20" data-astro-cid-xeylcmwl> <h2 class="text-4xl md:text-5xl font-black text-white tracking-tight" data-astro-cid-xeylcmwl>Operational Architecture</h2> <p class="mt-4 max-w-3xl mx-auto text-lg text-slate-400" data-astro-cid-xeylcmwl>
+A permissioned ecosystem that combines strict financial controls with the speed of decentralized trading.
+</p> </div> <div class="relative" data-astro-cid-xeylcmwl> <div class="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-emerald-500 via-indigo-500 to-fuchsia-500 opacity-30 md:-translate-x-1/2 z-0 hidden md:block" data-astro-cid-xeylcmwl></div> <div class="space-y-24" data-astro-cid-xeylcmwl> <div class="relative grid md:grid-cols-2 gap-12 items-center group" data-astro-cid-xeylcmwl> <div class="md:text-right order-2 md:order-1 relative" data-astro-cid-xeylcmwl> <div class="bg-emerald-950/20 border border-emerald-500/20 p-8 rounded-3xl backdrop-blur-sm relative overflow-hidden" data-astro-cid-xeylcmwl> <div class="absolute -right-10 -top-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl" data-astro-cid-xeylcmwl></div> <h3 class="text-2xl font-bold text-white mb-2 text-emerald-400" data-astro-cid-xeylcmwl>1. Onboarding & Compliance</h3> <p class="text-slate-400 mb-6" data-astro-cid-xeylcmwl>No one enters without identity. The Compliance Registry acts as an on-chain gatekeeper.</p> <div class="flex flex-col md:flex-row gap-4 justify-end" data-astro-cid-xeylcmwl> <div class="bg-slate-900 rounded-xl p-4 border border-white/5 flex items-center gap-3" data-astro-cid-xeylcmwl> <div class="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400" data-astro-cid-xeylcmwl> <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-xeylcmwl><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" data-astro-cid-xeylcmwl></path></svg> </div> <div class="text-left" data-astro-cid-xeylcmwl> <div class="text-xs text-slate-500 uppercase font-bold" data-astro-cid-xeylcmwl>Role</div> <div class="text-white font-mono text-sm" data-astro-cid-xeylcmwl>Compliance Officer</div> </div> </div> <div class="bg-slate-900 rounded-xl p-4 border border-white/5 flex items-center gap-3" data-astro-cid-xeylcmwl> <div class="text-left" data-astro-cid-xeylcmwl> <div class="text-xs text-slate-500 uppercase font-bold" data-astro-cid-xeylcmwl>Action</div> <div class="text-emerald-300 font-mono text-sm" data-astro-cid-xeylcmwl>Whitelist(0xUser)</div> </div> </div> </div> </div> </div> <div class="order-1 md:order-2" data-astro-cid-xeylcmwl> <div class="text-emerald-500 font-mono text-xs mb-2" data-astro-cid-xeylcmwl>PHASE 01 — IDENTITY</div> <h4 class="text-xl font-bold text-white mb-3" data-astro-cid-xeylcmwl>Permissioned Gateway</h4> <p class="text-slate-400 leading-relaxed" data-astro-cid-xeylcmwl>
+Before any interaction, the investor must pass off-chain KYC. Once approved, the <strong data-astro-cid-xeylcmwl>Compliance Registry</strong> (Smart Contract) records the identity hash. Without this “digital passport,” any attempt to buy or mint is automatically blocked at the protocol level.
+</p> </div> </div> <div class="relative grid md:grid-cols-2 gap-12 items-center group" data-astro-cid-xeylcmwl> <div class="md:text-right order-1" data-astro-cid-xeylcmwl> <div class="text-indigo-500 font-mono text-xs mb-2" data-astro-cid-xeylcmwl>PHASE 02 — TOKENIZATION</div> <h4 class="text-xl font-bold text-white mb-3" data-astro-cid-xeylcmwl>Asset Backed Minting</h4> <p class="text-slate-400 leading-relaxed" data-astro-cid-xeylcmwl>
+Issuance requires dual sign-off to ensure every token is backed 1:1 by the real-world asset. The <strong data-astro-cid-xeylcmwl>Issuer</strong> proposes creation, but tokens are not generated until the <strong data-astro-cid-xeylcmwl>Custodian</strong> confirms receipt of the asset in the real world.
+</p> </div> <div class="order-2 relative" data-astro-cid-xeylcmwl> <div class="bg-indigo-950/20 border border-indigo-500/20 p-8 rounded-3xl backdrop-blur-sm relative overflow-hidden" data-astro-cid-xeylcmwl> <div class="absolute -left-10 -bottom-10 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl" data-astro-cid-xeylcmwl></div> <h3 class="text-2xl font-bold text-white mb-6 text-indigo-400" data-astro-cid-xeylcmwl>2. Primary Market</h3> <div class="flex flex-col gap-4" data-astro-cid-xeylcmwl> <div class="flex items-center gap-4" data-astro-cid-xeylcmwl> <div class="w-24 text-right text-xs font-bold text-slate-400 uppercase" data-astro-cid-xeylcmwl>Issuer</div> <div class="flex-1 h-12 bg-slate-900 rounded border border-white/5 flex items-center px-4 text-white text-sm font-mono relative" data-astro-cid-xeylcmwl>
+Request Mint()
+<div class="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-yellow-500 rounded-full animate-pulse" data-astro-cid-xeylcmwl></div> </div> </div> <div class="flex justify-center pl-24 text-slate-600" data-astro-cid-xeylcmwl><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-xeylcmwl><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" data-astro-cid-xeylcmwl></path></svg></div> <div class="flex items-center gap-4" data-astro-cid-xeylcmwl> <div class="w-24 text-right text-xs font-bold text-slate-400 uppercase" data-astro-cid-xeylcmwl>Custodian</div> <div class="flex-1 h-12 bg-slate-900 rounded border border-indigo-500/50 flex items-center justify-between px-4 text-indigo-300 text-sm font-mono shadow-[0_0_15px_rgba(99,102,241,0.3)]" data-astro-cid-xeylcmwl> <span data-astro-cid-xeylcmwl>Confirm & Mint</span> <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-xeylcmwl><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" data-astro-cid-xeylcmwl></path></svg> </div> </div> </div> </div> </div> </div> <div class="relative grid md:grid-cols-2 gap-12 items-center group" data-astro-cid-xeylcmwl> <div class="md:text-right order-2 md:order-1 relative" data-astro-cid-xeylcmwl> <div class="bg-fuchsia-950/20 border border-fuchsia-500/20 p-8 rounded-3xl backdrop-blur-sm relative overflow-hidden" data-astro-cid-xeylcmwl> <div class="absolute -right-10 top-0 w-32 h-32 bg-fuchsia-500/10 rounded-full blur-2xl" data-astro-cid-xeylcmwl></div> <h3 class="text-2xl font-bold text-white mb-2 text-fuchsia-400" data-astro-cid-xeylcmwl>3. Trading & T+0</h3> <p class="text-slate-400 mb-6" data-astro-cid-xeylcmwl>Atomic exchange among qualified investors. Counterparty risk eliminated.</p> <div class="grid grid-cols-2 gap-4" data-astro-cid-xeylcmwl> <div class="bg-slate-900 p-4 rounded-xl border border-white/5 text-center" data-astro-cid-xeylcmwl> <div class="text-xs text-slate-500 mb-1" data-astro-cid-xeylcmwl>Seller (Investor)</div> <div class="text-white font-bold" data-astro-cid-xeylcmwl>Tokenized Asset</div> <div class="text-red-400 text-xs mt-1" data-astro-cid-xeylcmwl>⬇ Out</div> </div> <div class="bg-slate-900 p-4 rounded-xl border border-white/5 text-center" data-astro-cid-xeylcmwl> <div class="text-xs text-slate-500 mb-1" data-astro-cid-xeylcmwl>Buyer (Investor)</div> <div class="text-white font-bold" data-astro-cid-xeylcmwl>Platform Stablecoin</div> <div class="text-red-400 text-xs mt-1" data-astro-cid-xeylcmwl>⬇ Out</div> </div> <div class="col-span-2 relative h-10 flex items-center justify-center" data-astro-cid-xeylcmwl> <div class="absolute inset-0 flex items-center" data-astro-cid-xeylcmwl> <div class="w-full border-t border-dashed border-slate-600" data-astro-cid-xeylcmwl></div> </div> <div class="relative bg-slate-950 px-4 py-1 border border-fuchsia-500 rounded-full text-fuchsia-400 text-xs font-bold uppercase z-10" data-astro-cid-xeylcmwl>
+Atomic Swap Contract
+</div> </div> <div class="col-span-2 bg-gradient-to-r from-emerald-900/40 to-emerald-900/10 border border-emerald-500/30 p-3 rounded-xl flex justify-between items-center px-6" data-astro-cid-xeylcmwl> <span class="text-emerald-400 font-bold text-sm" data-astro-cid-xeylcmwl>Settlement Complete</span> <span class="text-white font-mono text-xs bg-black/30 px-2 py-1 rounded" data-astro-cid-xeylcmwl>Time: 0s</span> </div> </div> </div> </div> <div class="order-1 md:order-2" data-astro-cid-xeylcmwl> <div class="text-fuchsia-500 font-mono text-xs mb-2" data-astro-cid-xeylcmwl>PHASE 03 — MARKET</div> <h4 class="text-xl font-bold text-white mb-3" data-astro-cid-xeylcmwl>Instant Liquidity</h4> <p class="text-slate-400 leading-relaxed" data-astro-cid-xeylcmwl>
+In the secondary market, investors (who have passed KYC) can trade asset shares freely. There is no need for a central Clearing House that takes days (T+2) to reconcile accounts.
+</p> <p class="text-slate-400 leading-relaxed mt-4" data-astro-cid-xeylcmwl>
+The exchange is Delivery vs Payment (DvP) atomic: either Asset and Cash move simultaneously, or the transaction fails for both parties. No one can take the money without delivering the asset.
+</p> </div> </div> </div> </div> </div> </section> <section class="py-20 bg-slate-900/30 border-y border-white/5 relative z-10" data-astro-cid-xeylcmwl> <div class="container mx-auto px-4 lg:px-8 max-w-7xl" data-astro-cid-xeylcmwl> <div class="text-center mb-12" data-astro-cid-xeylcmwl> <h2 class="text-3xl font-black text-white" data-astro-cid-xeylcmwl>Role Mapping</h2> <p class="text-slate-400" data-astro-cid-xeylcmwl>Permissioned architecture on public infrastructure.</p> </div> <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8" data-astro-cid-xeylcmwl> <div class="group relative bg-slate-800/40 backdrop-blur rounded-2xl p-6 border border-white/5 hover:border-indigo-500/30 transition-colors" data-astro-cid-xeylcmwl> <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-transparent rounded-t-2xl opacity-50 group-hover:opacity-100 transition-opacity" data-astro-cid-xeylcmwl></div> <h3 class="text-xl font-bold text-white mb-1" data-astro-cid-xeylcmwl>Custodian</h3> <p class="text-xs font-mono text-indigo-400 mb-4" data-astro-cid-xeylcmwl>DeFi Analog: Reserve Manager</p> <p class="text-sm text-slate-400 leading-relaxed" data-astro-cid-xeylcmwl>
+Signs <strong data-astro-cid-xeylcmwl>Authorize/Refuse</strong> transactions on-chain, ensuring tokens are always backed 1:1.
+</p> </div> <div class="group relative bg-slate-800/40 backdrop-blur rounded-2xl p-6 border border-white/5 hover:border-emerald-500/30 transition-colors" data-astro-cid-xeylcmwl> <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-transparent rounded-t-2xl opacity-50 group-hover:opacity-100 transition-opacity" data-astro-cid-xeylcmwl></div> <h3 class="text-xl font-bold text-white mb-1" data-astro-cid-xeylcmwl>Compliance</h3> <p class="text-xs font-mono text-emerald-400 mb-4" data-astro-cid-xeylcmwl>DeFi Analog: Whitelist Module</p> <p class="text-sm text-slate-400 leading-relaxed" data-astro-cid-xeylcmwl>
+Manages the registry of qualified investors. If KYC expires, the token becomes <strong data-astro-cid-xeylcmwl>non-transferable</strong>.
+</p> </div> <div class="group relative bg-slate-800/40 backdrop-blur rounded-2xl p-6 border border-white/5 hover:border-sky-500/30 transition-colors" data-astro-cid-xeylcmwl> <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-sky-500 to-transparent rounded-t-2xl opacity-50 group-hover:opacity-100 transition-opacity" data-astro-cid-xeylcmwl></div> <h3 class="text-xl font-bold text-white mb-1" data-astro-cid-xeylcmwl>Dealer</h3> <p class="text-xs font-mono text-sky-400 mb-4" data-astro-cid-xeylcmwl>DeFi Analog: LP / RFQ Maker</p> <p class="text-sm text-slate-400 leading-relaxed" data-astro-cid-xeylcmwl>
+Injects liquidity and prices the asset based on the Oracle NAV. Acts as a counterparty for primary issuance.
+</p> </div> <div class="group relative bg-slate-800/40 backdrop-blur rounded-2xl p-6 border border-white/5 hover:border-fuchsia-500/30 transition-colors" data-astro-cid-xeylcmwl> <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-fuchsia-500 to-transparent rounded-t-2xl opacity-50 group-hover:opacity-100 transition-opacity" data-astro-cid-xeylcmwl></div> <h3 class="text-xl font-bold text-white mb-1" data-astro-cid-xeylcmwl>Investor</h3> <p class="text-xs font-mono text-fuchsia-400 mb-4" data-astro-cid-xeylcmwl>DeFi Analog: Token Holder</p> <p class="text-sm text-slate-400 leading-relaxed" data-astro-cid-xeylcmwl>
+Holds the asset in a personal wallet. Interacts via <code data-astro-cid-xeylcmwl>approve()</code> and <code data-astro-cid-xeylcmwl>swap()</code> with atomic settlement.
+</p> </div> </div> </div> </section> <section class="py-24 relative z-10 bg-slate-900 overflow-hidden" data-astro-cid-xeylcmwl> <div class="absolute inset-0 opacity-10 pointer-events-none" data-astro-cid-xeylcmwl> <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none" data-astro-cid-xeylcmwl> <path d="M0 100 Q 50 0 100 100" stroke="white" fill="none" stroke-width="0.1" data-astro-cid-xeylcmwl></path> <path d="M0 100 Q 50 20 100 100" stroke="white" fill="none" stroke-width="0.1" data-astro-cid-xeylcmwl></path> <path d="M0 100 Q 50 40 100 100" stroke="white" fill="none" stroke-width="0.1" data-astro-cid-xeylcmwl></path> <path d="M0 100 Q 50 60 100 100" stroke="white" fill="none" stroke-width="0.1" data-astro-cid-xeylcmwl></path> </svg> </div> <div class="container mx-auto px-4 lg:px-8 max-w-7xl relative" data-astro-cid-xeylcmwl> <div class="text-center mb-20" data-astro-cid-xeylcmwl> <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-bold uppercase tracking-wider mb-6" data-astro-cid-xeylcmwl> <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-xeylcmwl><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 3.659c0 3.074-1.8 6-6 6a4.438 4.438 0 01-1.424-.236 7.765 7.766 0 001.723-.198 3.003 3.003 0 003.701-3.701 7.766 7.766 0 00-.198-1.723A4.438 4.438 0 0113 10.659v.003z" data-astro-cid-xeylcmwl></path></svg>
+Quantitative Foundation
+</div> <h2 class="text-4xl md:text-5xl font-black text-white tracking-tight mb-6" data-astro-cid-xeylcmwl>
+Market making driven by<br data-astro-cid-xeylcmwl> <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-fuchsia-400 font-serif italic" data-astro-cid-xeylcmwl>Data Science</span> </h2> <p class="mt-4 max-w-3xl mx-auto text-lg text-slate-400 leading-relaxed" data-astro-cid-xeylcmwl>
+Unlike traditional DeFi AMMs that suffer from <i data-astro-cid-xeylcmwl>Impermanent Loss</i>, our inventory management and pricing algorithms build on decades of academic research in <strong data-astro-cid-xeylcmwl>Econophysics</strong> and <strong data-astro-cid-xeylcmwl>Market Microstructure</strong>.
+</p> </div> <div class="border-t border-white/10 pt-16" data-astro-cid-xeylcmwl> <h3 class="text-xl font-bold text-white mb-8 flex items-center gap-3" data-astro-cid-xeylcmwl> <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-xeylcmwl><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" data-astro-cid-xeylcmwl></path></svg>
+Selected Relevant Publications
+</h3> <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" data-astro-cid-xeylcmwl> <a href="https://scholar.google.com/scholar?q=Master+equation+for+the+price+impact+function" target="_blank" class="group block bg-white/5 hover:bg-white/10 border border-white/5 hover:border-indigo-500/30 p-6 rounded-xl transition-all duration-300" data-astro-cid-xeylcmwl> <div class="text-xs font-mono text-indigo-400 mb-2" data-astro-cid-xeylcmwl>Physical Review E</div> <h4 class="text-lg font-serif font-medium text-slate-200 group-hover:text-white leading-tight mb-3" data-astro-cid-xeylcmwl>
+"Master equation for the price impact function"
+</h4> <p class="text-xs text-slate-500" data-astro-cid-xeylcmwl>Lillo, F., Farmer, J. D., & Mantegna, R. N.</p> <div class="mt-4 flex items-center gap-2 text-xs text-slate-600 group-hover:text-indigo-400 transition-colors" data-astro-cid-xeylcmwl> <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-xeylcmwl><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" data-astro-cid-xeylcmwl></path></svg> <span data-astro-cid-xeylcmwl>Cited by 500+</span> </div> </a> <a href="https://scholar.google.com/scholar?q=Limit+order+placement+as+a+utility+maximization+problem" target="_blank" class="group block bg-white/5 hover:bg-white/10 border border-white/5 hover:border-emerald-500/30 p-6 rounded-xl transition-all duration-300" data-astro-cid-xeylcmwl> <div class="text-xs font-mono text-emerald-400 mb-2" data-astro-cid-xeylcmwl>Quantitative Finance</div> <h4 class="text-lg font-serif font-medium text-slate-200 group-hover:text-white leading-tight mb-3" data-astro-cid-xeylcmwl>
+"Limit order placement as a utility maximization problem"
+</h4> <p class="text-xs text-slate-500" data-astro-cid-xeylcmwl>Lillo, F.</p> <div class="mt-4 flex items-center gap-2 text-xs text-slate-600 group-hover:text-emerald-400 transition-colors" data-astro-cid-xeylcmwl> <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-xeylcmwl><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" data-astro-cid-xeylcmwl></path></svg> <span data-astro-cid-xeylcmwl>Core Algorithm Base</span> </div> </a> <a href="https://scholar.google.com/scholar?q=Long+memory+in+the+volatility+of+financial+markets" target="_blank" class="group block bg-white/5 hover:bg-white/10 border border-white/5 hover:border-fuchsia-500/30 p-6 rounded-xl transition-all duration-300" data-astro-cid-xeylcmwl> <div class="text-xs font-mono text-fuchsia-400 mb-2" data-astro-cid-xeylcmwl>Journal of Empirical Finance</div> <h4 class="text-lg font-serif font-medium text-slate-200 group-hover:text-white leading-tight mb-3" data-astro-cid-xeylcmwl>
+"Long memory in the volatility of financial markets"
+</h4> <p class="text-xs text-slate-500" data-astro-cid-xeylcmwl>Marmi, S. et al.</p> <div class="mt-4 flex items-center gap-2 text-xs text-slate-600 group-hover:text-fuchsia-400 transition-colors" data-astro-cid-xeylcmwl> <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-xeylcmwl><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" data-astro-cid-xeylcmwl></path></svg> <span data-astro-cid-xeylcmwl>Risk Model Input</span> </div> </a> <a href="https://scholar.google.com/scholar?q=Systemic+risk+in+financial+networks" target="_blank" class="group block bg-white/5 hover:bg-white/10 border border-white/5 hover:border-amber-500/30 p-6 rounded-xl transition-all duration-300" data-astro-cid-xeylcmwl> <div class="text-xs font-mono text-amber-400 mb-2" data-astro-cid-xeylcmwl>Journal of Economic Dynamics</div> <h4 class="text-lg font-serif font-medium text-slate-200 group-hover:text-white leading-tight mb-3" data-astro-cid-xeylcmwl>
+"Debt-Rank: A microscopic foundation for shock propagation"
+</h4> <p class="text-xs text-slate-500" data-astro-cid-xeylcmwl>Battiston, S., Puliga, M., Kaushik, R., Tasca, P., & Caldarelli, G.</p> <div class="mt-4 flex items-center gap-2 text-xs text-slate-600 group-hover:text-amber-400 transition-colors" data-astro-cid-xeylcmwl> <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-xeylcmwl><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" data-astro-cid-xeylcmwl></path></svg> <span data-astro-cid-xeylcmwl>Systemic Resilience</span> </div> </a> <a href="https://scholar.google.com/scholar?q=Market+efficiency+and+liquidity" target="_blank" class="group block bg-white/5 hover:bg-white/10 border border-white/5 hover:border-sky-500/30 p-6 rounded-xl transition-all duration-300" data-astro-cid-xeylcmwl> <div class="text-xs font-mono text-sky-400 mb-2" data-astro-cid-xeylcmwl>Chaos, Solitons & Fractals</div> <h4 class="text-lg font-serif font-medium text-slate-200 group-hover:text-white leading-tight mb-3" data-astro-cid-xeylcmwl>
+"Multifractality and long range dependence in finance"
+</h4> <p class="text-xs text-slate-500" data-astro-cid-xeylcmwl>Marmi, S. et al.</p> <div class="mt-4 flex items-center gap-2 text-xs text-slate-600 group-hover:text-sky-400 transition-colors" data-astro-cid-xeylcmwl> <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-xeylcmwl><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" data-astro-cid-xeylcmwl></path></svg> <span data-astro-cid-xeylcmwl>Price Discovery</span> </div> </a> <a href="https://scholar.google.com/" target="_blank" class="group flex flex-col items-center justify-center bg-indigo-600/10 hover:bg-indigo-600/20 border border-indigo-500/30 hover:border-indigo-500/50 p-6 rounded-xl transition-all duration-300 cursor-pointer" data-astro-cid-xeylcmwl> <div class="w-12 h-12 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400 mb-4 group-hover:scale-110 transition-transform" data-astro-cid-xeylcmwl> <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-xeylcmwl><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" data-astro-cid-xeylcmwl></path></svg> </div> <h4 class="text-white font-bold" data-astro-cid-xeylcmwl>Explore 100+ Papers</h4> <p class="text-xs text-indigo-300 mt-1" data-astro-cid-xeylcmwl>Google Scholar Database</p> </a> </div> </div> </div> </section> <section class="py-20 relative z-10" id="config-section" data-astro-cid-xeylcmwl> <div class="container mx-auto px-4 lg:px-8 max-w-7xl" data-astro-cid-xeylcmwl> <div class="text-center mb-12" data-astro-cid-xeylcmwl> <h2 class="text-3xl font-black text-white" data-astro-cid-xeylcmwl>Operational Configuration</h2> <p class="text-slate-400 mt-2" data-astro-cid-xeylcmwl>Connect your wallet and set the addresses to interact with the demo.</p> </div> <div class="grid lg:grid-cols-2 gap-8" data-astro-cid-xeylcmwl> <div class="bg-slate-900/50 backdrop-blur-lg rounded-3xl p-8 border border-white/10 shadow-2xl" data-astro-cid-xeylcmwl> <div class="flex items-center justify-between mb-6" data-astro-cid-xeylcmwl> <h3 class="text-xl font-bold text-white flex items-center gap-2" data-astro-cid-xeylcmwl> <span class="w-2 h-2 bg-emerald-500 rounded-full" data-astro-cid-xeylcmwl></span> Smart Contracts
+</h3> <span class="text-xs font-mono text-slate-500" data-astro-cid-xeylcmwl>localStorage: active</span> </div> <form id="contractsForm" class="space-y-5" data-astro-cid-xeylcmwl> <div class="space-y-1" data-astro-cid-xeylcmwl> <label class="text-xs font-bold text-slate-400 uppercase tracking-wide" data-astro-cid-xeylcmwl>Market (Venue)</label> <div class="relative" data-astro-cid-xeylcmwl> <input id="marketAddr" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white font-mono placeholder:text-slate-700 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition" placeholder="0x..." data-astro-cid-xeylcmwl> <div class="absolute right-3 top-3 text-slate-700" data-astro-cid-xeylcmwl><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-xeylcmwl><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" data-astro-cid-xeylcmwl></path></svg></div> </div> </div> <div class="grid grid-cols-2 gap-4" data-astro-cid-xeylcmwl> <div class="space-y-1" data-astro-cid-xeylcmwl> <label class="text-xs font-bold text-slate-400 uppercase tracking-wide" data-astro-cid-xeylcmwl>Stable (Settlement)</label> <input id="stableAddr" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white font-mono placeholder:text-slate-700 focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="0x..." data-astro-cid-xeylcmwl> </div> <div class="space-y-1" data-astro-cid-xeylcmwl> <label class="text-xs font-bold text-slate-400 uppercase tracking-wide" data-astro-cid-xeylcmwl>Oracle (Pricing)</label> <input id="oracleAddr" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white font-mono placeholder:text-slate-700 focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="0x..." data-astro-cid-xeylcmwl> </div> </div> <div class="space-y-1" data-astro-cid-xeylcmwl> <label class="text-xs font-bold text-slate-400 uppercase tracking-wide" data-astro-cid-xeylcmwl>Compliance Registry</label> <input id="complianceAddr" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white font-mono placeholder:text-slate-700 focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="0x..." data-astro-cid-xeylcmwl> </div> <div class="pt-4 flex flex-wrap gap-3" data-astro-cid-xeylcmwl> <button type="button" id="btnAutofill" class="flex-1 rounded-xl px-4 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-semibold transition border border-slate-700" data-astro-cid-xeylcmwl>
+Load .env
+</button> <button type="button" id="btnClear" class="rounded-xl px-4 py-3 bg-transparent hover:bg-red-900/20 text-slate-500 hover:text-red-400 text-sm font-semibold transition border border-transparent hover:border-red-900/30" data-astro-cid-xeylcmwl>
+Reset
+</button> <button type="button" id="btnSave" class="flex-[2] rounded-xl px-4 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-sm font-bold shadow-lg shadow-emerald-900/20 transition transform hover:-translate-y-0.5" data-astro-cid-xeylcmwl>
+Save Configuration
+</button> </div> </form> </div> <div class="bg-slate-900/50 backdrop-blur-lg rounded-3xl p-8 border border-white/10 shadow-2xl flex flex-col justify-between" data-astro-cid-xeylcmwl> <div data-astro-cid-xeylcmwl> <h3 class="text-xl font-bold text-white flex items-center gap-2 mb-6" data-astro-cid-xeylcmwl> <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg" class="w-6 h-6" alt="MM" data-astro-cid-xeylcmwl>
+Wallet Connection
+</h3> <div class="space-y-4 mb-8" data-astro-cid-xeylcmwl> <div class="grid grid-cols-3 gap-4" data-astro-cid-xeylcmwl> <div class="col-span-1 space-y-1" data-astro-cid-xeylcmwl> <label class="text-xs font-bold text-slate-400 uppercase tracking-wide" data-astro-cid-xeylcmwl>Chain ID (Hex)</label> <input id="chainId" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-3 py-3 text-sm text-white font-mono placeholder:text-slate-700" placeholder="0x1" data-astro-cid-xeylcmwl> </div> <div class="col-span-2 space-y-1" data-astro-cid-xeylcmwl> <label class="text-xs font-bold text-slate-400 uppercase tracking-wide" data-astro-cid-xeylcmwl>RPC URL</label> <input id="rpcUrl" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-3 py-3 text-sm text-white font-mono placeholder:text-slate-700" placeholder="https://..." data-astro-cid-xeylcmwl> </div> </div> <div class="space-y-1" data-astro-cid-xeylcmwl> <label class="text-xs font-bold text-slate-400 uppercase tracking-wide" data-astro-cid-xeylcmwl>Block Explorer</label> <input id="explorerUrl" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-3 py-3 text-sm text-white font-mono placeholder:text-slate-700" placeholder="https://etherscan.io" data-astro-cid-xeylcmwl> </div> </div> <div class="bg-black/40 rounded-xl p-4 border border-white/5 font-mono text-xs space-y-2" data-astro-cid-xeylcmwl> <div class="flex justify-between" data-astro-cid-xeylcmwl> <span class="text-slate-500" data-astro-cid-xeylcmwl>Status:</span> <span id="walletStatus" class="text-white" data-astro-cid-xeylcmwl>Disconnected</span> </div> <div class="flex justify-between" data-astro-cid-xeylcmwl> <span class="text-slate-500" data-astro-cid-xeylcmwl>Account:</span> <span id="walletAccount" class="text-emerald-400 truncate max-w-[200px]" data-astro-cid-xeylcmwl>—</span> </div> <div class="flex justify-between" data-astro-cid-xeylcmwl> <span class="text-slate-500" data-astro-cid-xeylcmwl>Chain:</span> <span id="walletChain" class="text-indigo-400" data-astro-cid-xeylcmwl>—</span> </div> </div> </div> <div class="grid grid-cols-2 gap-3 mt-6" data-astro-cid-xeylcmwl> <button type="button" id="btnConnect" class="col-span-2 rounded-xl px-4 py-4 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-bold shadow-lg shadow-indigo-900/20 transition transform hover:-translate-y-0.5" data-astro-cid-xeylcmwl>
+Connect MetaMask
+</button> <button type="button" id="btnAddNetwork" class="rounded-xl px-4 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-sm transition border border-slate-700" data-astro-cid-xeylcmwl>
+Add Network
+</button> <button type="button" id="btnSwitchNetwork" class="rounded-xl px-4 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-sm transition border border-slate-700" data-astro-cid-xeylcmwl>
+Switch Network
+</button> </div> </div> </div> </div> </section> <section class="py-20 text-center relative z-10" data-astro-cid-xeylcmwl> <div class="container mx-auto px-4 max-w-3xl" data-astro-cid-xeylcmwl> <h2 class="text-4xl font-black text-white mb-6" data-astro-cid-xeylcmwl>Ready to Deploy?</h2> <p class="text-slate-400 text-lg mb-8" data-astro-cid-xeylcmwl>
+Go to the configuration section to enter the real contract addresses and start interacting with the blockchain.
+</p> <a href="#config-section" class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white transition-all duration-200 bg-white/10 border border-white/10 rounded-full hover:bg-white/20 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 backdrop-blur-md" data-astro-cid-xeylcmwl>
+Configure Parameters
+</a> </div> </section> </div>  <script type="module" client:load>
+    // --- UTILS ---
+    const el = (id) => document.getElementById(id);
+
+    // --- VIDEO HANDLING ---
+    const video = document.getElementById("platformVideo");
+    const chapterBtns = document.querySelectorAll(".chapterBtn, .flowBtn");
+
+    if (video) {
+        chapterBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const t = Number(btn.getAttribute("data-time") || "0");
+            if (!Number.isNaN(t)) {
+                video.currentTime = Math.max(0, t);
+                video.play().catch(e => console.log("Auto-play blocked, user interaction needed", e));
+            }
+        });
+        });
+    }
+
+    // --- CONTRACTS STORAGE ---
+    const LS_KEY = "tokenized_market_contracts_v1";
+    const fields = {
+      market: el("marketAddr"),
+      stable: el("stableAddr"),
+      oracle: el("oracleAddr"),
+      compliance: el("complianceAddr"),
+      chainId: el("chainId"),
+      rpcUrl: el("rpcUrl"),
+      explorerUrl: el("explorerUrl"),
+    };
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(LS_KEY);
+        return raw ? JSON.parse(raw) : null;
+      } catch { return null; }
+    }
+
+    function saveState(state) {
+      localStorage.setItem(LS_KEY, JSON.stringify(state));
+    }
+
+    function applyToForm(state) {
+      if (!state) return;
+      Object.keys(fields).forEach(key => {
+          if (fields[key] && state[key]) fields[key].value = state[key];
+      });
+    }
+
+    // Init form
+    applyToForm(loadState());
+
+    // Auto-fill from env (works only if variables start with PUBLIC_)
+    el("btnAutofill")?.addEventListener("click", () => {
+      const env = import.meta.env; 
+      const next = {
+        market: env.PUBLIC_MARKET_ADDRESS || fields.market?.value || "",
+        stable: env.PUBLIC_STABLE_ADDRESS || fields.stable?.value || "",
+        oracle: env.PUBLIC_ORACLE_ADDRESS || fields.oracle?.value || "",
+        compliance: env.PUBLIC_COMPLIANCE_REGISTRY_ADDRESS || fields.compliance?.value || "",
+        chainId: env.PUBLIC_CHAIN_ID || fields.chainId?.value || "",
+        rpcUrl: env.PUBLIC_RPC_URL || fields.rpcUrl?.value || "",
+        explorerUrl: env.PUBLIC_EXPLORER_URL || fields.explorerUrl?.value || "",
+      };
+      applyToForm(next);
+      saveState(next);
+    });
+
+    el("btnSave")?.addEventListener("click", () => {
+      const next = {};
+      Object.keys(fields).forEach(key => {
+          if (fields[key]) next[key] = fields[key].value.trim();
+      });
+      saveState(next);
+      const btn = el("btnSave");
+      const originalText = btn.innerText;
+      btn.innerText = "Saved!";
+      btn.classList.add("bg-emerald-500");
+      setTimeout(() => {
+          btn.innerText = originalText;
+          btn.classList.remove("bg-emerald-500");
+      }, 1500);
+    });
+
+    el("btnClear")?.addEventListener("click", () => {
+      localStorage.removeItem(LS_KEY);
+      Object.keys(fields).forEach(key => { if(fields[key]) fields[key].value = ""; });
+    });
+
+    // --- WALLET LOGIC ---
+    function setWalletUI({ status, account, chainId }) {
+      const statusEl = el("walletStatus");
+      const accountEl = el("walletAccount");
+      const chainEl = el("walletChain");
+      
+      if (statusEl) {
+          statusEl.textContent = status || "Disconnected";
+          statusEl.className = status === "Connected" ? "text-emerald-400 font-bold" : "text-white";
+      }
+      if (accountEl) accountEl.textContent = account || "—";
+      if (chainEl) chainEl.textContent = chainId || "—";
+    }
+
+    async function refreshWalletState() {
+      if (typeof window === 'undefined' || !window.ethereum) {
+        setWalletUI({ status: "MetaMask not found", account: "", chainId: "" });
+        return;
+      }
+      try {
+        const accounts = await window.ethereum.request({ method: "eth_accounts" });
+        const chainId = await window.ethereum.request({ method: "eth_chainId" });
+        if (accounts.length > 0) {
+            setWalletUI({
+                status: "Connected",
+                account: accounts[0],
+                chainId: chainId,
+            });
+        } else {
+            setWalletUI({ status: "Disconnected", account: "", chainId: "" });
+        }
+      } catch (err) {
+        console.error("Wallet check failed", err);
+      }
+    }
+
+    el("btnConnect")?.addEventListener("click", async () => {
+      if (!window.ethereum) return alert("MetaMask is not installed!");
+      try {
+        setWalletUI({ status: "Requesting...", account: "", chainId: "" });
+        await window.ethereum.request({ method: "eth_requestAccounts" });
+        refreshWalletState();
+      } catch (err) {
+        console.error(err);
+        setWalletUI({ status: "Connection Rejected", account: "", chainId: "" });
+      }
+    });
+
+    el("btnAddNetwork")?.addEventListener("click", async () => {
+        if (!window.ethereum) return;
+        const chainId = fields.chainId?.value?.trim();
+        const rpcUrl = fields.rpcUrl?.value?.trim();
+        if (!chainId || !rpcUrl) return alert("Fill in Chain ID and RPC URL first.");
+        try {
+            await window.ethereum.request({
+                method: "wallet_addEthereumChain",
+                params: [{
+                    chainId,
+                    chainName: "Custom Demo Network",
+                    rpcUrls: [rpcUrl],
+                    nativeCurrency: { name: "Gas", symbol: "GAS", decimals: 18 },
+                    blockExplorerUrls: fields.explorerUrl?.value ? [fields.explorerUrl.value] : []
+                }]
+            });
+            refreshWalletState();
+        } catch (e) {
+            console.error(e);
+            alert("Network add error: " + e.message);
+        }
+    });
+
+    el("btnSwitchNetwork")?.addEventListener("click", async () => {
+        if (!window.ethereum) return;
+        const chainId = fields.chainId?.value?.trim();
+        if (!chainId) return alert("Enter Chain ID");
+        try {
+            await window.ethereum.request({
+                method: "wallet_switchEthereumChain",
+                params: [{ chainId }]
+            });
+            refreshWalletState();
+        } catch (e) {
+            console.error(e);
+            alert("Switch failed (was the network added?).");
+        }
+    });
+
+    if (typeof window !== 'undefined' && window.ethereum) {
+      window.ethereum.on('accountsChanged', refreshWalletState);
+      window.ethereum.on('chainChanged', refreshWalletState);
+    }
+    
+    refreshWalletState();
+
+  </script>  </main> <footer class="relative bg-slate-900/90 backdrop-blur-xl border-t border-white/15 pt-32 pb-16 z-10 mt-32 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]" data-astro-cid-37fxchfa> <div class="container mx-auto px-6 max-w-7xl" data-astro-cid-37fxchfa> <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-24 gap-10" data-astro-cid-37fxchfa> <div data-astro-cid-37fxchfa> <div class="flex items-center gap-6 mb-8" data-astro-cid-37fxchfa> <img src="/img/settlr.png" alt="Settlr" class="h-24 w-auto drop-shadow-lg" data-astro-cid-37fxchfa> <div class="h-20 w-px bg-white/20" data-astro-cid-37fxchfa></div> <img src="/img/SNS.png" alt="SNS" class="h-28 md:h-32 w-auto brightness-0 invert drop-shadow-lg" data-astro-cid-37fxchfa> </div> <h2 class="text-6xl md:text-7xl font-black text-white tracking-tighter mb-6 drop-shadow-xl" data-astro-cid-37fxchfa>Settlr.</h2> <p class="text-2xl text-slate-300/80 max-w-2xl font-light leading-relaxed" data-astro-cid-37fxchfa>
+Deploying the mathematical standards for the decentralized economy.
+</p> </div> <a href="/contacts" class="px-14 py-7 rounded-full bg-white/10 text-white font-bold text-2xl hover:bg-white hover:text-slate-900 transition-all duration-300 shadow-xl hover:shadow-white/20" data-astro-cid-37fxchfa>
+Contact us
+</a> </div> <div class="grid grid-cols-2 md:grid-cols-4 gap-12 border-t border-white/15 pt-20 mb-20" data-astro-cid-37fxchfa> <div data-astro-cid-37fxchfa> <h4 class="text-white font-bold mb-10 text-2xl" data-astro-cid-37fxchfa>Platform</h4> <ul class="space-y-6 text-xl text-slate-200/80 font-medium" data-astro-cid-37fxchfa> <li data-astro-cid-37fxchfa><a href="#" class="hover:text-indigo-200 transition-colors" data-astro-cid-37fxchfa>Market Maker Bot</a></li> <li data-astro-cid-37fxchfa><a href="#" class="hover:text-indigo-200 transition-colors" data-astro-cid-37fxchfa>Inventory Risk</a></li> <li data-astro-cid-37fxchfa><a href="#" class="hover:text-indigo-200 transition-colors" data-astro-cid-37fxchfa>Smart Routing</a></li> </ul> </div> <div data-astro-cid-37fxchfa> <h4 class="text-white font-bold mb-10 text-2xl" data-astro-cid-37fxchfa>Resources</h4> <ul class="space-y-6 text-xl text-slate-200/80 font-medium" data-astro-cid-37fxchfa> <li data-astro-cid-37fxchfa><a href="#" class="hover:text-indigo-200 transition-colors" data-astro-cid-37fxchfa>Whitepapers</a></li> <li data-astro-cid-37fxchfa><a href="#" class="hover:text-indigo-200 transition-colors" data-astro-cid-37fxchfa>Documentation</a></li> </ul> </div> <div data-astro-cid-37fxchfa> <h4 class="text-white font-bold mb-10 text-2xl" data-astro-cid-37fxchfa>Company</h4> <ul class="space-y-6 text-xl text-slate-200/80 font-medium" data-astro-cid-37fxchfa> <li data-astro-cid-37fxchfa><a href="/team" class="hover:text-indigo-200 transition-colors" data-astro-cid-37fxchfa>About Us</a></li> <li data-astro-cid-37fxchfa><a href="#" class="hover:text-indigo-200 transition-colors" data-astro-cid-37fxchfa>Careers</a></li> <li data-astro-cid-37fxchfa><a href="/contacts" class="hover:text-indigo-200 transition-colors" data-astro-cid-37fxchfa>Contact</a></li> </ul> </div> <div data-astro-cid-37fxchfa> <h4 class="text-white font-bold mb-10 text-2xl" data-astro-cid-37fxchfa>Legal</h4> <ul class="space-y-6 text-xl text-slate-200/80 font-medium" data-astro-cid-37fxchfa> <li data-astro-cid-37fxchfa><a href="#" class="hover:text-indigo-200 transition-colors" data-astro-cid-37fxchfa>Privacy Policy</a></li> <li data-astro-cid-37fxchfa><a href="#" class="hover:text-indigo-200 transition-colors" data-astro-cid-37fxchfa>Terms of Use</a></li> </ul> </div> </div> <div class="text-slate-300/70 text-lg font-mono flex flex-col md:flex-row justify-between items-center gap-4 pt-8 border-t border-white/10" data-astro-cid-37fxchfa> <p data-astro-cid-37fxchfa>&copy; 2026 Settlr — Pisa, Italy.</p> <p class="text-indigo-200 font-bold" data-astro-cid-37fxchfa>All rights reserved</p> </div> </div> </footer> <script>
+      (() => {
+        // MENU MOBILE
+        const btn = document.getElementById('mobileMenuBtn');
+        const closeBtn = document.getElementById('closeMenuBtn');
+        const menu = document.getElementById('mobileMenu');
+        const links = document.querySelectorAll('.mobile-link');
+
+        const isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+        const disableCanvas = isMobile || (document.body.classList.contains('page-platform-market') && isMobile);
+
+        let startAnimation = () => {};
+        let stopAnimation = () => {};
+
+        function toggleMenu() {
+          if (!menu) return;
+          const isClosed = menu.classList.contains('pointer-events-none');
+          if (isClosed) {
+            menu.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-10');
+            document.body.style.overflow = 'hidden';
+            stopAnimation();
+          } else {
+            menu.classList.add('opacity-0', 'pointer-events-none', 'translate-y-10');
+            document.body.style.overflow = '';
+            startAnimation();
+          }
+        }
+
+        btn?.addEventListener('click', toggleMenu);
+        closeBtn?.addEventListener('click', toggleMenu);
+        links.forEach(link => link.addEventListener('click', toggleMenu));
+
+        const header = document.getElementById('siteHeader');
+        if (header) {
+          let lastScrollY = window.scrollY;
+          let ticking = false;
+
+          const syncHeaderVisibility = () => {
+            const isMenuOpen = menu && !menu.classList.contains('pointer-events-none');
+            const currentY = Math.max(window.scrollY, window.pageYOffset, 0);
+            const delta = currentY - lastScrollY;
+
+            if (isMenuOpen || currentY <= 16) {
+              header.classList.remove('header-hidden');
+            } else if (delta > 4) {
+              header.classList.add('header-hidden');
+            } else if (delta < -4) {
+              header.classList.remove('header-hidden');
+            }
+
+            lastScrollY = currentY;
+            ticking = false;
+          };
+
+          window.addEventListener('scroll', () => {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(syncHeaderVisibility);
+          }, { passive: true });
+
+          syncHeaderVisibility();
+        }
+
+        if (disableCanvas) return;
+
+        // --- NUOVO SISTEMA DI SFONDO (CANVAS + PARTICLES) ---
+        const canvas = document.getElementById('networkCanvas');
+        const ctx = canvas?.getContext('2d');
+        if (!canvas || !ctx) return;
+
+        let width, height;
+        let rafId = null;
+        let running = false;
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // Configurazione
+        const config = {
+          particleCount: 60,
+          connectionDistance: 160,
+          mouseDistance: 200,
+          speed: 0.35,
+          maxFps: 60
+        };
+
+        function applyConfig() {
+          const mobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches ||
+            (navigator.connection && navigator.connection.saveData);
+          config.particleCount = mobile ? 8 : 60;
+          config.connectionDistance = mobile ? 80 : 160;
+          config.mouseDistance = mobile ? 90 : 200;
+          config.speed = mobile ? 0.16 : 0.35;
+          config.maxFps = mobile ? 20 : 60;
+        }
+
+        // Tickers Finanziari/Crypto
+        const tickers = ['BTC', 'ETH', 'SOL', 'XRP', 'SPX', 'NDX', 'VIX', 'EUR', 'USD', 'DEFI', 'HFT', 'AI'];
+
+        let particles = [];
+        let mouse = { x: null, y: null };
+
+        function resize() {
+          width = canvas.width = window.innerWidth;
+          height = canvas.height = window.innerHeight;
+          applyConfig();
+        }
+        window.addEventListener('resize', () => {
+          resize();
+          initParticles();
+        });
+
+        window.addEventListener('mousemove', (e) => {
+          mouse.x = e.x;
+          mouse.y = e.y;
+        });
+        window.addEventListener('mouseleave', () => {
+          mouse.x = null;
+          mouse.y = null;
+        });
+
+        class Particle {
+          constructor() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.vx = (Math.random() - 0.5) * config.speed;
+            this.vy = (Math.random() - 0.5) * config.speed;
+            
+            // 30% probabilità di essere testo, 70% di essere un punto
+            this.isTicker = Math.random() > 0.70;
+            this.text = this.isTicker ? tickers[Math.floor(Math.random() * tickers.length)] : null;
+            this.size = Math.random() * 2 + 1.5;
+          }
+
+          update() {
+            this.x += this.vx;
+            this.y += this.vy;
+
+            // Rimbalzo bordi
+            if (this.x < 0 || this.x > width) this.vx *= -1;
+            if (this.y < 0 || this.y > height) this.vy *= -1;
+
+            // Interazione Mouse
+            if (mouse.x != null) {
+              let dx = mouse.x - this.x;
+              let dy = mouse.y - this.y;
+              let distance = Math.sqrt(dx * dx + dy * dy);
+              if (distance < config.mouseDistance) {
+                const force = (config.mouseDistance - distance) / config.mouseDistance;
+                const directionX = (dx / distance) * force * 2;
+                const directionY = (dy / distance) * force * 2;
+                this.vx -= directionX * 0.05;
+                this.vy -= directionY * 0.05;
+              }
+            }
+          }
+
+          draw() {
+            ctx.beginPath();
+            if (this.isTicker) {
+              ctx.font = '11px JetBrains Mono';
+              ctx.fillStyle = 'rgba(129, 140, 248, 0.75)'; // Indigo-300
+              ctx.fillText(this.text, this.x, this.y);
+            } else {
+              ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+              ctx.fillStyle = 'rgba(99, 102, 241, 0.5)'; // Indigo-500
+              ctx.fill();
+            }
+          }
+        }
+
+        function initParticles() {
+          particles = [];
+          for (let i = 0; i < config.particleCount; i++) {
+            particles.push(new Particle());
+          }
+        }
+
+        let lastFrameTime = 0;
+        function animate(ts = 0) {
+          if (!running) return;
+
+          const frameInterval = 1000 / (config.maxFps || 60);
+          if (ts - lastFrameTime < frameInterval) {
+            rafId = requestAnimationFrame(animate);
+            return;
+          }
+          lastFrameTime = ts;
+
+          ctx.clearRect(0, 0, width, height);
+
+          for (let i = 0; i < particles.length; i++) {
+            let p = particles[i];
+            p.update();
+            p.draw();
+
+            // Disegna connessioni
+            for (let j = i; j < particles.length; j++) {
+              let p2 = particles[j];
+              let dx = p.x - p2.x;
+              let dy = p.y - p2.y;
+              let distance = Math.sqrt(dx * dx + dy * dy);
+
+              if (distance < config.connectionDistance) {
+                ctx.beginPath();
+                let opacity = 1 - (distance / config.connectionDistance);
+                ctx.strokeStyle = `rgba(148, 163, 184, ${opacity * 0.2})`; // Slate line
+                ctx.lineWidth = 1;
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.stroke();
+              }
+            }
+          }
+          rafId = requestAnimationFrame(animate);
+        }
+
+        startAnimation = function startAnimation() {
+          if (reduceMotion || running) return;
+          running = true;
+          rafId = requestAnimationFrame(animate);
+        };
+
+        stopAnimation = function stopAnimation() {
+          if (!running) return;
+          running = false;
+          if (rafId) cancelAnimationFrame(rafId);
+          rafId = null;
+        };
+
+        if (reduceMotion) {
+          resize();
+          initParticles();
+          particles.forEach(p => p.draw());
+          return;
+        }
+
+        // Start
+        resize();
+        initParticles();
+        startAnimation();
+      })();
+    </script> </body> </html>

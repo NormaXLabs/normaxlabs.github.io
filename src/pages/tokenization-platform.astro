@@ -1,0 +1,38 @@
+---
+import DappRoot from "../components/tokenization-dapp/DappRoot.jsx";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tokenization Platform</title>
+    <meta
+      name="description"
+      content="Standalone tokenization dApp page mounted inside the Astro project."
+    />
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100%;
+        background: #0a0a0a;
+      }
+
+      body {
+        overflow-x: hidden;
+      }
+
+      #tokenization-dapp-root {
+        min-height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="tokenization-dapp-root">
+      <DappRoot client:only="react" />
+    </div>
+  </body>
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html><!-- Pagina interattiva: ETF crypto (ADA, ETH, SOL) – cumulato dei log‑rendimenti ponderati --><!-- CDN: KaTeX, Chart.js, PapaParse --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script><script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script><html lang="en" class="scroll-smooth" data-astro-cid-37fxchfa> <head><meta charset="utf-8"><meta name="viewport" content="width=1280, initial-scale=0.42"><title>Modelli di Intelligenza Artificiale per la Finanza</title><meta name="description" content="Institutional-grade market infrastructure."><link rel="icon" type="image/png" href="/img/settlr.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Manrope:wght@300;400;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="/_astro/index.C0vTm9wl.css">
+<style>body{font-family:Manrope,sans-serif;background-color:#0b1121;color:#f1f5f9;overflow-x:hidden}.font-mono[data-astro-cid-37fxchfa]{font-family:JetBrains Mono,monospace}.bg-layer[data-astro-cid-37fxchfa]{position:fixed;top:0;left:0;width:100%;height:100vh;z-index:-3;background:radial-gradient(circle at 50% 0%,#1e293b,#0b1121 80%)}.cyber-grid[data-astro-cid-37fxchfa]{position:fixed;top:0;left:0;width:100%;height:100vh;z-index:-2;perspective:1000px;opacity:.35;pointer-events:none;overflow:hidden}.grid-lines[data-astro-cid-37fxchfa]{position:absolute;top:-50%;left:-50%;width:200%;height:200%;background-image:linear-gradient(rgba(99,102,241,.25) 1px,transparent 1px),linear-gradient(90deg,rgba(99,102,241,.25) 1px,transparent 1px);background-size:60px 60px;transform:rotateX(60deg);animation:gridMove 20s linear infinite;-webkit-mask-image:linear-gradient(to bottom,rgba(0,0,0,0) 0%,rgba(0,0,0,1) 30%,rgba(0,0,0,0) 80%);mask-image:linear-gradient(to bottom,#0000,#000 30%,#0000 80%)}@keyframes gridMove{0%{transform:rotateX(60deg) translateY(0)}to{transform:rotateX(60deg) translateY(60px)}}#networkCanvas[data-astro-cid-37fxchfa]{position:fixed;top:0;left:0;width:100%;height:100vh;z-index:-1;opacity:.8;pointer-events:none}.glass-nav[data-astro-cid-37fxchfa]{background:linear-gradient(180deg,#ffffff14,#ffffff0a);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:0;box-shadow:0 14px 40px #00000059,inset 0 1px #ffffff14}@keyframes shine{to{left:125%}}.animate-shine[data-astro-cid-37fxchfa]{animation:shine 1s}@media(prefers-reduced-motion:reduce){.grid-lines[data-astro-cid-37fxchfa]{animation:none!important}}@media(hover:none)and (pointer:coarse){#networkCanvas[data-astro-cid-37fxchfa]{display:none}.cyber-grid[data-astro-cid-37fxchfa]{display:none;opacity:0}.grid-lines[data-astro-cid-37fxchfa]{animation:none!important;transform:none}.glass-nav[data-astro-cid-37fxchfa]{backdrop-filter:none;-webkit-backdrop-filter:none;background:#0f172ae0}body.page-platform-market .cyber-grid[data-astro-cid-37fxchfa],body.page-platform-market #networkCanvas[data-astro-cid-37fxchfa]{display:none}body.page-platform-market .glass-nav[data-astro-cid-37fxchfa]{backdrop-filter:none;-webkit-backdrop-filter:none;background:#0f172ae0}}#siteHeader[data-astro-cid-37fxchfa]{transform:translateZ(0);will-change:transform,opacity}#siteHeader[data-astro-cid-37fxchfa].header-hidden{transform:translate3d(0,calc(-100% - 1rem),0);opacity:0;pointer-events:none}
+.nn-node[data-astro-cid-xdynu7pw] circle[data-astro-cid-xdynu7pw]{fill:#6fa8dc;stroke:#2a2a2a;stroke-width:1.5px;transition:transform .2s ease,fill .2s ease}.nn-node[data-astro-cid-xdynu7pw]:hover circle[data-astro-cid-xdynu7pw]{transform:scale(1.1);fill:#9fc5e8}.nn-connection[data-astro-cid-xdynu7pw]{fill:none;stroke:#bbb;stroke-width:1.2}
+</style></head> <body class="text-slate-100 antialiased selection:bg-indigo-500 selection:text-white " data-astro-cid-37fxchfa> <div class="bg-layer" data-astro-cid-37fxchfa></div> <div class="cyber-grid" data-astro-cid-37fxchfa> <div class="grid-lines" data-astro-cid-37fxchfa></div> </div> <canvas id="networkCanvas" data-astro-cid-37fxchfa></canvas> <header id="siteHeader" class="fixed top-0 left-0 right-0 z-50 pt-3 px-4 md:px-8 transition-all duration-300" data-astro-cid-37fxchfa> <nav class="mx-auto max-w-[96%] glass-nav rounded-2xl px-6 md:px-8 py-3 flex items-center justify-between transition-all duration-300" data-astro-cid-37fxchfa> <a href="/" class="flex items-center gap-5 group" data-astro-cid-37fxchfa> <div class="relative w-20 h-20 flex items-center justify-center rounded-2xl bg-white/10 group-hover:bg-white/14 transition-all shadow-2xl shadow-indigo-500/15 group-hover:scale-[1.02]" data-astro-cid-37fxchfa> <img src="/img/settlr.png" alt="Settlr Icon" class="h-16 w-auto drop-shadow-[0_0_18px_rgba(255,255,255,0.65)]" data-astro-cid-37fxchfa> </div> <div class="hidden md:block" data-astro-cid-37fxchfa> <span class="block text-3xl font-extrabold text-white tracking-tight leading-none" data-astro-cid-37fxchfa>Settlr</span> <div class="flex items-center gap-3 mt-1" data-astro-cid-37fxchfa> <span class="block text-xs font-mono text-indigo-200 tracking-[0.35em] uppercase font-bold" data-astro-cid-37fxchfa>Labs</span> <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_10px_rgba(52,211,153,0.7)]" data-astro-cid-37fxchfa></span> </div> </div> </a> <ul class="hidden lg:flex items-center gap-2 bg-white/5 rounded-2xl px-2 py-2 shadow-inner" data-astro-cid-37fxchfa> <li data-astro-cid-37fxchfa> <a href="/" class="
+                    relative px-6 py-3 rounded-xl text-lg font-semibold transition-all duration-300 block tracking-tight
+                    text-slate-200 hover:text-white hover:bg-white/7
+                  " data-astro-cid-37fxchfa> Home </a> </li><li data-astro-cid-37fxchfa> <a href="/investor_deck" class="
+                    relative px-6 py-3 rounded-xl text-lg font-semibold transition-all duration-300 block tracking-tight
+                    text-slate-200 hover:text-white hover:bg-white/7
+                  " data-astro-cid-37fxchfa> Deck </a> </li><li data-astro-cid-37fxchfa> <a href="/use_cases" class="
+                    relative px-6 py-3 rounded-xl text-lg font-semibold transition-all duration-300 block tracking-tight
+                    text-slate-200 hover:text-white hover:bg-white/7
+                  " data-astro-cid-37fxchfa> Use Cases </a> </li><li data-astro-cid-37fxchfa> <a href="/team" class="
+                    relative px-6 py-3 rounded-xl text-lg font-semibold transition-all duration-300 block tracking-tight
+                    text-slate-200 hover:text-white hover:bg-white/7
+                  " data-astro-cid-37fxchfa> Team </a> </li><li data-astro-cid-37fxchfa> <a href="/contacts" class="
+                    relative px-6 py-3 rounded-xl text-lg font-semibold transition-all duration-300 block tracking-tight
+                    text-slate-200 hover:text-white hover:bg-white/7
+                  " data-astro-cid-37fxchfa> Contact Us </a> </li> </ul> <div class="hidden lg:flex items-center gap-8" data-astro-cid-37fxchfa> <a href="/login.html" class="text-lg font-semibold text-slate-200 hover:text-white transition-colors relative group" data-astro-cid-37fxchfa>
+Log In
+<span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-indigo-300 transition-all group-hover:w-full rounded-full" data-astro-cid-37fxchfa></span> </a> <a href="/modelli/platform_market" class="group relative inline-flex items-center gap-3 px-9 py-4 rounded-2xl bg-gradient-to-r from-indigo-400 via-violet-400 to-indigo-400 bg-[length:220%_auto] hover:bg-right text-white font-bold text-lg tracking-wide shadow-2xl shadow-indigo-500/35 overflow-hidden hover:scale-[1.03] transition-all duration-500" data-astro-cid-37fxchfa> <span class="relative z-10" data-astro-cid-37fxchfa>Platform</span> <svg class="w-6 h-6 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-37fxchfa> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7l5 5m0 0l-5 5m5-5H6" data-astro-cid-37fxchfa></path> </svg> <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style="background: radial-gradient(800px 200px at 20% 0%, rgba(255,255,255,0.20), transparent 60%);" data-astro-cid-37fxchfa></div> <div class="absolute top-0 -left-[120%] w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-[25deg] group-hover:animate-shine" data-astro-cid-37fxchfa></div> </a> </div> <button id="mobileMenuBtn" class="lg:hidden p-4 text-white bg-white/10 rounded-2xl active:scale-95 transition-transform hover:bg-white/16" data-astro-cid-37fxchfa> <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-37fxchfa> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" data-astro-cid-37fxchfa></path> </svg> </button> </nav> <div id="mobileMenu" class="fixed inset-0 z-[60] bg-slate-900/95 backdrop-blur-none md:backdrop-blur-3xl flex flex-col justify-center items-center gap-10 transition-opacity transition-transform duration-500 opacity-0 pointer-events-none translate-y-10" data-astro-cid-37fxchfa> <button id="closeMenuBtn" class="absolute top-8 right-8 p-4 text-slate-200 hover:text-white bg-white/10 rounded-full" data-astro-cid-37fxchfa> <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-37fxchfa> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" data-astro-cid-37fxchfa></path> </svg> </button> <a href="/" class="mobile-link text-6xl font-black hover:text-indigo-300 transition-colors drop-shadow-lg text-slate-200" data-astro-cid-37fxchfa> Home </a><a href="/investor_deck" class="mobile-link text-6xl font-black hover:text-indigo-300 transition-colors drop-shadow-lg text-slate-200" data-astro-cid-37fxchfa> Deck </a><a href="/use_cases" class="mobile-link text-6xl font-black hover:text-indigo-300 transition-colors drop-shadow-lg text-slate-200" data-astro-cid-37fxchfa> Use Cases </a><a href="/team" class="mobile-link text-6xl font-black hover:text-indigo-300 transition-colors drop-shadow-lg text-slate-200" data-astro-cid-37fxchfa> Team </a><a href="/contacts" class="mobile-link text-6xl font-black hover:text-indigo-300 transition-colors drop-shadow-lg text-slate-200" data-astro-cid-37fxchfa> Contact Us </a> <a href="/login.html" class="text-2xl font-bold text-indigo-200 uppercase tracking-widest mt-8 px-10 py-5 rounded-2xl bg-white/8 hover:bg-white/12 transition-all" data-astro-cid-37fxchfa>Personal Area</a> </div> </header> <main class="relative pt-40 min-h-screen z-10" data-astro-cid-37fxchfa> <section class="py-24" data-astro-cid-xdynu7pw><div class="max-w-3xl mx-auto px-4 text-center space-y-10" data-astro-cid-xdynu7pw><h1 class="text-4xl font-extrabold" data-astro-cid-xdynu7pw>Modelli di Intelligenza Artificiale per la Finanza</h1><section class="py-12 px-6 max-w-5xl mx-auto" data-astro-cid-xdynu7pw><h2 class="text-3xl font-bold mb-6" data-astro-cid-xdynu7pw>Intelligenza Artificiale e Finanza: comprendere e simulare i mercati attraverso i dati</h2><p class="mb-4" data-astro-cid-xdynu7pw>
+Nel cuore dei mercati finanziari si cela una dinamica complessa tra volumi di scambio e movimenti dei prezzi, determinata dalla microstruttura del mercato e in particolare dal funzionamento del <em data-astro-cid-xdynu7pw>limit order book</em>. Ogni operazione — un ordine immesso, cancellato o eseguito — contribuisce alla formazione dei prezzi e alla loro evoluzione nel tempo. Comprendere e modellare con precisione questa interazione è cruciale per una vasta gamma di applicazioni: dalla previsione dell’andamento dei prezzi alla gestione del rischio, dall’ottimizzazione delle strategie di esecuzione alla valutazione dell’impatto di una politica economica.
+</p><p class="mb-4" data-astro-cid-xdynu7pw>
+In questo contesto, i modelli di intelligenza artificiale rappresentano un’opportunità straordinaria. In particolare, i modelli <strong data-astro-cid-xdynu7pw>non lineari e non parametrici</strong> — come le reti neurali — si sono dimostrati capaci di catturare dipendenze complesse che sfuggono ai tradizionali approcci lineari. Questo non significa che siano sempre necessari: in alcuni contesti, modelli lineari ben calibrati possono fornire risultati soddisfacenti e interpretabili. Tuttavia, <strong data-astro-cid-xdynu7pw>quando il sistema è altamente non lineare o quando non disponiamo di un’ipotesi chiara sulla sua struttura</strong>, i modelli <em data-astro-cid-xdynu7pw>data-driven</em> diventano fondamentali. In questi casi, non imponiamo una forma funzionale predefinita, ma lasciamo che siano i dati stessi a guidare la costruzione del modello.
+</p><p class="mb-4" data-astro-cid-xdynu7pw>
+I modelli di deep learning — inclusi multilayer perceptron, reti convoluzionali e LSTM — permettono di apprendere queste strutture complesse in modo flessibile, sfruttando informazioni ricorrenti e correlazioni nascoste. Non solo riescono a <strong data-astro-cid-xdynu7pw>prevedere con maggiore precisione</strong> rispetto ai modelli tradizionali, ma si rivelano anche potenti strumenti per <strong data-astro-cid-xdynu7pw>simulare il comportamento del mercato</strong>, riproducendo le proprietà statistiche osservate nei dati reali. Ciò è particolarmente utile per lo studio dell’<em data-astro-cid-xdynu7pw>impatto di mercato</em>, cioè l’effetto che una sequenza di ordini (o <em data-astro-cid-xdynu7pw>metaordine</em>) può avere sui prezzi — un elemento cruciale nella determinazione dei costi di transazione e nell’ottimizzazione dell’esecuzione.
+</p><p class="mb-4" data-astro-cid-xdynu7pw>
+Naturalmente, l’utilizzo efficace di questi modelli richiede attenzione: <strong data-astro-cid-xdynu7pw>non è sufficiente adottare una rete neurale qualsiasi</strong>. Occorre progettare architetture adeguate, selezionare input informativi, scegliere le finestre temporali opportune, ed essere consapevoli dei rischi di overfitting. Inoltre, grazie a tecniche moderne di <em data-astro-cid-xdynu7pw>explainability</em> come SHAP, possiamo oggi interpretare in modo più trasparente il comportamento di questi modelli, identificando quali fattori guidano le loro previsioni.
+</p><p data-astro-cid-xdynu7pw>
+Il nostro obiettivo è esplorare — con rigore scientifico e attenzione pratica — come l’intelligenza artificiale possa offrire nuovi strumenti per modellare, simulare e comprendere i mercati finanziari a livello microstrutturale. Sia per la ricerca, sia per l’operatività.
+</p></section><section class="py-12 px-6 max-w-5xl mx-auto" data-astro-cid-xdynu7pw><h2 class="text-3xl font-bold mb-6" data-astro-cid-xdynu7pw>Modelli di prezzo e volume: comprendere i mercati per anticiparli</h2><p class="mb-4" data-astro-cid-xdynu7pw>
+Un <strong data-astro-cid-xdynu7pw>modello di prezzo e volume</strong> (o <em data-astro-cid-xdynu7pw>price and trade model</em>) è uno strumento matematico che descrive in modo congiunto come evolvono i prezzi e i volumi degli scambi nel tempo. Questi modelli tengono conto delle interazioni dinamiche tra flussi di ordini, variazioni di prezzo e comportamenti degli operatori di mercato.
+</p><p class="mb-4" data-astro-cid-xdynu7pw>
+Avere un buon modello significa due cose: da un lato, <strong data-astro-cid-xdynu7pw>ottenere alpha</strong> — ovvero, anticipare i movimenti futuri del mercato in modo sistematico e profittevole; dall'altro, <strong data-astro-cid-xdynu7pw>disporre di un simulatore realistico</strong>, in grado di generare scenari sintetici ma credibili su cui testare nuove strategie, valutare l'impatto di un ordine sul mercato e stimare i costi di transazione.
+</p><p class="mb-4" data-astro-cid-xdynu7pw>
+In assenza di un'ipotesi teorica forte, è possibile costruire questi modelli <strong data-astro-cid-xdynu7pw>direttamente dai dati</strong>, grazie a tecniche di apprendimento automatico. Tra queste, le <strong data-astro-cid-xdynu7pw>reti neurali</strong> rappresentano oggi una delle soluzioni più potenti e flessibili.
+</p><h3 class="text-2xl font-semibold mt-10 mb-4" data-astro-cid-xdynu7pw>Cos'è una rete neurale?</h3><p class="mb-4" data-astro-cid-xdynu7pw>
+Una <strong data-astro-cid-xdynu7pw>rete neurale</strong> è un modello computazionale ispirato al funzionamento del cervello umano. È composta da una serie di strati di nodi (chiamati <em data-astro-cid-xdynu7pw>neuroni</em>), ciascuno dei quali elabora informazioni e le trasmette agli strati successivi. Ogni connessione è associata a un <em data-astro-cid-xdynu7pw>peso</em>, che viene appreso dai dati durante l’addestramento.
+</p><p class="mb-4" data-astro-cid-xdynu7pw>
+Quando forniamo alla rete una sequenza di dati storici (ad esempio, una serie di prezzi e volumi), essa è in grado di apprendere pattern nascosti, relazioni non lineari e dipendenze complesse tra le variabili. Il risultato è una funzione predittiva che può essere utilizzata sia per <strong data-astro-cid-xdynu7pw>fare previsioni</strong>, sia per <strong data-astro-cid-xdynu7pw>simulare scenari realistici</strong> che riproducano le proprietà statistiche dei mercati reali.
+</p><p class="mb-4" data-astro-cid-xdynu7pw>
+Di seguito trovi una visualizzazione interattiva semplificata di una rete neurale.
+</p></section><section class="py-10 px-6 max-w-4xl mx-auto" data-astro-cid-xdynu7pw><h3 class="text-2xl font-bold mb-4" data-astro-cid-xdynu7pw>Visualizzazione di una rete neurale feed-forward</h3><svg width="700" height="360" viewBox="0 0 700 360" class="mx-auto block" data-astro-cid-xdynu7pw><!-- Layer input --><g class="nn-node" transform="translate(100, 100)" data-astro-cid-xdynu7pw><circle r="20" data-astro-cid-xdynu7pw></circle><title>Input 1: feature x₁</title><text x="0" y="5" text-anchor="middle" font-size="12" fill="#fff" data-astro-cid-xdynu7pw>x₁</text></g><g class="nn-node" transform="translate(100, 240)" data-astro-cid-xdynu7pw><circle r="20" data-astro-cid-xdynu7pw></circle><title>Input 2: feature x₂</title><text x="0" y="5" text-anchor="middle" font-size="12" fill="#fff" data-astro-cid-xdynu7pw>x₂</text></g><!-- Layer hidden --><g class="nn-node" transform="translate(340, 60)" data-astro-cid-xdynu7pw><circle r="20" data-astro-cid-xdynu7pw></circle><title>Hidden neuron h₁</title><text x="0" y="5" text-anchor="middle" font-size="12" fill="#fff" data-astro-cid-xdynu7pw>h₁</text></g><g class="nn-node" transform="translate(340, 160)" data-astro-cid-xdynu7pw><circle r="20" data-astro-cid-xdynu7pw></circle><title>Hidden neuron h₂</title><text x="0" y="5" text-anchor="middle" font-size="12" fill="#fff" data-astro-cid-xdynu7pw>h₂</text></g><g class="nn-node" transform="translate(340, 260)" data-astro-cid-xdynu7pw><circle r="20" data-astro-cid-xdynu7pw></circle><title>Hidden neuron h₃</title><text x="0" y="5" text-anchor="middle" font-size="12" fill="#fff" data-astro-cid-xdynu7pw>h₃</text></g><!-- Layer output --><g class="nn-node" transform="translate(580, 140)" data-astro-cid-xdynu7pw><circle r="20" data-astro-cid-xdynu7pw></circle><title>Output 1: ŷ₁</title><text x="0" y="5" text-anchor="middle" font-size="12" fill="#fff" data-astro-cid-xdynu7pw>ŷ₁</text></g><g class="nn-node" transform="translate(580, 220)" data-astro-cid-xdynu7pw><circle r="20" data-astro-cid-xdynu7pw></circle><title>Output 2: ŷ₂</title><text x="0" y="5" text-anchor="middle" font-size="12" fill="#fff" data-astro-cid-xdynu7pw>ŷ₂</text></g><!-- Connessioni input → hidden --><path class="nn-connection" d="
+    M120,100 C200,100 280,60 320,60
+    M120,100 C200,100 280,160 320,160
+    M120,100 C200,100 280,260 320,260
+
+    M120,240 C200,240 280,60 320,60
+    M120,240 C200,240 280,160 320,160
+    M120,240 C200,240 280,260 320,260
+  " data-astro-cid-xdynu7pw></path><!-- Connessioni hidden → output --><path class="nn-connection" d="
+    M360,60 C440,60 520,140 580,140
+    M360,160 C440,160 520,140 580,140
+    M360,260 C440,260 520,140 580,140
+
+    M360,60 C440,60 520,220 580,220
+    M360,160 C440,160 520,220 580,220
+    M360,260 C440,260 520,220 580,220
+  " data-astro-cid-xdynu7pw></path></svg><p class="mb-4" data-astro-cid-xdynu7pw>
+In questo esempio, vediamo una semplice rete neurale con:
+<ul data-astro-cid-xdynu7pw><li data-astro-cid-xdynu7pw><strong data-astro-cid-xdynu7pw>2 nodi di input</strong> (x₁ e x₂), che ricevono le features iniziali come prezzi e volumi;</li><li data-astro-cid-xdynu7pw><strong data-astro-cid-xdynu7pw>3 nodi nel layer nascosto</strong> (h₁, h₂, h₃), che elaborano i pattern non lineari tra le feature;</li><li data-astro-cid-xdynu7pw><strong data-astro-cid-xdynu7pw>2 nodi di output</strong> (ŷ₁ e ŷ₂), che producono predizioni finali, ad esempio ritorno futuro e volume previsto.</li></ul></p><p class="mb-4" data-astro-cid-xdynu7pw>
+I <em data-astro-cid-xdynu7pw>tooltip</em> forniscono informazioni testuali quando passi il mouse sopra ogni neurone. I colori chiari e l'effetto hover rendono la visualizzazione ancora più leggibile.
+</p><p class="mb-4" data-astro-cid-xdynu7pw>
+La rete funziona così:
+<ol data-astro-cid-xdynu7pw><li data-astro-cid-xdynu7pw>Ogni input viene moltiplicato per pesi e combinato nei nodi nascosti.</li><li data-astro-cid-xdynu7pw>I nodi nascosti applicano funzioni non lineari (es. ReLU, tanh), catturando pattern complessi.</li><li data-astro-cid-xdynu7pw>Infine, i nodi di output aggregano queste informazioni per generare le predizioni finali.</li></ol></p><p data-astro-cid-xdynu7pw>
+Questo tipo di modello è estremamente utile in finanza perché può:
+<ul data-astro-cid-xdynu7pw><li data-astro-cid-xdynu7pw>estrarre <strong data-astro-cid-xdynu7pw>alpha</strong>, ovvero segnali predittivi sui prezzi;</li><li data-astro-cid-xdynu7pw>essere utilizzato come <strong data-astro-cid-xdynu7pw>simulatore di mercato</strong>, permettendo di testare strategie e stimare l&rsquo;<em data-astro-cid-xdynu7pw>impatto di mercato</em> con dati sintetici ma realistici.</li></ul></p></section><section class="py-12 px-6 max-w-6xl mx-auto" data-astro-cid-xdynu7pw><h2 class="text-3xl font-bold mb-8 text-center" data-astro-cid-xdynu7pw>Il modello apprende le relazioni tra ritorni e volumi</h2><p class="text-center text-gray-700 mb-12 max-w-3xl mx-auto" data-astro-cid-xdynu7pw>
+Le reti neurali non parametriche, addestrate solo sui dati storici, riescono a ricostruire spontaneamente
+    le dipendenze strutturali tra <strong data-astro-cid-xdynu7pw>ritorni</strong> e <strong data-astro-cid-xdynu7pw>volumi</strong>, senza alcuna informazione esplicita
+    sulle loro interazioni. I grafici seguenti ne mostrano le capacità.
+</p><div class="grid grid-cols-1 md:grid-cols-2 gap-10" data-astro-cid-xdynu7pw><!-- Immagine 1 --><div class="flex flex-col items-center text-center" data-astro-cid-xdynu7pw><img src="/img/AIModeling/shap_scatter__MLP_20l_I0_O0_binned.png" alt="Dipendenza 1" class="rounded-lg shadow-md w-full h-auto max-w-sm" data-astro-cid-xdynu7pw><p class="mt-4 text-gray-600 text-sm" data-astro-cid-xdynu7pw><strong data-astro-cid-xdynu7pw>Figura 1.</strong> La rete apprende l’effetto dei volumi passati sui ritorni futuri.
+</p></div><!-- Immagine 2 --><div class="flex flex-col items-center text-center" data-astro-cid-xdynu7pw><img src="/img/AIModeling/shap_scatter__MLP_20l_I0_O1_binned.png" alt="Dipendenza 2" class="rounded-lg shadow-md w-full h-auto max-w-sm" data-astro-cid-xdynu7pw><p class="mt-4 text-gray-600 text-sm" data-astro-cid-xdynu7pw><strong data-astro-cid-xdynu7pw>Figura 2.</strong> Viene identificata una relazione persistente tra ritorni e flussi di ordini.
+</p></div><!-- Immagine 3 --><div class="flex flex-col items-center text-center" data-astro-cid-xdynu7pw><img src="/img/AIModeling/shap_scatter__MLP_20l_I1_O0.png" alt="Dipendenza 3" class="rounded-lg shadow-md w-full h-auto max-w-sm" data-astro-cid-xdynu7pw><p class="mt-4 text-gray-600 text-sm" data-astro-cid-xdynu7pw><strong data-astro-cid-xdynu7pw>Figura 3.</strong> Le correlazioni non lineari emergono senza preimpostazioni.
+</p></div><!-- Immagine 4 --><div class="flex flex-col items-center text-center" data-astro-cid-xdynu7pw><img src="/img/AIModeling/shap_scatter__MLP_20l_I1_O1.png" alt="Dipendenza 4" class="rounded-lg shadow-md w-full h-auto max-w-sm" data-astro-cid-xdynu7pw><p class="mt-4 text-gray-600 text-sm" data-astro-cid-xdynu7pw><strong data-astro-cid-xdynu7pw>Figura 4.</strong> Il modello cattura le co-dinamiche fra volume e prezzo nel tempo.
+</p></div></div></section><p data-astro-cid-xdynu7pw>
+Tali pattern ritrovati dalla rete neurale sono esattamente quelli che possono essere ritrovati nei dati finanziari, come riportato qui sotto.
+</p><section class="py-12 px-6 max-w-6xl mx-auto" data-astro-cid-xdynu7pw><div class="grid grid-cols-1 md:grid-cols-2 gap-10" data-astro-cid-xdynu7pw><!-- Immagine 1 --><div class="flex flex-col items-center text-center" data-astro-cid-xdynu7pw><img src="/img/AIModeling/binned_RealData_rtrt1_Avsgv.png" alt="Dipendenza 1" class="rounded-lg shadow-md w-full h-auto max-w-sm" data-astro-cid-xdynu7pw><p class="mt-4 text-gray-600 text-sm" data-astro-cid-xdynu7pw><strong data-astro-cid-xdynu7pw>Figura 1.</strong> La rete apprende l’effetto dei volumi passati sui ritorni futuri.
+</p></div><!-- Immagine 2 --><div class="flex flex-col items-center text-center" data-astro-cid-xdynu7pw><img src="/img/AIModeling/binned_RealData_vtrt1_Avsgv.png" alt="Dipendenza 2" class="rounded-lg shadow-md w-full h-auto max-w-sm" data-astro-cid-xdynu7pw><p class="mt-4 text-gray-600 text-sm" data-astro-cid-xdynu7pw><strong data-astro-cid-xdynu7pw>Figura 2.</strong> Viene identificata una relazione persistente tra ritorni e flussi di ordini.
+</p></div><!-- Immagine 3 --><div class="flex flex-col items-center text-center" data-astro-cid-xdynu7pw><img src="/img/AIModeling/binned_RealData_rtvt1_sgr.png" alt="Dipendenza 3" class="rounded-lg shadow-md w-full h-auto max-w-sm" data-astro-cid-xdynu7pw><p class="mt-4 text-gray-600 text-sm" data-astro-cid-xdynu7pw><strong data-astro-cid-xdynu7pw>Figura 3.</strong> Le correlazioni non lineari emergono senza preimpostazioni.
+</p></div><!-- Immagine 4 --><div class="flex flex-col items-center text-center" data-astro-cid-xdynu7pw><img src="/img/AIModeling/binned_RealData_vtvt1_sgr.png" alt="Dipendenza 4" class="rounded-lg shadow-md w-full h-auto max-w-sm" data-astro-cid-xdynu7pw><p class="mt-4 text-gray-600 text-sm" data-astro-cid-xdynu7pw><strong data-astro-cid-xdynu7pw>Figura 4.</strong> Il modello cattura le co-dinamiche fra volume e prezzo nel tempo.
+</p></div></div></section><div data-astro-cid-xdynu7pw>
+Questa maggiore espressività, accompagnata a una conoscenza approfondita della microstruttura, della modellizzazione statistica e dei mercati finanziari permette di generare degli alpha che possono, di conseguenza, potenziare le nostre strategie.
+</div></div></section> </main> <footer class="relative bg-slate-900/90 backdrop-blur-xl border-t border-white/15 pt-32 pb-16 z-10 mt-32 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]" data-astro-cid-37fxchfa> <div class="container mx-auto px-6 max-w-7xl" data-astro-cid-37fxchfa> <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-24 gap-10" data-astro-cid-37fxchfa> <div data-astro-cid-37fxchfa> <div class="flex items-center gap-6 mb-8" data-astro-cid-37fxchfa> <img src="/img/settlr.png" alt="Settlr" class="h-24 w-auto drop-shadow-lg" data-astro-cid-37fxchfa> <div class="h-20 w-px bg-white/20" data-astro-cid-37fxchfa></div> <img src="/img/SNS.png" alt="SNS" class="h-28 md:h-32 w-auto brightness-0 invert drop-shadow-lg" data-astro-cid-37fxchfa> </div> <h2 class="text-6xl md:text-7xl font-black text-white tracking-tighter mb-6 drop-shadow-xl" data-astro-cid-37fxchfa>Settlr.</h2> <p class="text-2xl text-slate-300/80 max-w-2xl font-light leading-relaxed" data-astro-cid-37fxchfa>
+Deploying the mathematical standards for the decentralized economy.
+</p> </div> <a href="/contacts" class="px-14 py-7 rounded-full bg-white/10 text-white font-bold text-2xl hover:bg-white hover:text-slate-900 transition-all duration-300 shadow-xl hover:shadow-white/20" data-astro-cid-37fxchfa>
+Contact us
+</a> </div> <div class="grid grid-cols-2 md:grid-cols-4 gap-12 border-t border-white/15 pt-20 mb-20" data-astro-cid-37fxchfa> <div data-astro-cid-37fxchfa> <h4 class="text-white font-bold mb-10 text-2xl" data-astro-cid-37fxchfa>Platform</h4> <ul class="space-y-6 text-xl text-slate-200/80 font-medium" data-astro-cid-37fxchfa> <li data-astro-cid-37fxchfa><a href="#" class="hover:text-indigo-200 transition-colors" data-astro-cid-37fxchfa>Market Maker Bot</a></li> <li data-astro-cid-37fxchfa><a href="#" class="hover:text-indigo-200 transition-colors" data-astro-cid-37fxchfa>Inventory Risk</a></li> <li data-astro-cid-37fxchfa><a href="#" class="hover:text-indigo-200 transition-colors" data-astro-cid-37fxchfa>Smart Routing</a></li> </ul> </div> <div data-astro-cid-37fxchfa> <h4 class="text-white font-bold mb-10 text-2xl" data-astro-cid-37fxchfa>Resources</h4> <ul class="space-y-6 text-xl text-slate-200/80 font-medium" data-astro-cid-37fxchfa> <li data-astro-cid-37fxchfa><a href="#" class="hover:text-indigo-200 transition-colors" data-astro-cid-37fxchfa>Whitepapers</a></li> <li data-astro-cid-37fxchfa><a href="#" class="hover:text-indigo-200 transition-colors" data-astro-cid-37fxchfa>Documentation</a></li> </ul> </div> <div data-astro-cid-37fxchfa> <h4 class="text-white font-bold mb-10 text-2xl" data-astro-cid-37fxchfa>Company</h4> <ul class="space-y-6 text-xl text-slate-200/80 font-medium" data-astro-cid-37fxchfa> <li data-astro-cid-37fxchfa><a href="/team" class="hover:text-indigo-200 transition-colors" data-astro-cid-37fxchfa>About Us</a></li> <li data-astro-cid-37fxchfa><a href="#" class="hover:text-indigo-200 transition-colors" data-astro-cid-37fxchfa>Careers</a></li> <li data-astro-cid-37fxchfa><a href="/contacts" class="hover:text-indigo-200 transition-colors" data-astro-cid-37fxchfa>Contact</a></li> </ul> </div> <div data-astro-cid-37fxchfa> <h4 class="text-white font-bold mb-10 text-2xl" data-astro-cid-37fxchfa>Legal</h4> <ul class="space-y-6 text-xl text-slate-200/80 font-medium" data-astro-cid-37fxchfa> <li data-astro-cid-37fxchfa><a href="#" class="hover:text-indigo-200 transition-colors" data-astro-cid-37fxchfa>Privacy Policy</a></li> <li data-astro-cid-37fxchfa><a href="#" class="hover:text-indigo-200 transition-colors" data-astro-cid-37fxchfa>Terms of Use</a></li> </ul> </div> </div> <div class="text-slate-300/70 text-lg font-mono flex flex-col md:flex-row justify-between items-center gap-4 pt-8 border-t border-white/10" data-astro-cid-37fxchfa> <p data-astro-cid-37fxchfa>&copy; 2026 Settlr — Pisa, Italy.</p> <p class="text-indigo-200 font-bold" data-astro-cid-37fxchfa>All rights reserved</p> </div> </div> </footer> <script>
+      (() => {
+        // MENU MOBILE
+        const btn = document.getElementById('mobileMenuBtn');
+        const closeBtn = document.getElementById('closeMenuBtn');
+        const menu = document.getElementById('mobileMenu');
+        const links = document.querySelectorAll('.mobile-link');
+
+        const isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+        const disableCanvas = isMobile || (document.body.classList.contains('page-platform-market') && isMobile);
+
+        let startAnimation = () => {};
+        let stopAnimation = () => {};
+
+        function toggleMenu() {
+          if (!menu) return;
+          const isClosed = menu.classList.contains('pointer-events-none');
+          if (isClosed) {
+            menu.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-10');
+            document.body.style.overflow = 'hidden';
+            stopAnimation();
+          } else {
+            menu.classList.add('opacity-0', 'pointer-events-none', 'translate-y-10');
+            document.body.style.overflow = '';
+            startAnimation();
+          }
+        }
+
+        btn?.addEventListener('click', toggleMenu);
+        closeBtn?.addEventListener('click', toggleMenu);
+        links.forEach(link => link.addEventListener('click', toggleMenu));
+
+        const header = document.getElementById('siteHeader');
+        if (header) {
+          let lastScrollY = window.scrollY;
+          let ticking = false;
+
+          const syncHeaderVisibility = () => {
+            const isMenuOpen = menu && !menu.classList.contains('pointer-events-none');
+            const currentY = Math.max(window.scrollY, window.pageYOffset, 0);
+            const delta = currentY - lastScrollY;
+
+            if (isMenuOpen || currentY <= 16) {
+              header.classList.remove('header-hidden');
+            } else if (delta > 4) {
+              header.classList.add('header-hidden');
+            } else if (delta < -4) {
+              header.classList.remove('header-hidden');
+            }
+
+            lastScrollY = currentY;
+            ticking = false;
+          };
+
+          window.addEventListener('scroll', () => {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(syncHeaderVisibility);
+          }, { passive: true });
+
+          syncHeaderVisibility();
+        }
+
+        if (disableCanvas) return;
+
+        // --- NUOVO SISTEMA DI SFONDO (CANVAS + PARTICLES) ---
+        const canvas = document.getElementById('networkCanvas');
+        const ctx = canvas?.getContext('2d');
+        if (!canvas || !ctx) return;
+
+        let width, height;
+        let rafId = null;
+        let running = false;
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // Configurazione
+        const config = {
+          particleCount: 60,
+          connectionDistance: 160,
+          mouseDistance: 200,
+          speed: 0.35,
+          maxFps: 60
+        };
+
+        function applyConfig() {
+          const mobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches ||
+            (navigator.connection && navigator.connection.saveData);
+          config.particleCount = mobile ? 8 : 60;
+          config.connectionDistance = mobile ? 80 : 160;
+          config.mouseDistance = mobile ? 90 : 200;
+          config.speed = mobile ? 0.16 : 0.35;
+          config.maxFps = mobile ? 20 : 60;
+        }
+
+        // Tickers Finanziari/Crypto
+        const tickers = ['BTC', 'ETH', 'SOL', 'XRP', 'SPX', 'NDX', 'VIX', 'EUR', 'USD', 'DEFI', 'HFT', 'AI'];
+
+        let particles = [];
+        let mouse = { x: null, y: null };
+
+        function resize() {
+          width = canvas.width = window.innerWidth;
+          height = canvas.height = window.innerHeight;
+          applyConfig();
+        }
+        window.addEventListener('resize', () => {
+          resize();
+          initParticles();
+        });
+
+        window.addEventListener('mousemove', (e) => {
+          mouse.x = e.x;
+          mouse.y = e.y;
+        });
+        window.addEventListener('mouseleave', () => {
+          mouse.x = null;
+          mouse.y = null;
+        });
+
+        class Particle {
+          constructor() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.vx = (Math.random() - 0.5) * config.speed;
+            this.vy = (Math.random() - 0.5) * config.speed;
+            
+            // 30% probabilità di essere testo, 70% di essere un punto
+            this.isTicker = Math.random() > 0.70;
+            this.text = this.isTicker ? tickers[Math.floor(Math.random() * tickers.length)] : null;
+            this.size = Math.random() * 2 + 1.5;
+          }
+
+          update() {
+            this.x += this.vx;
+            this.y += this.vy;
+
+            // Rimbalzo bordi
+            if (this.x < 0 || this.x > width) this.vx *= -1;
+            if (this.y < 0 || this.y > height) this.vy *= -1;
+
+            // Interazione Mouse
+            if (mouse.x != null) {
+              let dx = mouse.x - this.x;
+              let dy = mouse.y - this.y;
+              let distance = Math.sqrt(dx * dx + dy * dy);
+              if (distance < config.mouseDistance) {
+                const force = (config.mouseDistance - distance) / config.mouseDistance;
+                const directionX = (dx / distance) * force * 2;
+                const directionY = (dy / distance) * force * 2;
+                this.vx -= directionX * 0.05;
+                this.vy -= directionY * 0.05;
+              }
+            }
+          }
+
+          draw() {
+            ctx.beginPath();
+            if (this.isTicker) {
+              ctx.font = '11px JetBrains Mono';
+              ctx.fillStyle = 'rgba(129, 140, 248, 0.75)'; // Indigo-300
+              ctx.fillText(this.text, this.x, this.y);
+            } else {
+              ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+              ctx.fillStyle = 'rgba(99, 102, 241, 0.5)'; // Indigo-500
+              ctx.fill();
+            }
+          }
+        }
+
+        function initParticles() {
+          particles = [];
+          for (let i = 0; i < config.particleCount; i++) {
+            particles.push(new Particle());
+          }
+        }
+
+        let lastFrameTime = 0;
+        function animate(ts = 0) {
+          if (!running) return;
+
+          const frameInterval = 1000 / (config.maxFps || 60);
+          if (ts - lastFrameTime < frameInterval) {
+            rafId = requestAnimationFrame(animate);
+            return;
+          }
+          lastFrameTime = ts;
+
+          ctx.clearRect(0, 0, width, height);
+
+          for (let i = 0; i < particles.length; i++) {
+            let p = particles[i];
+            p.update();
+            p.draw();
+
+            // Disegna connessioni
+            for (let j = i; j < particles.length; j++) {
+              let p2 = particles[j];
+              let dx = p.x - p2.x;
+              let dy = p.y - p2.y;
+              let distance = Math.sqrt(dx * dx + dy * dy);
+
+              if (distance < config.connectionDistance) {
+                ctx.beginPath();
+                let opacity = 1 - (distance / config.connectionDistance);
+                ctx.strokeStyle = `rgba(148, 163, 184, ${opacity * 0.2})`; // Slate line
+                ctx.lineWidth = 1;
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.stroke();
+              }
+            }
+          }
+          rafId = requestAnimationFrame(animate);
+        }
+
+        startAnimation = function startAnimation() {
+          if (reduceMotion || running) return;
+          running = true;
+          rafId = requestAnimationFrame(animate);
+        };
+
+        stopAnimation = function stopAnimation() {
+          if (!running) return;
+          running = false;
+          if (rafId) cancelAnimationFrame(rafId);
+          rafId = null;
+        };
+
+        if (reduceMotion) {
+          resize();
+          initParticles();
+          particles.forEach(p => p.draw());
+          return;
+        }
+
+        // Start
+        resize();
+        initParticles();
+        startAnimation();
+      })();
+    </script> </body> </html>
