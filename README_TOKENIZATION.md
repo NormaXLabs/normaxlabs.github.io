@@ -1,6 +1,6 @@
 # Tokenization dApp Kit
 
-This Astro project now includes a standalone copy of the tokenization dApp and the Sepolia relayer server.
+This Astro project now includes a standalone copy of the tokenization dApp and an embedded Sepolia relayer API served by Astro.
 
 ## Install dependencies
 
@@ -32,18 +32,6 @@ SEPOLIA_PRIVATE_KEY=0x...
 
 All contract addresses in the example file are already set to the current deployed Sepolia contracts.
 
-## Run the Sepolia relayer server
-
-```bash
-make server:sepolia
-```
-
-The relayer listens by default on:
-
-```text
-http://127.0.0.1:3000
-```
-
 ## Run the Astro website
 
 ```bash
@@ -59,5 +47,7 @@ http://localhost:4321/tokenization-platform
 ## Notes
 
 - The mounted page uses the full React dApp.
-- The Investor gasless flow requires the relayer server.
+- The Investor gasless flow and the Proxy Wallet section are now served by the same Astro project through `/api/relayer/*`.
+- `npm run dev:sepolia` is enough for local development, provided the relayer env is present in `.env.sepolia.local`.
+- The relayer API uses the website server process, so the browser no longer needs a second standalone relayer server.
 - Public frontend env values are loaded from `.env.sepolia.local` / `.env.sepolia.example`.

@@ -691,7 +691,7 @@ export default function InvestorPage(props) {
   const MARKET = marketAddress || import.meta.env.VITE_MARKET_ADDRESS;
   const STABLE = stableAddress || import.meta.env.VITE_STABLE_ADDRESS;
   const ORACLE = oracleAddress || import.meta.env.VITE_ORACLE_ADDRESS;
-  const RELAYER_URL = import.meta.env.VITE_RELAYER_URL;
+  const RELAYER_URL = import.meta.env.VITE_RELAYER_URL || "/api/relayer";
   const FACTORY_RAW = import.meta.env.VITE_FACTORY;
   const BUNDLER_RAW = import.meta.env.VITE_BUNDLER;
   const RELAYER_ADDR_RAW = import.meta.env.VITE_RELAYER_ADDR;
@@ -776,6 +776,7 @@ export default function InvestorPage(props) {
   const [depositAmt, setDepositAmt] = useState("10");
   const [relayerBusy, setRelayerBusy] = useState(false);
   const [relayerFactoryWarning, setRelayerFactoryWarning] = useState("");
+  const [relayerSetupWarning, setRelayerSetupWarning] = useState("");
 
   // assets
   const [assets, setAssets] = useState([]); // [{id, symbol, decimals, token}]
@@ -971,13 +972,19 @@ export default function InvestorPage(props) {
           setRelayerFactoryWarning(
             `Factory mismatch: dApp=${FACTORY_ADDR}, relayer=${ethers.getAddress(
               relayerFactory
-            )}. Riavvia la dApp dopo il deploy locale per ricaricare gli env.`
+            )}. Restart the dApp after updating the deployment env values.`
           );
         } else {
           setRelayerFactoryWarning("");
         }
+        setRelayerSetupWarning("");
       } catch {
-        if (active) setRelayerFactoryWarning("");
+        if (active) {
+          setRelayerFactoryWarning("");
+          setRelayerSetupWarning(
+            "Relayer API is offline or misconfigured. Make sure the Astro site is running with the Sepolia env and that the server-side relayer env is set."
+          );
+        }
       }
     })();
 
@@ -2229,6 +2236,12 @@ useEffect(() => {
               </span>
             </div>
             <div>
+              Relayer URL:{" "}
+              <span className="font-mono">
+                {RELAYER_URL || "—"}
+              </span>
+            </div>
+            <div>
               Fixed fee:{" "}
               <span className="font-mono">
                 {FIXED_FEE_RAW ? fmt(FIXED_FEE, stableDec) : "—"}{" "}
@@ -2246,13 +2259,28 @@ useEffect(() => {
                 {relayerFactoryWarning}
               </div>
             ) : null}
+            {relayerSetupWarning ? (
+              <div className="text-amber-300 whitespace-pre-wrap">
+                {relayerSetupWarning}
+              </div>
+            ) : null}
+            <div className="text-neutral-500">
+              This section depends on the website server-side relayer API. In
+              local development, start the site with{" "}
+              <span className="font-mono">npm run dev:sepolia</span> so the
+              Proxy Wallet endpoints are served from the same project.
+            </div>
           </div>
 
           <div className="flex flex-col gap-2">
             <button
               onClick={createProxyWalletViaRelayer}
               disabled={
-                !account || relayerBusy || !RELAYER_URL || !FACTORY_ADDR
+                !account ||
+                relayerBusy ||
+                !RELAYER_URL ||
+                !FACTORY_ADDR ||
+                !!relayerSetupWarning
               }
               className="px-3 py-2 rounded-xl bg-neutral-900/60 border border-neutral-700 hover:border-indigo-500 disabled:opacity-60"
             >
@@ -2272,7 +2300,8 @@ useEffect(() => {
                   !account ||
                   relayerBusy ||
                   !hasRelayerConfig ||
-                  !BUNDLER_ADDR
+                  !BUNDLER_ADDR ||
+                  !!relayerSetupWarning
                 }
                 className="px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:opacity-60"
               >

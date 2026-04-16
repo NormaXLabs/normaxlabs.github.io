@@ -66,9 +66,9 @@ import { api, API_BASE } from "./api.js";
 // ---------- Utils ----------
 function getMetaMask() {
   const eth = window.ethereum;
-  if (!eth) throw new Error("Nessun provider EIP-1193 trovato. Installa MetaMask.");
+  if (!eth) throw new Error("No EIP-1193 provider found. Install MetaMask.");
   const mm = eth?.providers?.find((p) => p?.isMetaMask) || (eth?.isMetaMask ? eth : null);
-  if (!mm) throw new Error("MetaMask non sembra attivo. Impostalo come predefinito o disabilita altri wallet.");
+  if (!mm) throw new Error("MetaMask does not appear to be active. Set it as default or disable other wallets.");
   return mm;
 }
 export function idOf(sym) {
@@ -288,12 +288,12 @@ function AddressInput({ label, value, onChange, placeholder = "0x…" }) {
             } catch {}
           }}
           className="absolute right-1.5 top-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-lg bg-neutral-800/80 border border-neutral-700 hover:border-indigo-500"
-          title="Incolla dagli appunti"
+          title="Paste from clipboard"
         >
           <PasteIcon />
         </button>
       </div>
-      {bad && <p className="text-[11px] text-red-400">Formato non valido: deve essere un address 0x… a 42 caratteri</p>}
+      {bad && <p className="text-[11px] text-red-400">Invalid format: expected a 42-character 0x… address</p>}
     </div>
   );
 }
@@ -547,7 +547,7 @@ export default function App() {
   const autofillFromEnv = () => {
     const fromEnv = defaultCfgFromEnv();
     setForm(fromEnv);
-    show("Indirizzi caricati da .env");
+    show("Addresses loaded from .env");
   };
   const saveCfg = () => {
     // normalizza numeri (evita stringhe)
@@ -557,7 +557,7 @@ export default function App() {
       marketDeployBlock: Number(form.marketDeployBlock ?? 0) || 0,
     };
     setCfg(cleaned);
-    show("Configurazione salvata");
+    show("Configuration saved");
   };
 
   // Connect / Disconnect
@@ -591,7 +591,7 @@ export default function App() {
     setProvider(null);
     setSignerAddress("");
     setChainId(null);
-    show("Disconnesso");
+    show("Disconnected");
   };
 
   // Wallet listeners
@@ -824,7 +824,7 @@ export default function App() {
                     onChange={(e) => setForm((s) => ({ ...s, chainId: Number(e.target.value) }))}
                     placeholder="11155111"
                   />
-                  <p className="text-[11px] text-neutral-400">Usato per warning “wrong network”.</p>
+                  <p className="text-[11px] text-neutral-400">Used for the “wrong network” warning.</p>
                 </div>
 
                 <div className="flex flex-col gap-1.5">

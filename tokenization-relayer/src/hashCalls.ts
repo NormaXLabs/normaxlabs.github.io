@@ -1,5 +1,5 @@
 import { TypedDataEncoder, concat, keccak256 } from "ethers";
-import type { Call } from "../../src/eip712";
+import type { Call } from "../eip712";
 
 const callTypes = {
   Call: [

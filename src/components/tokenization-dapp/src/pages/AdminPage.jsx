@@ -114,14 +114,14 @@ export default function AdminPage({ provider, account, fundAddress, onError }) {
   function pickTimestamp() {
     if (tsMode === "custom") {
       const t = Number(String(tsCustom || "").trim());
-      if (!Number.isFinite(t) || t <= 0) throw new Error("Timestamp custom non valido (in secondi).");
+      if (!Number.isFinite(t) || t <= 0) throw new Error("Invalid custom timestamp (in seconds).");
       return t;
     }
     return Math.floor(Date.now() / 1000);
   }
 
   async function readIndexRayStrict() {
-    if (!fund) throw new Error("Fund non inizializzato (provider/address).");
+    if (!fund) throw new Error("Fund not initialized (provider/address).");
     try {
       return await fund.indexRay();
     } catch (e1) {
@@ -131,15 +131,15 @@ export default function AdminPage({ provider, account, fundAddress, onError }) {
         const msg =
           e2?.shortMessage || e2?.reason || e2?.message ||
           e1?.shortMessage || e1?.reason || e1?.message || "unknown error";
-        throw new Error(`Impossibile leggere indexRay() / currentIndexRay(). Dettaglio: ${msg}`);
+        throw new Error(`Unable to read indexRay() / currentIndexRay(). Details: ${msg}`);
       }
     }
   }
 
   async function refreshAll() {
     setStatus("");
-    if (!fund) return setStatus("⚠️ Configura fundAddress (proxy) correttamente.");
-    if (!connected) return setStatus("⚠️ Connetti il wallet.");
+    if (!fund) return setStatus("⚠️ Configure fundAddress (proxy) correctly.");
+    if (!connected) return setStatus("⚠️ Connect your wallet.");
 
     try {
       // symbol sanity-check
@@ -228,19 +228,19 @@ export default function AdminPage({ provider, account, fundAddress, onError }) {
 
     if (mode === "absolute") {
       const x = String(indexHuman || "").trim();
-      if (!x) throw new Error("Index (Iₜ) vuoto.");
+      if (!x) throw new Error("Index (Iₜ) is empty.");
       const n = Number(x);
-      if (!Number.isFinite(n) || n <= 0) throw new Error("Index (Iₜ) deve essere > 0.");
+      if (!Number.isFinite(n) || n <= 0) throw new Error("Index (Iₜ) must be > 0.");
       const newIdx = ethers.parseUnits(x, 18);
       return { oldIdx, newIdx };
     }
 
     // bumpPct: newI = oldI * (1 + pct/100)
     const p = String(bumpPctHuman || "").trim();
-    if (!p) throw new Error("Percentuale vuota.");
+    if (!p) throw new Error("Percentage is empty.");
     const pn = Number(p);
-    if (!Number.isFinite(pn)) throw new Error("Percentuale non valida.");
-    if (pn < 0) throw new Error("Percentuale negativa non permessa.");
+    if (!Number.isFinite(pn)) throw new Error("Invalid percentage.");
+    if (pn < 0) throw new Error("Negative percentage is not allowed.");
 
     const pctRay = ethers.parseUnits(p, 18);
     const pctOver100 = pctRay / 100n;
@@ -253,9 +253,9 @@ export default function AdminPage({ provider, account, fundAddress, onError }) {
     setStatus("");
     setLastTx("");
 
-    if (!fund) return setStatus("⚠️ Configura fundAddress (proxy) correttamente.");
-    if (!connected) return setStatus("⚠️ Connetti il wallet.");
-    if (isUpdater === false) return setStatus("⛔ Non hai i permessi (NAV_UPDATER_ROLE / Admin).");
+    if (!fund) return setStatus("⚠️ Configure fundAddress (proxy) correctly.");
+    if (!connected) return setStatus("⚠️ Connect your wallet.");
+    if (isUpdater === false) return setStatus("⛔ You do not have permission (NAV_UPDATER_ROLE / Admin).");
 
     try {
       let idx = indexRay;
@@ -270,13 +270,13 @@ export default function AdminPage({ provider, account, fundAddress, onError }) {
       const ts = pickTimestamp();
       const { oldIdx, newIdx } = computeNewIndexRay(idx);
 
-      if (newIdx <= 0n) throw new Error("Nuovo index non valido.");
-      if (newIdx < oldIdx) throw new Error("Nuovo index < index attuale (non permesso).");
+      if (newIdx <= 0n) throw new Error("Invalid new index.");
+      if (newIdx < oldIdx) throw new Error("New index < current index (not allowed).");
 
       const signer = await provider.getSigner();
       const f = fund.connect(signer);
 
-      setStatus("⏳ Invio transazione (update INDEX Iₜ)…");
+      setStatus("⏳ Sending transaction (update INDEX Iₜ)…");
 
       let tx;
       try {
@@ -289,7 +289,7 @@ export default function AdminPage({ provider, account, fundAddress, onError }) {
       setLastTx(tx.hash);
       await tx.wait();
 
-      setStatus(`✅ Index aggiornato. tx=${tx.hash}`);
+      setStatus(`✅ Index updated. tx=${tx.hash}`);
       await refreshAll();
     } catch (e) {
       const msg = e?.shortMessage || e?.reason || e?.message || String(e);
@@ -404,13 +404,13 @@ export default function AdminPage({ provider, account, fundAddress, onError }) {
               : isUpdater
                 ? "✔ Authorized"
                 : "✖ Not authorized"
-            : "Wallet non connesso"}
+            : "Wallet not connected"}
         </div>
       </div>
 
       {(!fund || !isAddress(fundAddress || "")) && (
         <div className="relative mb-4 text-xs text-amber-300">
-          ⚠️ fundAddress non valido o provider non pronto. Assicurati di passare il proxy del FundToken.
+          ⚠️ Invalid fundAddress or provider not ready. Make sure you pass the FundToken proxy.
         </div>
       )}
 
@@ -636,7 +636,7 @@ export default function AdminPage({ provider, account, fundAddress, onError }) {
           <button
             onClick={async () => {
               await snapshotBalancesBefore();
-              setStatus("📌 Snapshot BEFORE salvato. Ora aggiorna Iₜ e confronta.");
+              setStatus("📌 BEFORE snapshot saved. Now update Iₜ and compare.");
             }}
             className="px-3 py-2 rounded-xl bg-neutral-900/60 border border-neutral-700 hover:border-indigo-500 text-xs"
           >
@@ -690,7 +690,7 @@ export default function AdminPage({ provider, account, fundAddress, onError }) {
               {(!balances || balances.length === 0) && (
                 <tr>
                   <td className="py-3 text-neutral-500" colSpan={4}>
-                    Nessun wallet valido. Incolla indirizzi (uno per riga) e premi “Refresh balances”.
+                    No valid wallet found. Paste addresses (one per line) and click “Refresh balances”.
                   </td>
                 </tr>
               )}
